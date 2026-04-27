@@ -1268,35 +1268,24 @@ const isMobileLandscape =
     setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
   };
 
-    const handleWheelSwipe = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (isMobile || isBioOpen || !hasEntered || isSwitching || isFullscreen) return;
+      const handleWheelSwipe = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (isMobile || isBioOpen || !hasEntered || isSwitching || !isFullscreen) return;
 
     const now = performance.now();
     if (now < navLockUntilRef.current) return;
 
     const absX = Math.abs(e.deltaX);
     const absY = Math.abs(e.deltaY);
-
     const isHorizontalSwipe = absX >= 24 && absX > absY;
-    const isVerticalScroll = absY >= 24 && absY >= absX;
 
-    if (!isHorizontalSwipe && !isVerticalScroll) return;
+    if (!isHorizontalSwipe) return;
 
     e.preventDefault();
     e.stopPropagation();
 
     navLockUntilRef.current = now + 650;
 
-    if (isHorizontalSwipe) {
-      if (e.deltaX > 0) {
-        goNext();
-      } else {
-        goPrev();
-      }
-      return;
-    }
-
-    if (e.deltaY > 0) {
+    if (e.deltaX > 0) {
       goNext();
     } else {
       goPrev();
@@ -1911,7 +1900,7 @@ const isMobileLandscape =
                 fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                 lineHeight: 0.72,
                 position: "relative",
-                top: 2,
+                top: -4,
                 cursor: "pointer",
                 opacity: bioLinkHover ? 1 : 0.9,
                 transition: "opacity 320ms ease, transform 520ms ease",
@@ -2293,177 +2282,346 @@ const isMobileLandscape =
             />
           ) : null}
         </>
-      ) : (
-        <div
-          onWheel={handleWheelSwipe}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          style={{
-            width: frameWidth,
-            maxWidth: frameMaxWidth,
-            margin: "0 auto",
-            height: "100vh",
-            position: "relative",
-            overscrollBehaviorX: "none",
-            touchAction: "pan-y",
-          }}
-        >
-          {!isFullscreen ? (
-            <>
-              <button
-                type="button"
-                onClick={goPrev}
-                aria-label="Previous project"
-                style={{
-                  position: "absolute",
-                  left: -64,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  border: "none",
-                  background: "transparent",
-                  color: showControls ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0)",
-                  cursor: "pointer",
-                  transition: "color 220ms ease",
-                  zIndex: 25,
-                  padding: 18,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.85)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = showControls
-                    ? "rgba(255,255,255,0.42)"
-                    : "rgba(255,255,255,0)";
-                }}
-              >
-                <ArrowIcon direction="left" />
-              </button>
-
-              <button
-                type="button"
-                onClick={goNext}
-                aria-label="Next project"
-                style={{
-                  position: "absolute",
-                  right: -64,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  border: "none",
-                  background: "transparent",
-                  color: showControls ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0)",
-                  cursor: "pointer",
-                  transition: "color 220ms ease",
-                  zIndex: 25,
-                  padding: 18,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.85)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = showControls
-                    ? "rgba(255,255,255,0.42)"
-                    : "rgba(255,255,255,0)";
-                }}
-              >
-                <ArrowIcon direction="right" />
-              </button>
-            </>
-          ) : null}
-
-          <div
-            ref={frameRef}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={handleViewerClick}
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: "50%",
-              transform: "translateY(-50%)",
-              aspectRatio: isFullscreen ? undefined : "16 / 9",
-              width: "100%",
-              height: isFullscreen ? "100%" : undefined,
-              overflow: "hidden",
-              background: "black",
-              cursor: cursorHidden ? "none" : hasVideo && !isActive ? "pointer" : "default",
-              zIndex: 10,
-              opacity: isSwitching ? 0.78 : 1,
-              transition: "opacity 520ms ease",
-            }}
-          >
-            {hasVideo ? (
-              <img
-                src={getDesktopImage(current)}
-                alt={current.title}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: isFullscreen ? fullscreenObjectFit : galleryObjectFit,
-                  display: "block",
-                  opacity: isActive && videoReady ? 0 : 1,
-                  transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                  background: "black",
-                }}
-              />
             ) : (
-              <img
-                src={getDesktopImage(current)}
-                alt={current.title}
+        <>
+          {!isFullscreen ? (
+            <div
+              style={{
+                position: "fixed",
+                inset: 0,
+                overflowY: "auto",
+                overflowX: "hidden",
+                WebkitOverflowScrolling: "touch",
+                padding: "132px 0 120px 0",
+                boxSizing: "border-box",
+                zIndex: 10,
+              }}
+            >
+              <div
+                style={{
+                  width: frameWidth,
+                  maxWidth: frameMaxWidth,
+                  margin: "0 auto",
+                }}
+              >
+                {projects.map((project, i) => {
+                  const cardHasPlayback = !!project.video;
+                  const cardIsVertical = project.aspect === "vertical";
+                  const cardObjectFit = cardIsVertical ? "contain" : "cover";
+
+                  return (
+                    <div
+                      key={`${section}-${project.title}-${i}`}
+                      style={{
+                        marginBottom: 96,
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          setCurrentIndex(i);
+                          setDisplayIndex(i);
+                          setIsActive(cardHasPlayback);
+                          setIsPlaying(true);
+                          setIsMuted(false);
+                          setVideoReady(!cardHasPlayback);
+                          setShowControls(true);
+                          setCursorHidden(false);
+                          setIsFullscreen(true);
+                        }}
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          aspectRatio: "16 / 9",
+                          overflow: "hidden",
+                          background: "black",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <img
+                          src={getDesktopImage(project)}
+                          alt={project.title}
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: cardObjectFit,
+                            display: "block",
+                            background: "black",
+                          }}
+                        />
+
+                        {cardHasPlayback ? (
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              pointerEvents: "none",
+                              color: "rgba(255,255,255,0.48)",
+                            }}
+                          >
+                            <PlayIcon size={24} />
+                          </div>
+                        ) : null}
+
+                        {project.flashWarning ? <WarningBadge /> : null}
+                      </div>
+
+                      <div
+                        style={{
+                          marginTop: 22,
+                          display: "grid",
+                          gridTemplateColumns: "1fr auto",
+                          gap: 32,
+                          alignItems: "start",
+                        }}
+                      >
+                        <div
+                          style={{
+                            minHeight: 64,
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontSize: 13,
+                              letterSpacing: "0.13em",
+                              textTransform: "uppercase",
+                              marginBottom: 5,
+                              opacity: 0.72,
+                              fontWeight: 300,
+                            }}
+                          >
+                            {project.title}
+                          </div>
+
+                          <div
+                            style={{
+                              fontSize: 11,
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              opacity: 0.52,
+                              marginBottom: project.leftMeta || project.leftMetaExtra ? 4 : 0,
+                            }}
+                          >
+                            {project.role} · {project.year}
+                          </div>
+
+                          {project.leftMeta ? (
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.12em",
+                                textTransform: "uppercase",
+                                opacity: 0.42,
+                                marginBottom: project.leftMetaExtra ? 4 : 0,
+                              }}
+                            >
+                              <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
+                            </div>
+                          ) : null}
+
+                          {project.leftMetaExtra ? (
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.12em",
+                                textTransform: "uppercase",
+                                opacity: 0.42,
+                              }}
+                            >
+                              {project.leftMetaExtra}
+                            </div>
+                          ) : null}
+                        </div>
+
+                        <div
+                          style={{
+                            textAlign: "right",
+                            minWidth: 140,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontSize: 11,
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              opacity: 0.52,
+                              marginBottom: project.rightMetaLogo ? 4 : 0,
+                            }}
+                          >
+                            {project.rightMetaText || project.status}
+                          </div>
+
+                          {project.rightMetaLogo ? (
+                            project.rightMetaLogo === instagramLabel ? (
+                              project.rightMetaLink ? (
+                                <a
+                                  href={project.rightMetaLink}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  style={{
+                                    color: "inherit",
+                                    textDecoration: "none",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      fontSize: 11,
+                                      letterSpacing: "0.14em",
+                                      textTransform: "uppercase",
+                                      opacity: 0.8,
+                                      transform: "translateY(1px)",
+                                    }}
+                                  >
+                                    IG
+                                  </div>
+                                </a>
+                              ) : (
+                                <div
+                                  style={{
+                                    fontSize: 11,
+                                    letterSpacing: "0.14em",
+                                    textTransform: "uppercase",
+                                    opacity: 0.8,
+                                    transform: "translateY(1px)",
+                                  }}
+                                >
+                                  IG
+                                </div>
+                              )
+                            ) : project.rightMetaLink ? (
+                              <a
+                                href={project.rightMetaLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{ display: "block", lineHeight: 0, textDecoration: "none" }}
+                              >
+                                <img
+                                  src={project.rightMetaLogo}
+                                  alt="Platform"
+                                  style={platformLogoStyle(project.rightMetaLogo)}
+                                />
+                              </a>
+                            ) : (
+                              <img
+                                src={project.rightMetaLogo}
+                                alt="Platform"
+                                style={platformLogoStyle(project.rightMetaLogo)}
+                              />
+                            )
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div
+              onWheel={handleWheelSwipe}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 200,
+                background: "black",
+                overflow: "hidden",
+                touchAction: "pan-y",
+              }}
+            >
+              <div
+                ref={frameRef}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleViewerClick}
                 style={{
                   position: "absolute",
                   inset: 0,
                   width: "100%",
                   height: "100%",
-                  objectFit: isFullscreen ? fullscreenObjectFit : galleryObjectFit,
-                  display: "block",
-                  opacity: 1,
-                  transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                  overflow: "hidden",
                   background: "black",
+                  cursor: cursorHidden ? "none" : hasVideo && !isActive ? "pointer" : "default",
+                  zIndex: 10,
                 }}
-              />
-            )}
+              >
+                {hasVideo ? (
+                  <img
+                    src={getDesktopImage(current)}
+                    alt={current.title}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: fullscreenObjectFit,
+                      display: "block",
+                      opacity: isActive && videoReady ? 0 : 1,
+                      transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      background: "black",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={getDesktopImage(current)}
+                    alt={current.title}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: fullscreenObjectFit,
+                      display: "block",
+                      opacity: 1,
+                      transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      background: "black",
+                    }}
+                  />
+                )}
 
-            {hasVideo ? (
-              <video
-                key={`${current.title}-${displayIndex}`}
-                ref={videoRef}
-                src={current.video}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                onLoadedData={() => setVideoReady(true)}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit:
-                    current.aspect === "vertical" ? "contain" : isFullscreen ? "contain" : galleryObjectFit,
-                  display: "block",
-                  opacity: isActive && videoReady ? 1 : 0,
-                  transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                  background: "black",
-                }}
-              />
-            ) : null}
+                {hasVideo ? (
+                  <video
+                    key={`${current.title}-${displayIndex}`}
+                    ref={videoRef}
+                    src={current.video}
+                    muted={isMuted}
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedData={() => setVideoReady(true)}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                      opacity: isActive && videoReady ? 1 : 0,
+                      transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      background: "black",
+                    }}
+                  />
+                ) : null}
 
-            {hasVideo && !isActive ? (
-              <CenterCue type="play" visible={true} opacity={showControls ? 0.72 : 0.22} />
-            ) : null}
+                {hasVideo && !isActive ? (
+                  <CenterCue type="play" visible={true} opacity={showControls ? 0.72 : 0.22} />
+                ) : null}
 
-            {centerCue && hasVideo && isActive ? (
-              <CenterCue type={centerCue} visible={true} />
-            ) : null}
+                {centerCue && hasVideo && isActive ? (
+                  <CenterCue type={centerCue} visible={true} />
+                ) : null}
 
-            {!isActive && current.flashWarning ? <WarningBadge /> : null}
+                {!isActive && current.flashWarning ? <WarningBadge /> : null}
 
-            {isFullscreen ? (
-              <>
                 <button
                   type="button"
                   onClick={goPrev}
@@ -2505,296 +2663,168 @@ const isMobileLandscape =
                 >
                   <ArrowIcon direction="right" />
                 </button>
-              </>
-            ) : null}
 
-            <div
-              style={{
-                position: "absolute",
-                right: 16,
-                bottom: 16,
-                display: "flex",
-                gap: 8,
-                opacity: showControls ? 0.9 : 0,
-                transition: "opacity 520ms ease",
-                zIndex: 120,
-                pointerEvents: showControls ? "auto" : "none",
-              }}
-            >
-              {hasVideo ? (
-                <ControlButton
-                  onClick={toggleMute}
-                  ariaLabel={isMuted ? "Unmute" : "Mute"}
-                >
-                  <MuteIcon muted={isMuted} />
-                </ControlButton>
-              ) : null}
-
-              <ControlButton
-                onClick={toggleFullscreen}
-                ariaLabel={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-              >
-                <FullscreenIcon active={isFullscreen} />
-              </ControlButton>
-            </div>
-
-            {showFullscreenImageMeta ? (
-              <>
-                <div
+                <button
+                  type="button"
+                  aria-label="Exit fullscreen"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsFullscreen(false);
+                    setIsActive(false);
+                    setIsPlaying(true);
+                    setShowControls(false);
+                    setCursorHidden(false);
+                    setCenterCue(null);
+                  }}
                   style={{
                     position: "absolute",
-                    left: 24,
-                    bottom: fullscreenMetaBottom,
-                    zIndex: 130,
-                    userSelect: "none",
+                    top: 34,
+                    right: 38,
+                    zIndex: 135,
+                    border: "none",
+                    background: "transparent",
+                    color: "rgba(255,255,255,0.76)",
+                    fontSize: 30,
+                    fontWeight: 100,
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                    lineHeight: 0.8,
+                    cursor: "pointer",
+                    opacity: showControls ? 0.9 : 0.18,
+                    transition: "opacity 320ms ease",
                   }}
                 >
-                  <div
-                    style={{
-                      fontSize: 13,
-                      letterSpacing: "0.13em",
-                      textTransform: "uppercase",
-                      marginBottom: 5,
-                      opacity: 0.74,
-                      fontWeight: 300,
-                    }}
-                  >
-                    {current.title}
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      opacity: 0.52,
-                      marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
-                    }}
-                  >
-                    {current.role} · {current.year}
-                  </div>
-
-                  {current.leftMeta ? (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        opacity: 0.42,
-                        marginBottom: current.leftMetaExtra ? 4 : 0,
-                      }}
-                    >
-                      <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-                    </div>
-                  ) : null}
-
-                  {current.leftMetaExtra ? (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        opacity: 0.42,
-                      }}
-                    >
-                      {current.leftMetaExtra}
-                    </div>
-                  ) : null}
-                </div>
+                  ×
+                </button>
 
                 <div
                   style={{
                     position: "absolute",
-                    right: 24,
-                    bottom: fullscreenRightMetaBottom,
-                    zIndex: 130,
-                    userSelect: "none",
-                  }}
-                >
-                  {rightMetaStack}
-                </div>
-              </>
-            ) : null}
-
-            {showFullscreenVideoMeta ? (
-              <>
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 24,
-                    bottom: fullscreenMetaBottom,
-                    zIndex: 130,
-                    userSelect: "none",
-                    opacity: 1,
+                    right: 16,
+                    bottom: 16,
+                    display: "flex",
+                    gap: 8,
+                    opacity: showControls ? 0.9 : 0,
                     transition: "opacity 520ms ease",
-                    pointerEvents: "none",
+                    zIndex: 120,
+                    pointerEvents: showControls ? "auto" : "none",
                   }}
                 >
-                  <div
-                    style={{
-                      fontSize: 13,
-                      letterSpacing: "0.13em",
-                      textTransform: "uppercase",
-                      marginBottom: 5,
-                      opacity: 0.74,
-                      fontWeight: 300,
-                    }}
-                  >
-                    {current.title}
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      opacity: 0.52,
-                      marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
-                    }}
-                  >
-                    {current.role} · {current.year}
-                  </div>
-
-                  {current.leftMeta ? (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        opacity: 0.42,
-                        marginBottom: current.leftMetaExtra ? 4 : 0,
-                      }}
+                  {hasVideo ? (
+                    <ControlButton
+                      onClick={toggleMute}
+                      ariaLabel={isMuted ? "Unmute" : "Mute"}
                     >
-                      <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-                    </div>
-                  ) : null}
-
-                  {current.leftMetaExtra ? (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        opacity: 0.42,
-                      }}
-                    >
-                      {current.leftMetaExtra}
-                    </div>
+                      <MuteIcon muted={isMuted} />
+                    </ControlButton>
                   ) : null}
                 </div>
+
+                {showFullscreenImageMeta || showFullscreenVideoMeta ? (
+                  <>
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 24,
+                        bottom: fullscreenMetaBottom,
+                        zIndex: 130,
+                        userSelect: "none",
+                        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
+                        transition: "opacity 520ms ease",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 13,
+                          letterSpacing: "0.13em",
+                          textTransform: "uppercase",
+                          marginBottom: 5,
+                          opacity: 0.74,
+                          fontWeight: 300,
+                        }}
+                      >
+                        {current.title}
+                      </div>
+
+                      <div
+                        style={{
+                          fontSize: 11,
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                          opacity: 0.52,
+                          marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
+                        }}
+                      >
+                        {current.role} · {current.year}
+                      </div>
+
+                      {current.leftMeta ? (
+                        <div
+                          style={{
+                            fontSize: 11,
+                            letterSpacing: "0.12em",
+                            textTransform: "uppercase",
+                            opacity: 0.42,
+                            marginBottom: current.leftMetaExtra ? 4 : 0,
+                          }}
+                        >
+                          <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
+                        </div>
+                      ) : null}
+
+                      {current.leftMetaExtra ? (
+                        <div
+                          style={{
+                            fontSize: 11,
+                            letterSpacing: "0.12em",
+                            textTransform: "uppercase",
+                            opacity: 0.42,
+                          }}
+                        >
+                          {current.leftMetaExtra}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div
+                      style={{
+                        position: "absolute",
+                        right: 24,
+                        bottom: fullscreenRightMetaBottom,
+                        zIndex: 130,
+                        userSelect: "none",
+                        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
+                        transition: "opacity 520ms ease",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {rightMetaStack}
+                    </div>
+                  </>
+                ) : null}
 
                 <div
                   style={{
                     position: "absolute",
-                    right: 24,
-                    bottom: fullscreenRightMetaBottom,
+                    bottom: 28,
+                    left: "50%",
+                    transform: "translateX(-50%)",
                     zIndex: 130,
-                    userSelect: "none",
-                    opacity: 1,
-                    transition: "opacity 520ms ease",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {rightMetaStack}
-                </div>
-              </>
-            ) : null}
-          </div>
-
-          {!isFullscreen ? (
-            <>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: metaBottom,
-                  left: 0,
-                  zIndex: 20,
-                  userSelect: "none",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 13,
-                    letterSpacing: "0.13em",
-                    textTransform: "uppercase",
-                    marginBottom: 5,
-                    opacity: 0.72,
-                    fontWeight: 300,
-                  }}
-                >
-                  {current.title}
-                </div>
-
-                <div
-                  style={{
                     fontSize: 11,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    opacity: 0.52,
-                    marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
+                    opacity: showControls ? 0.34 : 0,
+                    transition: "opacity 520ms ease",
+                    pointerEvents: "none",
                   }}
                 >
-                  {current.role} · {current.year}
+                  {currentIndex + 1} / {projects.length}
                 </div>
-
-                {current.leftMeta ? (
-                  <div
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      opacity: 0.42,
-                      marginBottom: current.leftMetaExtra ? 4 : 0,
-                    }}
-                  >
-                    <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-                  </div>
-                ) : null}
-
-                {current.leftMetaExtra ? (
-                  <div
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      opacity: 0.42,
-                    }}
-                  >
-                    {current.leftMetaExtra}
-                  </div>
-                ) : null}
               </div>
-
-              <div
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  bottom: rightMetaBottom,
-                  zIndex: 20,
-                  userSelect: "none",
-                }}
-              >
-                {rightMetaStack}
-              </div>
-
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 28,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  zIndex: 20,
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  opacity: 0.34,
-                }}
-              >
-                {currentIndex + 1} / {projects.length}
-              </div>
-            </>
-          ) : null}
-        </div>
+            </div>
+          )}
+        </>
+      )}
       )}
     </div>
   );
