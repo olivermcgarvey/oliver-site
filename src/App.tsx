@@ -2198,6 +2198,7 @@ const isMobileLandscape =
       ) : isMobile ? (
         <>
           <div
+            ref={mobileScrollRef}
             style={{
               position: "fixed",
               top: 0,
