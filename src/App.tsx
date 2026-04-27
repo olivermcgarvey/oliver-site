@@ -2825,7 +2825,6 @@ const isMobileLandscape =
           )}
         </>
       )}
-      )}
     </div>
   );
 }
