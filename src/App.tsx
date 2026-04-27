@@ -838,6 +838,11 @@ function MobileVimeoOverlay({
 
 export default function App() {
   const isMobile = useIsMobile();
+const isMobileLandscape =
+  isMobile &&
+  typeof window !== "undefined" &&
+  window.innerWidth > window.innerHeight &&
+  window.innerHeight < 520;
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
@@ -1452,8 +1457,8 @@ export default function App() {
     <div
       style={{
         position: "fixed",
-        top: 48,
-        left: 20,
+        top: isMobileLandscape ? 28 : 48,
+        left: isMobileLandscape ? 28 : 20,
         zIndex: 90,
         userSelect: "none",
         opacity: 0.88,
@@ -1491,8 +1496,8 @@ export default function App() {
     <div
       style={{
         position: "fixed",
-        top: 48,
-        right: 20,
+        top: isMobileLandscape ? 28 : 48,
+        right: isMobileLandscape ? 28 : 20,
         zIndex: 90,
         userSelect: "none",
         pointerEvents: mobileActiveProject ? "none" : "auto",
@@ -2197,16 +2202,16 @@ export default function App() {
               overflowY: "auto",
               overflowX: "hidden",
               WebkitOverflowScrolling: "touch",
-              paddingBottom: 120,
+              paddingBottom: isMobileLandscape ? 64 : 120,
               zIndex: 10,
             }}
           >
             <div
               style={{
-                width: "100%",
-                maxWidth: 980,
+                width: isMobileLandscape ? "78vw" : "100%",
+                maxWidth: isMobileLandscape ? 720 : 980,
                 margin: "0 auto",
-                padding: "108px 20px 0 20px",
+                padding: isMobileLandscape ? "96px 0 0 0" : "108px 20px 0 20px",
                 boxSizing: "border-box",
               }}
             >
@@ -2219,7 +2224,7 @@ export default function App() {
                   <div
                     key={`${section}-${project.title}-${i}`}
                     style={{
-                      marginBottom: 54,
+                      marginBottom: isMobileLandscape ? 38 : 54,
                     }}
                   >
                     <div
