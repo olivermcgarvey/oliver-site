@@ -54,17 +54,7 @@ const narrativeProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "Cosmic Loneliness",
-    status: "In Development",
-    role: "Feature Film",
-    year: "2027",
-    image: bunny("/narrative/cosmic-loneliness/poster.webp"),
-    leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
-    rightMetaText: "IN DEVELOPMENT",
-    overlays: [],
-  },
-  {
-    title: "Portrait of the Living Sky",
+    title: "Under the Living Sky",
     status: "In Post Production",
     role: "Hybrid Documentary · 35MM & Digital",
     year: "Ongoing",
@@ -73,6 +63,16 @@ const narrativeProjects: Project[] = [
     mobileVimeoId: "1185277116",
     leftMeta: "Canada Council for the Arts",
     rightMetaText: "IN POST PRODUCTION",
+    overlays: [],
+  },
+  {
+    title: "Cosmic Loneliness",
+    status: "In Development",
+    role: "Feature Film",
+    year: "2027",
+    image: bunny("/narrative/cosmic-loneliness/poster.webp"),
+    leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
+    rightMetaText: "IN DEVELOPMENT",
     overlays: [],
   },
   {
@@ -94,29 +94,17 @@ const narrativeProjects: Project[] = [
 
 const commercialProjects: Project[] = [
   {
-    title: "Adidas",
+    title: "MYKITA",
     status: "Released",
-    role: "Campaign",
-    year: "2025",
-    image: bunny("/commercial/adidas/poster.webp"),
-    imageLandscape: bunny("/commercial/adidas/poster.webp"),
-    video: bunny("/commercial/adidas/trailer.mp4"),
-    mobileVimeoId: "1185056415",
-    leftMeta: "ADIDAS · POOL",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
-    title: "Adidas",
-    status: "Released",
-    role: "Campaign",
-    year: "2025",
-    image: bunny("/commercial/adidas-2/poster.webp"),
-    imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
-    video: bunny("/commercial/adidas-2/trailer.mp4"),
-    mobileVimeoId: "1185056841",
-    leftMeta: "ADIDAS · POOL",
+    role: "Campaign · 16MM · 8MM",
+    year: "2024",
+    image: bunny("/commercial/mykita-hero/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-hero/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-hero/poster.webp"),
+    video: bunny("/commercial/mykita-hero/trailer.mp4"),
+    mobileVimeoId: "868033223",
+    aspect: "vertical",
+    leftMeta: "Co-DOP · Zack Spiger",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -139,50 +127,30 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "MIU MIU",
+    title: "Adidas",
+    status: "Released",
+    role: "Campaign",
+    year: "2025",
+    image: bunny("/commercial/adidas/poster.webp"),
+    imageLandscape: bunny("/commercial/adidas/poster.webp"),
+    video: bunny("/commercial/adidas/trailer.mp4"),
+    mobileVimeoId: "1185056415",
+    leftMeta: "ADIDAS · POOL",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: instagramLabel,
+    overlays: [],
+  },
+  {
+    title: "MYKITA · LEICA",
     status: "Released",
     role: "Campaign · Digital",
-    year: "2022",
-    image: bunny("/commercial/miu-miu-2/poster.webp"),
-    imageLandscape: bunny("/commercial/miu-miu-2/poster.webp"),
-    imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
-    video: bunny("/commercial/miu-miu-2/trailer.mp4"),
-    mobileVimeoId: "1185058183",
+    year: "2020",
+    image: bunny("/commercial/mykita-leica/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
+    video: bunny("/commercial/mykita-leica/trailer.mp4"),
+    mobileVimeoId: "394936736",
     aspect: "vertical",
-    leftMeta: "Art Direction · Fritz Schiffers",
-    leftMetaExtra: "Paris Fashion Week",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
-    title: "MYKITA",
-    status: "Released",
-    role: "Campaign · 16MM · 8MM",
-    year: "2024",
-    image: bunny("/commercial/mykita-hero/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-hero/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-hero/poster.webp"),
-    video: bunny("/commercial/mykita-hero/trailer.mp4"),
-    mobileVimeoId: "868033223",
-    aspect: "vertical",
-    leftMeta: "Co-DOP · Zack Spiger",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
-    title: "MYKITA",
-    status: "Released",
-    role: "Campaign · 16MM · 8MM",
-    year: "2024",
-    image: bunny("/commercial/mykita-kat/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-kat/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-kat/poster.webp"),
-    video: bunny("/commercial/mykita-kat/trailer.mp4"),
-    mobileVimeoId: "1185077699",
-    aspect: "vertical",
-    leftMeta: "Co-DOP · Zack Spiger",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -200,21 +168,6 @@ const commercialProjects: Project[] = [
     aspect: "vertical",
     leftMeta: "Co-DOP · Zack Spiger",
     leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
-    title: "MYKITA · LEICA",
-    status: "Released",
-    role: "Campaign · Digital",
-    year: "2020",
-    image: bunny("/commercial/mykita-leica/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
-    video: bunny("/commercial/mykita-leica/trailer.mp4"),
-    mobileVimeoId: "394936736",
-    aspect: "vertical",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -250,6 +203,36 @@ const commercialProjects: Project[] = [
     rightMetaText: "PUBLISHED",
     rightMetaLogo: idLogo,
     rightMetaLink: "https://i-d.co/article/watch-homeshakes-dreamy-new-music-video-just-like-my/",
+    overlays: [],
+  },
+  {
+    title: "Adidas",
+    status: "Released",
+    role: "Campaign",
+    year: "2025",
+    image: bunny("/commercial/adidas-2/poster.webp"),
+    imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
+    video: bunny("/commercial/adidas-2/trailer.mp4"),
+    mobileVimeoId: "1185056841",
+    leftMeta: "ADIDAS · POOL",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: instagramLabel,
+    overlays: [],
+  },
+  {
+    title: "MYKITA",
+    status: "Released",
+    role: "Campaign · 16MM · 8MM",
+    year: "2024",
+    image: bunny("/commercial/mykita-kat/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-kat/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-kat/poster.webp"),
+    video: bunny("/commercial/mykita-kat/trailer.mp4"),
+    mobileVimeoId: "1185077699",
+    aspect: "vertical",
+    leftMeta: "Co-DOP · Zack Spiger",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: instagramLabel,
     overlays: [],
   },
   {
@@ -846,6 +829,7 @@ const isMobileLandscape =
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const mobileScrollRef = useRef<HTMLDivElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
   const navLockUntilRef = useRef(0);
@@ -1284,8 +1268,8 @@ const isMobileLandscape =
     setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
   };
 
-  const handleWheelSwipe = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (isMobile || isBioOpen || !hasEntered || isSwitching) return;
+    const handleWheelSwipe = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (isMobile || isBioOpen || !hasEntered || isSwitching || isFullscreen) return;
 
     const now = performance.now();
     if (now < navLockUntilRef.current) return;
@@ -1293,14 +1277,26 @@ const isMobileLandscape =
     const absX = Math.abs(e.deltaX);
     const absY = Math.abs(e.deltaY);
 
-    if (absX < 24 || absX < absY) return;
+    const isHorizontalSwipe = absX >= 24 && absX > absY;
+    const isVerticalScroll = absY >= 24 && absY >= absX;
+
+    if (!isHorizontalSwipe && !isVerticalScroll) return;
 
     e.preventDefault();
     e.stopPropagation();
 
     navLockUntilRef.current = now + 650;
 
-    if (e.deltaX > 0) {
+    if (isHorizontalSwipe) {
+      if (e.deltaX > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+      return;
+    }
+
+    if (e.deltaY > 0) {
       goNext();
     } else {
       goPrev();
@@ -1361,13 +1357,22 @@ const isMobileLandscape =
     setIsBioOpen((prev) => !prev);
   };
 
-  const enterSection = (nextSection: "narrative" | "commercial") => {
+    const enterSection = (nextSection: "narrative" | "commercial") => {
     setSection(nextSection);
     setHasEntered(true);
+    setCurrentIndex(0);
+    setDisplayIndex(0);
 
     if (isMobile) {
       setMobileMenuOpen(false);
       setMobileAboutOpen(false);
+
+      window.requestAnimationFrame(() => {
+        mobileScrollRef.current?.scrollTo({
+          top: 0,
+          behavior: "auto",
+        });
+      });
     }
   };
 
@@ -1906,7 +1911,7 @@ const isMobileLandscape =
                 fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
                 lineHeight: 0.72,
                 position: "relative",
-                top: -1,
+                top: 2,
                 cursor: "pointer",
                 opacity: bioLinkHover ? 1 : 0.9,
                 transition: "opacity 320ms ease, transform 520ms ease",
