@@ -220,6 +220,21 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
+    title: "MIU MIU",
+    status: "Released",
+    role: "Campaign · Digital",
+    year: "2022",
+    image: bunny("/commercial/miu-miu-2/poster.webp"),
+    imageLandscape: bunny("/commercial/miu-miu-2/poster.webp"),
+    imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
+    video: bunny("/commercial/miu-miu-2/trailer.mp4"),
+    aspect: "vertical",
+    leftMeta: "Art Direction · Fritz Schiffers",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: instagramLabel,
+    overlays: [],
+  },
+  {
     title: "MYKITA",
     status: "Released",
     role: "Campaign · 16MM · 8MM",
@@ -869,6 +884,7 @@ const isMobileLandscape =
   const [roleVisible, setRoleVisible] = useState(true);
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
+  const [desktopActiveProjectIndex, setDesktopActiveProjectIndex] = useState<number | null>(null);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
@@ -889,7 +905,7 @@ const isMobileLandscape =
 
   const metaBottom = isMobile ? 28 : 42;
   const rightMetaBottom = metaBottom;
-  const fullscreenMetaBottom = isMobile ? 84 : 96;
+  const fullscreenMetaBottom = isMobile ? 84 : 56;
   const fullscreenRightMetaBottom = fullscreenMetaBottom;
 
   useEffect(() => {
@@ -958,6 +974,7 @@ const isMobileLandscape =
     setCursorHidden(false);
     setCenterCue(null);
     setMobileActiveProject(null);
+    setDesktopActiveProjectIndex(null);
 
     if (isMobile) {
       setMobileMenuOpen(false);
@@ -2308,25 +2325,19 @@ const isMobileLandscape =
                   const cardHasPlayback = !!project.video;
                   const cardIsVertical = project.aspect === "vertical";
                   const cardObjectFit = cardIsVertical ? "contain" : "cover";
+                  const isDesktopCardActive = desktopActiveProjectIndex === i;
 
                   return (
                     <div
                       key={`${section}-${project.title}-${i}`}
                       style={{
-                        marginBottom: 96,
+                        marginBottom: i === projects.length - 1 ? 24 : 96,
                       }}
                     >
                       <div
                         onClick={() => {
-                          setCurrentIndex(i);
-                          setDisplayIndex(i);
-                          setIsActive(cardHasPlayback);
-                          setIsPlaying(true);
-                          setIsMuted(false);
-                          setVideoReady(!cardHasPlayback);
-                          setShowControls(true);
-                          setCursorHidden(false);
-                          setIsFullscreen(true);
+                          if (!cardHasPlayback) return;
+                          setDesktopActiveProjectIndex(i);
                         }}
                         style={{
                           position: "relative",
@@ -2337,21 +2348,41 @@ const isMobileLandscape =
                           cursor: "pointer",
                         }}
                       >
-                        <img
-                          src={getDesktopImage(project)}
-                          alt={project.title}
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: cardObjectFit,
-                            display: "block",
-                            background: "black",
-                          }}
-                        />
+                        {cardHasPlayback && isDesktopCardActive ? (
+                          <video
+                            src={project.video}
+                            autoPlay
+                            muted={false}
+                            loop
+                            playsInline
+                            preload="metadata"
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              width: "100%",
+                              height: "100%",
+                              objectFit: cardObjectFit,
+                              display: "block",
+                              background: "black",
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={getDesktopImage(project)}
+                            alt={project.title}
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              width: "100%",
+                              height: "100%",
+                              objectFit: cardObjectFit,
+                              display: "block",
+                              background: "black",
+                            }}
+                          />
+                        )}
 
-                        {cardHasPlayback ? (
+                        {cardHasPlayback && !isDesktopCardActive ? (
                           <div
                             style={{
                               position: "absolute",
@@ -2366,6 +2397,38 @@ const isMobileLandscape =
                             <PlayIcon size={24} />
                           </div>
                         ) : null}
+
+                        <button
+                          type="button"
+                          aria-label="Open fullscreen"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentIndex(i);
+                            setDisplayIndex(i);
+                            setIsActive(cardHasPlayback);
+                            setIsPlaying(true);
+                            setIsMuted(false);
+                            setVideoReady(!cardHasPlayback);
+                            setShowControls(true);
+                            setCursorHidden(false);
+                            setIsFullscreen(true);
+                          }}
+                          style={{
+                            position: "absolute",
+                            right: 14,
+                            bottom: 14,
+                            zIndex: 6,
+                            border: "none",
+                            background: "rgba(0,0,0,0.28)",
+                            color: "rgba(255,255,255,0.72)",
+                            padding: 8,
+                            cursor: "pointer",
+                            opacity: 0.82,
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          <FullscreenIcon active={false} />
+                        </button>
 
                         {project.flashWarning ? <WarningBadge /> : null}
                       </div>
