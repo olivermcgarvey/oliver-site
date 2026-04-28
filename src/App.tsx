@@ -855,6 +855,8 @@ const isMobileLandscape =
   const roleTextSwapTimerRef = useRef<number | null>(null);
   const roleFadeInTimerRef = useRef<number | null>(null);
   const switchTimerRef = useRef<number | null>(null);
+  const desktopGalleryVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const pendingFullscreenTimeRef = useRef<number | null>(null);
 
   const [hasEntered, setHasEntered] = useState(false);
   const [landingVisible, setLandingVisible] = useState(false);
@@ -885,6 +887,7 @@ const isMobileLandscape =
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
   const [desktopActiveProjectIndex, setDesktopActiveProjectIndex] = useState<number | null>(null);
+  const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -976,7 +979,9 @@ const isMobileLandscape =
     setCenterCue(null);
     setMobileActiveProject(null);
     setDesktopActiveProjectIndex(null);
+    setDesktopHoveredProjectIndex(null);
     setDesktopGalleryPlaying(true);
+    pendingFullscreenTimeRef.current = null;
 
     if (isMobile) {
       setMobileMenuOpen(false);
@@ -2342,6 +2347,9 @@ const isMobileLandscape =
                       }}
                     >
                       <div
+                        onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
+                        onMouseMove={() => setDesktopHoveredProjectIndex(i)}
+                        onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
                         onClick={() => {
                           if (!cardHasPlayback) return;
 
@@ -2370,6 +2378,7 @@ const isMobileLandscape =
                             playsInline
                             preload="metadata"
                             ref={(node) => {
+                              desktopGalleryVideoRefs.current[i] = node;
                               if (!node) return;
 
                               if (desktopGalleryPlaying) {
@@ -2427,37 +2436,58 @@ const isMobileLandscape =
                           </div>
                         ) : null}
 
-                        <button
-                          type="button"
-                          aria-label="Open fullscreen"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCurrentIndex(i);
-                            setDisplayIndex(i);
-                            setIsActive(cardHasPlayback);
-                            setIsPlaying(true);
-                            setIsMuted(false);
-                            setVideoReady(!cardHasPlayback);
-                            setShowControls(true);
-                            setCursorHidden(false);
-                            setIsFullscreen(true);
-                          }}
+                        <div
                           style={{
                             position: "absolute",
                             right: 14,
                             bottom: 14,
                             zIndex: 6,
-                            border: "none",
-                            background: "transparent",
-                            color: "rgba(255,255,255,0.72)",
-                            padding: 8,
-                            cursor: "pointer",
-                            opacity: isDesktopCardActive ? 0.82 : 0,
+                            display: "flex",
+                            gap: 8,
+                            opacity: desktopHoveredProjectIndex === i ? 0.86 : 0,
                             transition: "opacity 420ms ease",
+                            pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
                           }}
                         >
-                          <FullscreenIcon active={false} />
-                        </button>
+                          {cardHasPlayback && isDesktopCardActive ? (
+                            <ControlButton
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDesktopGalleryPlaying((prev) => !prev);
+                              }}
+                              ariaLabel={desktopGalleryPlaying ? "Pause" : "Play"}
+                            >
+                              {desktopGalleryPlaying ? <PauseIcon /> : <PlayIcon />}
+                            </ControlButton>
+                          ) : null}
+
+                          <ControlButton
+                            onClick={(e) => {
+                              e.stopPropagation();
+
+                              const sourceVideo = desktopGalleryVideoRefs.current[i];
+                              pendingFullscreenTimeRef.current = sourceVideo
+                                ? sourceVideo.currentTime
+                                : null;
+
+                              setCurrentIndex(i);
+                              setDisplayIndex(i);
+                              setIsActive(cardHasPlayback);
+                              setIsPlaying(true);
+                              setIsMuted(false);
+                              setVideoReady(!cardHasPlayback);
+                              setShowControls(true);
+                              setCursorHidden(false);
+                              setDesktopActiveProjectIndex(null);
+                              setDesktopHoveredProjectIndex(null);
+                              setDesktopGalleryPlaying(true);
+                              setIsFullscreen(true);
+                            }}
+                            ariaLabel="Open fullscreen"
+                          >
+                            <FullscreenIcon active={false} />
+                          </ControlButton>
+                        </div>
 
                         {project.flashWarning ? <WarningBadge /> : null}
                       </div>
@@ -2689,6 +2719,19 @@ const isMobileLandscape =
                     loop
                     playsInline
                     preload="metadata"
+                    onLoadedMetadata={(e) => {
+                      const pendingTime = pendingFullscreenTimeRef.current;
+
+                      if (pendingTime !== null) {
+                        try {
+                          e.currentTarget.currentTime = pendingTime;
+                        } catch {
+                          // ignore
+                        }
+
+                        pendingFullscreenTimeRef.current = null;
+                      }
+                    }}
                     onLoadedData={() => setVideoReady(true)}
                     style={{
                       position: "absolute",
@@ -2767,6 +2810,10 @@ const isMobileLandscape =
                     setShowControls(false);
                     setCursorHidden(false);
                     setCenterCue(null);
+                    setDesktopActiveProjectIndex(null);
+                    setDesktopHoveredProjectIndex(null);
+                    setDesktopGalleryPlaying(true);
+                    pendingFullscreenTimeRef.current = null;
                   }}
                   style={{
                     position: "absolute",
