@@ -885,6 +885,7 @@ const isMobileLandscape =
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
   const [desktopActiveProjectIndex, setDesktopActiveProjectIndex] = useState<number | null>(null);
+  const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
@@ -975,6 +976,7 @@ const isMobileLandscape =
     setCenterCue(null);
     setMobileActiveProject(null);
     setDesktopActiveProjectIndex(null);
+    setDesktopGalleryPlaying(true);
 
     if (isMobile) {
       setMobileMenuOpen(false);
@@ -1070,9 +1072,14 @@ const isMobileLandscape =
     }
 
     if (isFullscreen && hasVideo) {
-      video.muted = false;
-      video.volume = 1;
-      video.play().catch(() => {});
+      video.muted = isMuted;
+      video.volume = isMuted ? 0 : 1;
+
+      if (isPlaying) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
     }
   }, [isActive, isPlaying, isMuted, hasVideo, isFullscreen, displayIndex, isMobile, videoReady]);
 
@@ -2337,7 +2344,13 @@ const isMobileLandscape =
                       <div
                         onClick={() => {
                           if (!cardHasPlayback) return;
-                          setDesktopActiveProjectIndex(i);
+
+                          if (desktopActiveProjectIndex === i) {
+                            setDesktopGalleryPlaying((prev) => !prev);
+                          } else {
+                            setDesktopActiveProjectIndex(i);
+                            setDesktopGalleryPlaying(true);
+                          }
                         }}
                         style={{
                           position: "relative",
@@ -2351,11 +2364,20 @@ const isMobileLandscape =
                         {cardHasPlayback && isDesktopCardActive ? (
                           <video
                             src={project.video}
-                            autoPlay
+                            autoPlay={desktopGalleryPlaying}
                             muted={false}
                             loop
                             playsInline
                             preload="metadata"
+                            ref={(node) => {
+                              if (!node) return;
+
+                              if (desktopGalleryPlaying) {
+                                node.play().catch(() => {});
+                              } else {
+                                node.pause();
+                              }
+                            }}
                             style={{
                               position: "absolute",
                               inset: 0,
@@ -2382,7 +2404,7 @@ const isMobileLandscape =
                           />
                         )}
 
-                        {cardHasPlayback && !isDesktopCardActive ? (
+                        {cardHasPlayback ? (
                           <div
                             style={{
                               position: "absolute",
@@ -2392,9 +2414,16 @@ const isMobileLandscape =
                               justifyContent: "center",
                               pointerEvents: "none",
                               color: "rgba(255,255,255,0.48)",
+                              opacity:
+                                !isDesktopCardActive || !desktopGalleryPlaying ? 1 : 0,
+                              transition: "opacity 420ms ease",
                             }}
                           >
-                            <PlayIcon size={24} />
+                            {!isDesktopCardActive || !desktopGalleryPlaying ? (
+                              <PlayIcon size={24} />
+                            ) : (
+                              <PauseIcon size={24} />
+                            )}
                           </div>
                         ) : null}
 
@@ -2419,12 +2448,12 @@ const isMobileLandscape =
                             bottom: 14,
                             zIndex: 6,
                             border: "none",
-                            background: "rgba(0,0,0,0.28)",
+                            background: "transparent",
                             color: "rgba(255,255,255,0.72)",
                             padding: 8,
                             cursor: "pointer",
-                            opacity: 0.82,
-                            backdropFilter: "blur(4px)",
+                            opacity: isDesktopCardActive ? 0.82 : 0,
+                            transition: "opacity 420ms ease",
                           }}
                         >
                           <FullscreenIcon active={false} />
@@ -2773,12 +2802,27 @@ const isMobileLandscape =
                   }}
                 >
                   {hasVideo ? (
-                    <ControlButton
-                      onClick={toggleMute}
-                      ariaLabel={isMuted ? "Unmute" : "Mute"}
-                    >
-                      <MuteIcon muted={isMuted} />
-                    </ControlButton>
+                    <>
+                      <ControlButton
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const nextPlaying = !isPlaying;
+                          setIsPlaying(nextPlaying);
+                          revealControls();
+                          flashCenterCue(nextPlaying ? "pause" : "play", 800);
+                        }}
+                        ariaLabel={isPlaying ? "Pause" : "Play"}
+                      >
+                        {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                      </ControlButton>
+
+                      <ControlButton
+                        onClick={toggleMute}
+                        ariaLabel={isMuted ? "Unmute" : "Mute"}
+                      >
+                        <MuteIcon muted={isMuted} />
+                      </ControlButton>
+                    </>
                   ) : null}
                 </div>
 
