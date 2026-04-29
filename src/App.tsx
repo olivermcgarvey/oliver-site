@@ -2474,9 +2474,6 @@ const isMobileLandscape =
                           }}
                         >
                           <ControlButton
-                          ) : null}
-
-                          <ControlButton
                             onClick={(e) => {
                               e.stopPropagation();
 
