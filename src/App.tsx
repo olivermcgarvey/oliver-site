@@ -468,6 +468,17 @@ function platformLogoStyle(logo?: string): React.CSSProperties {
 
   const isEditorial = logo === nownessLogo || logo === idLogo;
 
+  if (logo === netflixLogo) {
+    return {
+      height: 14,
+      width: "auto",
+      display: "block",
+      opacity: 0.92,
+      filter: "none",
+      transform: "translateY(0)",
+    };
+  }
+
   return {
     height: isEditorial ? 8 : 11,
     width: "auto",
@@ -845,6 +856,7 @@ const isMobileLandscape =
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const mobileScrollRef = useRef<HTMLDivElement | null>(null);
+  const desktopScrollRef = useRef<HTMLDivElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
   const navLockUntilRef = useRef(0);
@@ -1387,6 +1399,13 @@ const isMobileLandscape =
 
       window.requestAnimationFrame(() => {
         mobileScrollRef.current?.scrollTo({
+          top: 0,
+          behavior: "auto",
+        });
+      });
+    } else {
+      window.requestAnimationFrame(() => {
+        desktopScrollRef.current?.scrollTo({
           top: 0,
           behavior: "auto",
         });
@@ -2315,6 +2334,7 @@ const isMobileLandscape =
         <>
           {!isFullscreen ? (
             <div
+              ref={desktopScrollRef}
               style={{
                 position: "fixed",
                 inset: 0,
@@ -2366,7 +2386,7 @@ const isMobileLandscape =
                           aspectRatio: "16 / 9",
                           overflow: "hidden",
                           background: "black",
-                          cursor: "pointer",
+                          cursor: cardHasPlayback ? "pointer" : "default",
                         }}
                       >
                         {cardHasPlayback && isDesktopCardActive ? (
@@ -2422,9 +2442,13 @@ const isMobileLandscape =
                               alignItems: "center",
                               justifyContent: "center",
                               pointerEvents: "none",
-                              color: "rgba(255,255,255,0.48)",
+                              color: "rgba(255,255,255,0.56)",
                               opacity:
-                                !isDesktopCardActive || !desktopGalleryPlaying ? 1 : 0,
+                                !isDesktopCardActive ||
+                                !desktopGalleryPlaying ||
+                                desktopHoveredProjectIndex === i
+                                  ? 1
+                                  : 0,
                               transition: "opacity 420ms ease",
                             }}
                           >
@@ -2449,16 +2473,7 @@ const isMobileLandscape =
                             pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
                           }}
                         >
-                          {cardHasPlayback && isDesktopCardActive ? (
-                            <ControlButton
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDesktopGalleryPlaying((prev) => !prev);
-                              }}
-                              ariaLabel={desktopGalleryPlaying ? "Pause" : "Play"}
-                            >
-                              {desktopGalleryPlaying ? <PauseIcon /> : <PlayIcon />}
-                            </ControlButton>
+                          <ControlButton
                           ) : null}
 
                           <ControlButton
@@ -2751,8 +2766,12 @@ const isMobileLandscape =
                   <CenterCue type="play" visible={true} opacity={showControls ? 0.72 : 0.22} />
                 ) : null}
 
-                {centerCue && hasVideo && isActive ? (
-                  <CenterCue type={centerCue} visible={true} />
+                {hasVideo && isActive ? (
+                  <CenterCue
+                    type={isPlaying ? "pause" : "play"}
+                    visible={showControls}
+                    opacity={0.72}
+                  />
                 ) : null}
 
                 {!isActive && current.flashWarning ? <WarningBadge /> : null}
