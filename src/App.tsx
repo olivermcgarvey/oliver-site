@@ -1873,7 +1873,7 @@ const isMobileLandscape =
               <>
                 <button
                   type="button"
-                  onClick={() => setSection("narrative")}
+                  onClick={() => enterSection("narrative")}
                   onMouseEnter={() => setNavHover("narrative")}
                   onMouseLeave={() => setNavHover(null)}
                   style={{
@@ -1902,7 +1902,7 @@ const isMobileLandscape =
 
                 <button
                   type="button"
-                  onClick={() => setSection("commercial")}
+                  onClick={() => enterSection("commercial")}
                   onMouseEnter={() => setNavHover("commercial")}
                   onMouseLeave={() => setNavHover(null)}
                   style={{
@@ -2894,7 +2894,7 @@ const isMobileLandscape =
                     <div
                       style={{
                         position: "absolute",
-                        left: 24,
+                        left: 52,
                         bottom: fullscreenMetaBottom,
                         zIndex: 130,
                         userSelect: "none",
@@ -2959,7 +2959,7 @@ const isMobileLandscape =
                     <div
                       style={{
                         position: "absolute",
-                        right: 24,
+                        right: 52,
                         bottom: fullscreenRightMetaBottom,
                         zIndex: 130,
                         userSelect: "none",
