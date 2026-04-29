@@ -921,7 +921,7 @@ const isMobileLandscape =
 
   const metaBottom = isMobile ? 28 : 42;
   const rightMetaBottom = metaBottom;
-  const fullscreenMetaBottom = isMobile ? 84 : 56;
+  const fullscreenMetaBottom = isMobile ? 110 : 90;
   const fullscreenRightMetaBottom = fullscreenMetaBottom;
 
   useEffect(() => {
