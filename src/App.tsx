@@ -2892,7 +2892,7 @@ const isMobileLandscape =
                     <div
                       style={{
                         position: "absolute",
-                        left: 52,
+                        left: 18,
                         bottom: fullscreenMetaBottom,
                         zIndex: 130,
                         userSelect: "none",
@@ -2957,7 +2957,7 @@ const isMobileLandscape =
                     <div
                       style={{
                         position: "absolute",
-                        right: 52,
+                        right: 18,
                         bottom: fullscreenRightMetaBottom,
                         zIndex: 130,
                         userSelect: "none",
