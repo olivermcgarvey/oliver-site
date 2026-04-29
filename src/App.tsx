@@ -1104,7 +1104,7 @@ const isMobileLandscape =
     if (isMobile) return;
 
     const handleFullscreenChange = () => {
-      const active = document.fullscreenElement === frameRef.current;
+      const active = !!document.fullscreenElement;
       setIsFullscreen(active);
       setShowControls(true);
       setCursorHidden(false);
@@ -2493,8 +2493,10 @@ const isMobileLandscape =
                               setDesktopActiveProjectIndex(null);
                               setDesktopHoveredProjectIndex(null);
                               setDesktopGalleryPlaying(true);
-                              if (frameRef.current) {
-                              frameRef.current.requestFullscreen().catch(() => {});
+                              setIsFullscreen(true);
+
+                              if (document.documentElement.requestFullscreen) {
+                              document.documentElement.requestFullscreen().catch(() => {});
                              }
                             }}
                             ariaLabel="Open fullscreen"
