@@ -2493,7 +2493,9 @@ const isMobileLandscape =
                               setDesktopActiveProjectIndex(null);
                               setDesktopHoveredProjectIndex(null);
                               setDesktopGalleryPlaying(true);
-                              setIsFullscreen(true);
+                              if (frameRef.current) {
+                              frameRef.current.requestFullscreen().catch(() => {});
+                             }
                             }}
                             ariaLabel="Open fullscreen"
                           >
@@ -2819,17 +2821,11 @@ const isMobileLandscape =
                   type="button"
                   aria-label="Exit fullscreen"
                   onClick={(e) => {
-                    e.stopPropagation();
-                    setIsFullscreen(false);
-                    setIsActive(false);
-                    setIsPlaying(true);
-                    setShowControls(false);
-                    setCursorHidden(false);
-                    setCenterCue(null);
-                    setDesktopActiveProjectIndex(null);
-                    setDesktopHoveredProjectIndex(null);
-                    setDesktopGalleryPlaying(true);
-                    pendingFullscreenTimeRef.current = null;
+                  e.stopPropagation();
+
+                  if (document.fullscreenElement) {
+                  document.exitFullscreen().catch(() => {});
+                    }
                   }}
                   style={{
                     position: "absolute",
