@@ -1001,10 +1001,10 @@ const isMobileLandscape =
     }
 
     const nextRole = hasEntered
-      ? section === "narrative"
-        ? "Writer · Director"
-        : "Director · Cinematographer"
-      : "Writer · Director · Cinematographer";
+    ? section === "narrative"
+      ? "Writer · Director"
+      : "Director · Cinematographer"
+   : "Director";
 
     setRoleVisible(false);
 
