@@ -894,7 +894,7 @@ const isMobileLandscape =
   const [bioLinkHover, setBioLinkHover] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
-  const [roleText, setRoleText] = useState("Writer · Director");
+  const [roleText, setRoleText] = useState("Director");
   const [roleVisible, setRoleVisible] = useState(true);
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
