@@ -857,6 +857,8 @@ const isMobileLandscape =
   const frameRef = useRef<HTMLDivElement | null>(null);
   const mobileScrollRef = useRef<HTMLDivElement | null>(null);
   const desktopScrollRef = useRef<HTMLDivElement | null>(null);
+  const desktopCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const desktopScrollRef = useRef<HTMLDivElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
   const navLockUntilRef = useRef(0);
@@ -899,6 +901,9 @@ const isMobileLandscape =
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
   const [desktopActiveProjectIndex, setDesktopActiveProjectIndex] = useState<number | null>(null);
+  const [desktopScrollIndex, setDesktopScrollIndex] = useState(0);
+  const [showDesktopScrollCounter, setShowDesktopScrollCounter] = useState(false);
+  const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
 
@@ -1412,7 +1417,57 @@ const isMobileLandscape =
       });
     }
   };
+useEffect(() => {
+  if (isMobile || isFullscreen || !hasEntered) return;
 
+  const container = desktopScrollRef.current;
+  if (!container) return;
+
+  const updateActiveIndex = () => {
+    const viewportMiddle = window.innerHeight / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    desktopCardRefs.current.forEach((card, index) => {
+      if (!card) return;
+
+      const rect = card.getBoundingClientRect();
+      const cardMiddle = rect.top + rect.height / 2;
+      const distance = Math.abs(cardMiddle - viewportMiddle);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setDesktopScrollIndex(closestIndex);
+    setShowDesktopScrollCounter(true);
+
+    if (desktopScrollCounterTimerRef.current) {
+      window.clearTimeout(desktopScrollCounterTimerRef.current);
+    }
+
+    desktopScrollCounterTimerRef.current = window.setTimeout(() => {
+      setShowDesktopScrollCounter(false);
+    }, 1100);
+  };
+
+  updateActiveIndex();
+
+  container.addEventListener("scroll", updateActiveIndex, { passive: true });
+  window.addEventListener("resize", updateActiveIndex);
+
+  return () => {
+    container.removeEventListener("scroll", updateActiveIndex);
+    window.removeEventListener("resize", updateActiveIndex);
+
+    if (desktopScrollCounterTimerRef.current) {
+      window.clearTimeout(desktopScrollCounterTimerRef.current);
+    }
+  };
+}, [isMobile, isFullscreen, hasEntered, section, projects.length]);
   const rightMetaStack = (
     <div
       style={{
@@ -2147,7 +2202,27 @@ const isMobileLandscape =
 </div>
         </>
       )}
-
+{!isMobile && hasEntered && !isFullscreen ? (
+  <div
+    style={{
+      position: "fixed",
+      top: 42,
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 65,
+      fontSize: 10,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      opacity: showDesktopScrollCounter ? 0.32 : 0,
+      transition: "opacity 520ms ease",
+      userSelect: "none",
+      pointerEvents: "none",
+    }}
+  >
+    {String(desktopScrollIndex + 1).padStart(2, "0")} /{" "}
+    {String(projects.length).padStart(2, "0")}
+  </div>
+) : null}
       {!hasEntered ? (
         <div
           style={{
@@ -2360,12 +2435,15 @@ const isMobileLandscape =
                   const isDesktopCardActive = desktopActiveProjectIndex === i;
 
                   return (
-                    <div
-                      key={`${section}-${project.title}-${i}`}
-                      style={{
-                        marginBottom: i === projects.length - 1 ? 24 : 96,
-                      }}
-                    >
+<div
+  key={`${section}-${project.title}-${i}`}
+  ref={(el) => {
+    desktopCardRefs.current[i] = el;
+  }}
+  style={{
+    marginBottom: i === projects.length - 1 ? 24 : 96,
+  }}
+>
                       <div
                         onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
                         onMouseMove={() => setDesktopHoveredProjectIndex(i)}
