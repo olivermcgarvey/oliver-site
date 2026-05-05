@@ -2212,8 +2212,7 @@ useEffect(() => {
       fontSize: 10,
       letterSpacing: "0.14em",
       textTransform: "uppercase",
-      opacity: showDesktopScrollCounter ? 0.32 : 0,
-      transition: "opacity 520ms ease",
+      opacity: 0.32,
       userSelect: "none",
       pointerEvents: "none",
     }}
