@@ -858,7 +858,6 @@ const isMobileLandscape =
   const mobileScrollRef = useRef<HTMLDivElement | null>(null);
   const desktopScrollRef = useRef<HTMLDivElement | null>(null);
   const desktopCardRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const desktopScrollRef = useRef<HTMLDivElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
   const navLockUntilRef = useRef(0);
