@@ -674,6 +674,7 @@ function MobileCardMeta({
         style={{
           textAlign: "right",
           minWidth: 118,
+          marginTop: 27,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
@@ -877,7 +878,8 @@ const isMobileLandscape =
   const [landingHover, setLandingHover] = useState<"narrative" | "commercial" | null>(null);
 
   const [section, setSection] = useState<"narrative" | "commercial">("narrative");
-  const [navHover, setNavHover] = useState<"narrative" | "commercial" | null>(null);
+  const [navHover, setNavHover] = useState<"narrative" | "commercial" | "about" | null>(null);
+  const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
 
   const projects = section === "narrative" ? narrativeProjects : commercialProjects;
 
@@ -905,6 +907,8 @@ const isMobileLandscape =
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
+  const [desktopVideoProgress, setDesktopVideoProgress] = useState(0);
+  const [fullscreenVideoProgress, setFullscreenVideoProgress] = useState(0);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
@@ -1143,22 +1147,30 @@ const isMobileLandscape =
         tag === "textarea" ||
         target?.isContentEditable;
 
-      if (isEditable) return;
-      if (e.code !== "Space") return;
-      if (!hasVideo) return;
+if (isEditable) return;
+if (e.code !== "Space") return;
 
-      e.preventDefault();
+if (!hasVideo && desktopActiveProjectIndex === null) return;
 
-      if (!isActive) {
-        activateVideo();
-        flashCenterCue("play", 700);
-        return;
-      }
+e.preventDefault();
 
-      const nextPlaying = !isPlaying;
-      setIsPlaying(nextPlaying);
-      revealControls();
-      flashCenterCue(nextPlaying ? "pause" : "play", 800);
+if (!isFullscreen && desktopActiveProjectIndex !== null) {
+  setDesktopGalleryPlaying((prev) => !prev);
+  return;
+}
+
+if (!hasVideo) return;
+
+if (!isActive) {
+  activateVideo();
+  flashCenterCue("play", 700);
+  return;
+}
+
+const nextPlaying = !isPlaying;
+setIsPlaying(nextPlaying);
+revealControls();
+flashCenterCue(nextPlaying ? "pause" : "play", 800);
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -1390,12 +1402,30 @@ const isMobileLandscape =
     e?.stopPropagation();
     setIsBioOpen((prev) => !prev);
   };
+  const openAbout = () => {
+  if (isMobile) {
+    setMobileMenuOpen(false);
+    setMobileAboutOpen(true);
+    return;
+  }
+
+  setDesktopMenuOpen(false);
+  setIsBioOpen(true);
+};
+
+const closeMenus = () => {
+  setDesktopMenuOpen(false);
+  setMobileMenuOpen(false);
+};
 
     const enterSection = (nextSection: "narrative" | "commercial") => {
     setSection(nextSection);
     setHasEntered(true);
     setCurrentIndex(0);
     setDisplayIndex(0);
+    setDesktopMenuOpen(false);
+    setIsBioOpen(false);
+    setMobileAboutOpen(false);
 
     if (isMobile) {
       setMobileMenuOpen(false);
@@ -1651,185 +1681,77 @@ useEffect(() => {
           margin: "0 auto",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 22,
-            marginBottom: 48,
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => enterSection("narrative")}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "white",
-              textAlign: "left",
-              fontSize: 19,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              padding: 0,
-              margin: 0,
-              opacity: section === "narrative" && hasEntered ? 0.96 : 0.78,
-              fontWeight: 300,
-            }}
-          >
-            Narrative
-          </button>
+<div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: 22,
+    marginBottom: 48,
+  }}
+>
+  <button
+    type="button"
+    onClick={() => enterSection("narrative")}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 19,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: section === "narrative" && hasEntered ? 0.96 : 0.78,
+      fontWeight: 300,
+    }}
+  >
+    Narrative
+  </button>
 
-          <button
-            type="button"
-            onClick={() => enterSection("commercial")}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "white",
-              textAlign: "left",
-              fontSize: 19,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              padding: 0,
-              margin: 0,
-              opacity: section === "commercial" && hasEntered ? 0.96 : 0.78,
-              fontWeight: 300,
-            }}
-          >
-            Commercial
-          </button>
-        </div>
+  <button
+    type="button"
+    onClick={() => enterSection("commercial")}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 19,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: section === "commercial" && hasEntered ? 0.96 : 0.78,
+      fontWeight: 300,
+    }}
+  >
+    Commercial
+  </button>
 
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Bio
-          </div>
-
-          <div
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              opacity: 0.86,
-            }}
-          >
-            Canadian director working between Berlin and Canada.
-            <br />
-            <br />
-            Working across narrative and commercial film, his projects span documentary, slow cinema, fashion and cultural commissions.
-            <br />
-            <br />
-            His work focuses on atmosphere, messy human emotions and formal restraint.
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Contact
-          </div>
-
-          <a
-            href="mailto:contact@olivermcgarvey.com"
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              color: "rgba(255,255,255,0.76)",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            <span>contact@olivermcgarvey.com</span>
-            <ExternalArrowIcon />
-          </a>
-        </div>
-
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Featured In
-          </div>
-
-          <div
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              opacity: 0.86,
-            }}
-          >
-            Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
-          </div>
-        </div>
-
-        <div>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Founder & Executive Producer
-          </div>
-
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.5,
-              lineHeight: 1.45,
-              marginBottom: 18,
-            }}
-          >
-            Unknown Pictures Ltd.
-          </div>
-
-          <img
-            src={unknownPicturesLogo}
-            alt="Unknown Pictures"
-            style={{
-              width: 34,
-              height: "auto",
-              opacity: 0.58,
-              display: "block",
-            }}
-          />
-        </div>
+  <button
+    type="button"
+    onClick={openAbout}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 19,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: 0.78,
+      fontWeight: 300,
+    }}
+  >
+    About
+  </button>
+</div>
       </div>
     </div>
   </>
@@ -1908,110 +1830,104 @@ useEffect(() => {
             </div>
           </button>
 
+<div
+  style={{
+    position: "absolute",
+    top: 42,
+    right: 44,
+    zIndex: 70,
+    userSelect: "none",
+    opacity: isFullscreen ? 0 : 0.72,
+    transition: "opacity 520ms ease",
+  }}
+>
+  <button
+    type="button"
+    onClick={(e) => {
+      e.stopPropagation();
+      setDesktopMenuOpen((prev) => !prev);
+      setIsBioOpen(false);
+    }}
+    onMouseEnter={() => setNavHover("about")}
+    onMouseLeave={() => setNavHover(null)}
+    aria-label={desktopMenuOpen ? "Close menu" : "Open menu"}
+    style={{
+      border: "none",
+      background: "transparent",
+      color: "inherit",
+      padding: 0,
+      margin: 0,
+      cursor: "pointer",
+      fontSize: 11,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      opacity: navHover === "about" || desktopMenuOpen ? 0.96 : 0.72,
+      transition: "opacity 320ms ease",
+    }}
+  >
+    Menu
+  </button>
+
+  <div
+    style={{
+      position: "absolute",
+      top: 30,
+      right: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-end",
+      gap: 10,
+      opacity: desktopMenuOpen ? 1 : 0,
+      transform: desktopMenuOpen ? "translateY(0)" : "translateY(-6px)",
+      pointerEvents: desktopMenuOpen ? "auto" : "none",
+      transition: "opacity 320ms ease, transform 320ms ease",
+    }}
+  >
+    {[
+      { label: "Narrative", action: () => enterSection("narrative"), key: "narrative" },
+      { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
+      { label: "About", action: openAbout, key: "about" },
+    ].map((item) => (
+      <button
+        key={item.key}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          item.action();
+        }}
+        onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about")}
+        onMouseLeave={() => setNavHover(null)}
+        style={{
+          border: "none",
+          background: "transparent",
+          color: "inherit",
+          padding: 0,
+          margin: 0,
+          cursor: "pointer",
+          fontSize: 12,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          opacity: navHover === item.key ? 0.96 : 0.58,
+          transition: "opacity 280ms ease",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {item.label}
+      </button>
+    ))}
+  </div>
+</div>
           <div
-            style={{
-              position: "absolute",
-              top: 42,
-              right: 44,
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              opacity: isFullscreen ? 0 : 0.62,
-              zIndex: 60,
-              userSelect: "none",
-              transition: "opacity 520ms ease",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {hasEntered ? (
-              <>
-                <button
-                  type="button"
-                  onClick={() => enterSection("narrative")}
-                  onMouseEnter={() => setNavHover("narrative")}
-                  onMouseLeave={() => setNavHover(null)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    color: "inherit",
-                    padding: 0,
-                    margin: 0,
-                    cursor: "pointer",
-                    opacity:
-                      section === "narrative"
-                        ? 0.92
-                        : navHover === "narrative"
-                          ? 0.72
-                          : 0.38,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    fontSize: 11,
-                    transition: "opacity 320ms ease",
-                  }}
-                >
-                  Narrative
-                </button>
-
-                <div style={{ width: 18 }} />
-
-                <button
-                  type="button"
-                  onClick={() => enterSection("commercial")}
-                  onMouseEnter={() => setNavHover("commercial")}
-                  onMouseLeave={() => setNavHover(null)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    color: "inherit",
-                    padding: 0,
-                    margin: 0,
-                    cursor: "pointer",
-                    opacity:
-                      section === "commercial"
-                        ? 0.92
-                        : navHover === "commercial"
-                          ? 0.72
-                          : 0.38,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    fontSize: 11,
-                    transition: "opacity 320ms ease",
-                  }}
-                >
-                  Commercial
-                </button>
-
-                <div style={{ width: 16 }} />
-              </>
-            ) : null}
-
-            <button
-              type="button"
-              onClick={toggleBio}
-              onMouseEnter={() => setBioLinkHover(true)}
-              onMouseLeave={() => setBioLinkHover(false)}
-              aria-label={isBioOpen ? "Close bio" : "Open bio"}
-              style={{
-                border: "none",
-                background: "transparent",
-                color: "inherit",
-                padding: "10px",
-                margin: "-10px",
-                fontSize: 30,
-                fontWeight: 100,
-                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                lineHeight: 0.72,
-                position: "relative",
-                top: -4,
-                cursor: "pointer",
-                opacity: bioLinkHover ? 1 : 0.9,
-                transition: "opacity 320ms ease, transform 520ms ease",
-                transform: isBioOpen ? "rotate(45deg)" : "rotate(0deg)",
-              }}
-            >
-              +
-            </button>
-          </div>
+  onClick={closeMenus}
+  style={{
+    position: "fixed",
+    inset: 0,
+    zIndex: desktopMenuOpen ? 54 : -1,
+    pointerEvents: desktopMenuOpen ? "auto" : "none",
+    background: desktopMenuOpen ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0)",
+    transition: "background 420ms ease",
+  }}
+/>
 
           <div
             onClick={() => setIsBioOpen(false)}
@@ -2466,33 +2382,38 @@ useEffect(() => {
                         }}
                       >
                         {cardHasPlayback && isDesktopCardActive ? (
-                          <video
-                            src={project.video}
-                            autoPlay={desktopGalleryPlaying}
-                            muted={false}
-                            loop
-                            playsInline
-                            preload="metadata"
-                            ref={(node) => {
-                              desktopGalleryVideoRefs.current[i] = node;
-                              if (!node) return;
+<video
+  src={project.video}
+  autoPlay={desktopGalleryPlaying}
+  muted={false}
+  loop
+  playsInline
+  preload="metadata"
+  onTimeUpdate={(e) => {
+    const video = e.currentTarget;
+    if (!video.duration) return;
+    setDesktopVideoProgress((video.currentTime / video.duration) * 100);
+  }}
+  ref={(node) => {
+    desktopGalleryVideoRefs.current[i] = node;
+    if (!node) return;
 
-                              if (desktopGalleryPlaying) {
-                                node.play().catch(() => {});
-                              } else {
-                                node.pause();
-                              }
-                            }}
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              width: "100%",
-                              height: "100%",
-                              objectFit: cardObjectFit,
-                              display: "block",
-                              background: "black",
-                            }}
-                          />
+    if (desktopGalleryPlaying) {
+      node.play().catch(() => {});
+    } else {
+      node.pause();
+    }
+  }}
+  style={{
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: cardObjectFit,
+    display: "block",
+    background: "black",
+  }}
+/>
                         ) : (
                           <img
                             src={getDesktopImage(project)}
@@ -2581,7 +2502,32 @@ useEffect(() => {
                           </ControlButton>
                         </div>
 
-                        {project.flashWarning ? <WarningBadge /> : null}
+{cardHasPlayback && isDesktopCardActive ? (
+  <div
+    style={{
+      position: "absolute",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      height: 1,
+      background: "rgba(255,255,255,0.14)",
+      opacity: desktopHoveredProjectIndex === i ? 1 : 0,
+      transition: "opacity 320ms ease",
+      pointerEvents: "none",
+      zIndex: 7,
+    }}
+  >
+    <div
+      style={{
+        width: `${desktopVideoProgress}%`,
+        height: "100%",
+        background: "rgba(255,255,255,0.46)",
+      }}
+    />
+  </div>
+) : null}
+
+{project.flashWarning ? <WarningBadge /> : null}
                       </div>
 
                       <div
@@ -2655,6 +2601,7 @@ useEffect(() => {
                           style={{
                             textAlign: "right",
                             minWidth: 140,
+                            marginTop: 23,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "flex-end",
@@ -2803,40 +2750,45 @@ useEffect(() => {
                 )}
 
                 {hasVideo ? (
-                  <video
-                    key={`${current.title}-${displayIndex}`}
-                    ref={videoRef}
-                    src={current.video}
-                    muted={isMuted}
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onLoadedMetadata={(e) => {
-                      const pendingTime = pendingFullscreenTimeRef.current;
+<video
+  key={`${current.title}-${displayIndex}`}
+  ref={videoRef}
+  src={current.video}
+  muted={isMuted}
+  loop
+  playsInline
+  preload="metadata"
+  onTimeUpdate={(e) => {
+    const video = e.currentTarget;
+    if (!video.duration) return;
+    setFullscreenVideoProgress((video.currentTime / video.duration) * 100);
+  }}
+  onLoadedMetadata={(e) => {
+    const pendingTime = pendingFullscreenTimeRef.current;
 
-                      if (pendingTime !== null) {
-                        try {
-                          e.currentTarget.currentTime = pendingTime;
-                        } catch {
-                          // ignore
-                        }
+    if (pendingTime !== null) {
+      try {
+        e.currentTarget.currentTime = pendingTime;
+      } catch {
+        // ignore
+      }
 
-                        pendingFullscreenTimeRef.current = null;
-                      }
-                    }}
-                    onLoadedData={() => setVideoReady(true)}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      display: "block",
-                      opacity: isActive && videoReady ? 1 : 0,
-                      transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                      background: "black",
-                    }}
-                  />
+      pendingFullscreenTimeRef.current = null;
+    }
+  }}
+  onLoadedData={() => setVideoReady(true)}
+  style={{
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
+    display: "block",
+    opacity: isActive && videoReady ? 1 : 0,
+    transition: "opacity 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+    background: "black",
+  }}
+/>
                 ) : null}
 
                 {hasVideo && !isActive ? (
@@ -2963,7 +2915,32 @@ useEffect(() => {
                   ) : null}
                 </div>
 
-                {showFullscreenImageMeta || showFullscreenVideoMeta ? (
+{hasVideo ? (
+  <div
+    style={{
+      position: "absolute",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      height: 1,
+      background: "rgba(255,255,255,0.12)",
+      opacity: showControls ? 1 : 0,
+      transition: "opacity 320ms ease",
+      pointerEvents: "none",
+      zIndex: 128,
+    }}
+  >
+    <div
+      style={{
+        width: `${fullscreenVideoProgress}%`,
+        height: "100%",
+        background: "rgba(255,255,255,0.42)",
+      }}
+    />
+  </div>
+) : null}
+
+{showFullscreenImageMeta || showFullscreenVideoMeta ? (
                   <>
                     <div
                       style={{
@@ -3035,6 +3012,7 @@ useEffect(() => {
                         position: "absolute",
                         right: 50,
                         bottom: fullscreenRightMetaBottom,
+                        transform: "translateY(23px)",
                         zIndex: 130,
                         userSelect: "none",
                         opacity: hasVideo ? (showControls ? 1 : 0) : 1,
