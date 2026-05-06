@@ -1788,6 +1788,183 @@ useEffect(() => {
 </div>
       </div>
     </div>
+
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 78,
+        opacity: mobileAboutOpen ? 1 : 0,
+        pointerEvents: mobileAboutOpen ? "auto" : "none",
+        transition: "opacity 420ms ease",
+        background: "rgba(0,0,0,0.98)",
+        overflowY: "auto",
+        overflowX: "hidden",
+        WebkitOverflowScrolling: "touch",
+        padding: "118px 20px 80px 20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <button
+        type="button"
+        onClick={() => setMobileAboutOpen(false)}
+        aria-label="Close about"
+        style={{
+          position: "fixed",
+          top: isMobileLandscape ? 28 : 48,
+          right: isMobileLandscape ? 28 : 20,
+          zIndex: 90,
+          border: "none",
+          background: "transparent",
+          color: "rgba(255,255,255,0.9)",
+          padding: "8px 0",
+          margin: 0,
+          fontSize: 28,
+          fontWeight: 100,
+          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+          lineHeight: 0.8,
+          cursor: "pointer",
+        }}
+      >
+        ×
+      </button>
+
+      <div
+        style={{
+          maxWidth: 520,
+          margin: "0 auto",
+        }}
+      >
+        <div style={{ marginBottom: 34 }}>
+          <div
+            style={{
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              opacity: 0.38,
+              lineHeight: 1.45,
+              marginBottom: 14,
+            }}
+          >
+            Bio
+          </div>
+
+          <div
+            style={{
+              fontSize: 13.5,
+              lineHeight: 1.72,
+              letterSpacing: "0.01em",
+              opacity: 0.86,
+            }}
+          >
+            Canadian director working between Berlin and Canada.
+            <br />
+            <br />
+            Working across narrative and commercial film, his projects span documentary, slow cinema, fashion and cultural commissions.
+            <br />
+            <br />
+            His work focuses on atmosphere, messy human emotions and formal restraint.
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 34 }}>
+          <div
+            style={{
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              opacity: 0.38,
+              lineHeight: 1.45,
+              marginBottom: 14,
+            }}
+          >
+            Contact
+          </div>
+
+          <a
+            href="mailto:contact@olivermcgarvey.com"
+            style={{
+              fontSize: 13.5,
+              lineHeight: 1.72,
+              letterSpacing: "0.01em",
+              color: "rgba(255,255,255,0.76)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <span>contact@olivermcgarvey.com</span>
+            <ExternalArrowIcon />
+          </a>
+        </div>
+
+        <div style={{ marginBottom: 34 }}>
+          <div
+            style={{
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              opacity: 0.38,
+              lineHeight: 1.45,
+              marginBottom: 14,
+            }}
+          >
+            Featured In
+          </div>
+
+          <div
+            style={{
+              fontSize: 13.5,
+              lineHeight: 1.72,
+              letterSpacing: "0.01em",
+              opacity: 0.86,
+            }}
+          >
+            Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
+          </div>
+        </div>
+
+        <div>
+          <div
+            style={{
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              opacity: 0.38,
+              lineHeight: 1.45,
+              marginBottom: 14,
+            }}
+          >
+            Founder & Executive Producer
+          </div>
+
+          <div
+            style={{
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              opacity: 0.5,
+              lineHeight: 1.45,
+              marginBottom: 18,
+            }}
+          >
+            Unknown Pictures Ltd.
+          </div>
+
+          <img
+            src={unknownPicturesLogo}
+            alt="Unknown Pictures"
+            style={{
+              width: 34,
+              height: "auto",
+              opacity: 0.58,
+              display: "block",
+            }}
+          />
+        </div>
+      </div>
+    </div>
   </>
 );
 
