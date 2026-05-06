@@ -871,6 +871,9 @@ const isMobileLandscape =
   const switchTimerRef = useRef<number | null>(null);
   const desktopGalleryVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const pendingFullscreenTimeRef = useRef<number | null>(null);
+  const galleryProgressRef = useRef<HTMLDivElement | null>(null);
+  const fullscreenProgressRef = useRef<HTMLDivElement | null>(null);
+  const progressAnimationRef = useRef<number | null>(null);
 
   const [hasEntered, setHasEntered] = useState(false);
   const [landingVisible, setLandingVisible] = useState(false);
@@ -907,8 +910,6 @@ const isMobileLandscape =
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
-  const [desktopVideoProgress, setDesktopVideoProgress] = useState(0);
-  const [fullscreenVideoProgress, setFullscreenVideoProgress] = useState(0);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
@@ -1107,7 +1108,40 @@ const isMobileLandscape =
       }
     }
   }, [isActive, isPlaying, isMuted, hasVideo, isFullscreen, displayIndex, isMobile, videoReady]);
+useEffect(() => {
+  if (progressAnimationRef.current) {
+    window.cancelAnimationFrame(progressAnimationRef.current);
+  }
 
+  const updateProgress = () => {
+    const galleryVideo =
+      desktopActiveProjectIndex !== null
+        ? desktopGalleryVideoRefs.current[desktopActiveProjectIndex]
+        : null;
+
+    if (galleryVideo && galleryProgressRef.current && galleryVideo.duration) {
+      const progress = (galleryVideo.currentTime / galleryVideo.duration) * 100;
+      galleryProgressRef.current.style.transform = `scaleX(${progress / 100})`;
+    }
+
+    const fullscreenVideo = videoRef.current;
+
+    if (fullscreenVideo && fullscreenProgressRef.current && fullscreenVideo.duration) {
+      const progress = (fullscreenVideo.currentTime / fullscreenVideo.duration) * 100;
+      fullscreenProgressRef.current.style.transform = `scaleX(${progress / 100})`;
+    }
+
+    progressAnimationRef.current = window.requestAnimationFrame(updateProgress);
+  };
+
+  progressAnimationRef.current = window.requestAnimationFrame(updateProgress);
+
+  return () => {
+    if (progressAnimationRef.current) {
+      window.cancelAnimationFrame(progressAnimationRef.current);
+    }
+  };
+}, [desktopActiveProjectIndex, isFullscreen, displayIndex]);
   useEffect(() => {
     if (isMobile) return;
 
@@ -2389,11 +2423,6 @@ useEffect(() => {
   loop
   playsInline
   preload="metadata"
-  onTimeUpdate={(e) => {
-    const video = e.currentTarget;
-    if (!video.duration) return;
-    setDesktopVideoProgress((video.currentTime / video.duration) * 100);
-  }}
   ref={(node) => {
     desktopGalleryVideoRefs.current[i] = node;
     if (!node) return;
@@ -2517,13 +2546,17 @@ useEffect(() => {
       zIndex: 7,
     }}
   >
-    <div
-      style={{
-        width: `${desktopVideoProgress}%`,
-        height: "100%",
-        background: "rgba(255,255,255,0.46)",
-      }}
-    />
+<div
+  ref={galleryProgressRef}
+  style={{
+    width: "100%",
+    height: "100%",
+    background: "rgba(255,255,255,0.46)",
+    transform: "scaleX(0)",
+    transformOrigin: "left center",
+    willChange: "transform",
+  }}
+/>
   </div>
 ) : null}
 
@@ -2758,11 +2791,6 @@ useEffect(() => {
   loop
   playsInline
   preload="metadata"
-  onTimeUpdate={(e) => {
-    const video = e.currentTarget;
-    if (!video.duration) return;
-    setFullscreenVideoProgress((video.currentTime / video.duration) * 100);
-  }}
   onLoadedMetadata={(e) => {
     const pendingTime = pendingFullscreenTimeRef.current;
 
@@ -2930,13 +2958,17 @@ useEffect(() => {
       zIndex: 128,
     }}
   >
-    <div
-      style={{
-        width: `${fullscreenVideoProgress}%`,
-        height: "100%",
-        background: "rgba(255,255,255,0.42)",
-      }}
-    />
+<div
+  ref={fullscreenProgressRef}
+  style={{
+    width: "100%",
+    height: "100%",
+    background: "rgba(255,255,255,0.42)",
+    transform: "scaleX(0)",
+    transformOrigin: "left center",
+    willChange: "transform",
+  }}
+/>
   </div>
 ) : null}
 
