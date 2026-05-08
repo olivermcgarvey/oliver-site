@@ -37,7 +37,7 @@ const unknownPicturesLogo = "/assets/shared/logos/unknown-pictures-logo.png";
 const instagramLabel = "IG";
 const instagramUrl = "https://www.instagram.com/oliver_mcgarvey/";
 const linkedinUrl = "https://www.linkedin.com/in/oliver-mcgarvey-751b7234/";
-const imdbUrl = "PASTE_IMDB_URL_HERE";
+const imdbUrl = "https://www.imdb.com/name/nm3907607/?ref_=fn_t_1";
 
 const BUNNY_BASE = "https://oliver-site-cdn.b-cdn.net";
 const bunny = (path: string) => `${BUNNY_BASE}${path}`;
@@ -1012,6 +1012,7 @@ if (mobileActiveProject) {
     if (isMobile) {
       setMobileMenuOpen(false);
       setMobileAboutOpen(false);
+      setMobileContactOpen(false);
     }
 
     const nextRole = hasEntered
@@ -1673,11 +1674,11 @@ useEffect(() => {
     >
       <button
         type="button"
-onClick={() => {
-  setMobileMenuOpen((prev) => !prev);
-  setMobileAboutOpen(false);
-  setMobileContactOpen(false);
-}}
+        onClick={() => {
+          setMobileMenuOpen((prev) => !prev);
+          setMobileAboutOpen(false);
+          setMobileContactOpen(false);
+        }}
         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         style={{
           border: "none",
@@ -1717,112 +1718,47 @@ onClick={() => {
         boxSizing: "border-box",
       }}
     >
-      <div
-        style={{
-          maxWidth: 520,
-          margin: "0 auto",
-        }}
-      >
-<div
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    gap: 22,
-    marginBottom: 48,
-  }}
->
-  <button
-    type="button"
-    onClick={() => enterSection("narrative")}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "white",
-      textAlign: "left",
-      fontSize: 19,
-      letterSpacing: "0.18em",
-      textTransform: "uppercase",
-      cursor: "pointer",
-      padding: 0,
-      margin: 0,
-      opacity: section === "narrative" && hasEntered ? 0.96 : 0.78,
-      fontWeight: 300,
-    }}
-  >
-    Narrative
-  </button>
+      <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 22,
+            marginBottom: 48,
+          }}
+        >
+          <button type="button" onClick={() => enterSection("narrative")} style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: section === "narrative" && hasEntered ? 0.96 : 0.78, fontWeight: 300 }}>
+            Narrative
+          </button>
 
-  <button
-    type="button"
-    onClick={() => enterSection("commercial")}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "white",
-      textAlign: "left",
-      fontSize: 19,
-      letterSpacing: "0.18em",
-      textTransform: "uppercase",
-      cursor: "pointer",
-      padding: 0,
-      margin: 0,
-      opacity: section === "commercial" && hasEntered ? 0.96 : 0.78,
-      fontWeight: 300,
-    }}
-  >
-    Commercial
-  </button>
+          <button type="button" onClick={() => enterSection("commercial")} style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: section === "commercial" && hasEntered ? 0.96 : 0.78, fontWeight: 300 }}>
+            Commercial
+          </button>
 
-  <button
-    type="button"
-    onClick={() => {
-      setMobileMenuOpen(false);
-      setMobileContactOpen(false);
-      setMobileAboutOpen(true);
-    }}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "white",
-      textAlign: "left",
-      fontSize: 19,
-      letterSpacing: "0.18em",
-      textTransform: "uppercase",
-      cursor: "pointer",
-      padding: 0,
-      margin: 0,
-      opacity: 0.78,
-      fontWeight: 300,
-    }}
-  >
-    About
-  </button>
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setMobileContactOpen(false);
+              setMobileAboutOpen(true);
+            }}
+            style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: 0.78, fontWeight: 300 }}
+          >
+            About
+          </button>
 
-  <button
-    type="button"
-    onClick={() => {
-      setMobileMenuOpen(false);
-      setMobileAboutOpen(false);
-      setMobileContactOpen(true);
-    }}
-    style={{
-      background: "transparent",
-      border: "none",
-      color: "white",
-      textAlign: "left",
-      fontSize: 19,
-      letterSpacing: "0.18em",
-      textTransform: "uppercase",
-      cursor: "pointer",
-      padding: 0,
-      margin: 0,
-      opacity: 0.78,
-      fontWeight: 300,
-    }}
-  >
-    Contact
-  </button>
-</div>
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setMobileAboutOpen(false);
+              setMobileContactOpen(true);
+            }}
+            style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: 0.78, fontWeight: 300 }}
+          >
+            Contact
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1842,58 +1778,17 @@ onClick={() => {
         boxSizing: "border-box",
       }}
     >
-      <button
-        type="button"
-        onClick={() => setMobileAboutOpen(false)}
-        aria-label="Close about"
-        style={{
-          position: "fixed",
-          top: isMobileLandscape ? 28 : 48,
-          right: isMobileLandscape ? 28 : 20,
-          zIndex: 90,
-          border: "none",
-          background: "transparent",
-          color: "rgba(255,255,255,0.9)",
-          padding: "8px 0",
-          margin: 0,
-          fontSize: 28,
-          fontWeight: 100,
-          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-          lineHeight: 0.8,
-          cursor: "pointer",
-        }}
-      >
+      <button type="button" onClick={() => setMobileAboutOpen(false)} aria-label="Close about" style={{ position: "fixed", top: isMobileLandscape ? 28 : 48, right: isMobileLandscape ? 28 : 20, zIndex: 90, border: "none", background: "transparent", color: "rgba(255,255,255,0.9)", padding: "8px 0", margin: 0, fontSize: 28, fontWeight: 100, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', lineHeight: 0.8, cursor: "pointer" }}>
         ×
       </button>
 
-      <div
-        style={{
-          maxWidth: 520,
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
+      <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <div style={{ marginBottom: 42 }}>
+          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
             Bio
           </div>
 
-          <div
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              opacity: 0.86,
-            }}
-          >
+          <div style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", opacity: 0.86 }}>
             Canadian director working between Berlin and Canada.
             <br />
             <br />
@@ -1904,101 +1799,14 @@ onClick={() => {
           </div>
         </div>
 
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Contact
-          </div>
-
-          <a
-            href="mailto:contact@olivermcgarvey.com"
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              color: "rgba(255,255,255,0.76)",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            <span>contact@olivermcgarvey.com</span>
-            <ExternalArrowIcon />
-          </a>
-        </div>
-
-        <div style={{ marginBottom: 34 }}>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
+        <div>
+          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
             Featured In
           </div>
 
-          <div
-            style={{
-              fontSize: 13.5,
-              lineHeight: 1.72,
-              letterSpacing: "0.01em",
-              opacity: 0.86,
-            }}
-          >
+          <div style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", opacity: 0.86 }}>
             Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
           </div>
-        </div>
-
-        <div>
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.38,
-              lineHeight: 1.45,
-              marginBottom: 14,
-            }}
-          >
-            Founder & Executive Producer
-          </div>
-
-          <div
-            style={{
-              fontSize: 10.5,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              opacity: 0.5,
-              lineHeight: 1.45,
-              marginBottom: 18,
-            }}
-          >
-            Unknown Pictures Ltd.
-          </div>
-
-          <img
-            src={unknownPicturesLogo}
-            alt="Unknown Pictures"
-            style={{
-              width: 34,
-              height: "auto",
-              opacity: 0.58,
-              display: "block",
-            }}
-          />
         </div>
       </div>
     </div>
@@ -2019,7 +1827,46 @@ onClick={() => {
         boxSizing: "border-box",
       }}
     >
-      {/* contact content */}
+      <button type="button" onClick={() => setMobileContactOpen(false)} aria-label="Close contact" style={{ position: "fixed", top: isMobileLandscape ? 28 : 48, right: isMobileLandscape ? 28 : 20, zIndex: 90, border: "none", background: "transparent", color: "rgba(255,255,255,0.9)", padding: "8px 0", margin: 0, fontSize: 28, fontWeight: 100, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', lineHeight: 0.8, cursor: "pointer" }}>
+        ×
+      </button>
+
+      <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <div style={{ marginBottom: 42 }}>
+          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 18 }}>
+            Contact
+          </div>
+
+          <a href="mailto:contact@olivermcgarvey.com" style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", color: "rgba(255,255,255,0.76)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <span>contact@olivermcgarvey.com</span>
+            <ExternalArrowIcon />
+          </a>
+
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10, marginTop: 24, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.58 }}>
+            <a href={instagramUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+              Instagram
+            </a>
+            <a href={linkedinUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+              LinkedIn
+            </a>
+            <a href={imdbUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+              IMDb
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
+            Founder & Executive Producer
+          </div>
+
+          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.5, lineHeight: 1.45, marginBottom: 18 }}>
+            Unknown Pictures Ltd.
+          </div>
+
+          <img src={unknownPicturesLogo} alt="Unknown Pictures" style={{ width: 34, height: "auto", opacity: 0.58, display: "block" }} />
+        </div>
+      </div>
     </div>
   </>
 );
@@ -2311,6 +2158,30 @@ onClick={() => {
       <span>contact@olivermcgarvey.com</span>
       <ExternalArrowIcon />
     </a>
+
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: 8,
+        marginTop: 22,
+        fontSize: 10.5,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        opacity: 0.5,
+      }}
+    >
+      <a href={instagramUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+        Instagram
+      </a>
+      <a href={linkedinUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+        LinkedIn
+      </a>
+      <a href={imdbUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+        IMDb
+      </a>
+    </div>
   </div>
 
   <div>
