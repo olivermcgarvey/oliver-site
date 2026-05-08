@@ -35,6 +35,9 @@ const idLogo = "/assets/shared/logos/id.svg";
 const highsnobietyLogo = "/assets/shared/logos/highsnobiety.svg";
 const unknownPicturesLogo = "/assets/shared/logos/unknown-pictures-logo.png";
 const instagramLabel = "IG";
+const instagramUrl = "https://www.instagram.com/oliver_mcgarvey/";
+const linkedinUrl = "https://www.linkedin.com/in/oliver-mcgarvey-751b7234/";
+const imdbUrl = "PASTE_IMDB_URL_HERE";
 
 const BUNNY_BASE = "https://oliver-site-cdn.b-cdn.net";
 const bunny = (path: string) => `${BUNNY_BASE}${path}`;
@@ -913,6 +916,7 @@ const isMobileLandscape =
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileContactOpen, setMobileContactOpen] = useState(false);
   const [mobileActiveProject, setMobileActiveProject] = useState<Project | null>(null);
 
   const safeDisplayIndex =
@@ -983,10 +987,11 @@ const isMobileLandscape =
   }, [isMobile]);
 
   useEffect(() => {
-    if (mobileActiveProject) {
-      setMobileMenuOpen(false);
-      setMobileAboutOpen(false);
-    }
+if (mobileActiveProject) {
+  setMobileMenuOpen(false);
+  setMobileAboutOpen(false);
+  setMobileContactOpen(false);
+}
   }, [mobileActiveProject]);
 
   useEffect(() => {
@@ -1460,10 +1465,12 @@ const closeMenus = () => {
     setDesktopMenuOpen(false);
     setIsBioOpen(false);
     setMobileAboutOpen(false);
+    setMobileContactOpen(false);
 
     if (isMobile) {
       setMobileMenuOpen(false);
       setMobileAboutOpen(false);
+      setMobileContactOpen(false);
 
       window.requestAnimationFrame(() => {
         mobileScrollRef.current?.scrollTo({
@@ -1666,10 +1673,11 @@ useEffect(() => {
     >
       <button
         type="button"
-        onClick={() => {
-          setMobileMenuOpen((prev) => !prev);
-          setMobileAboutOpen(false);
-        }}
+onClick={() => {
+  setMobileMenuOpen((prev) => !prev);
+  setMobileAboutOpen(false);
+  setMobileContactOpen(false);
+}}
         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         style={{
           border: "none",
@@ -1767,7 +1775,11 @@ useEffect(() => {
 
   <button
     type="button"
-    onClick={openAbout}
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileContactOpen(false);
+      setMobileAboutOpen(true);
+    }}
     style={{
       background: "transparent",
       border: "none",
@@ -1784,6 +1796,31 @@ useEffect(() => {
     }}
   >
     About
+  </button>
+
+  <button
+    type="button"
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileAboutOpen(false);
+      setMobileContactOpen(true);
+    }}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 19,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: 0.78,
+      fontWeight: 300,
+    }}
+  >
+    Contact
   </button>
 </div>
       </div>
@@ -1964,6 +2001,25 @@ useEffect(() => {
           />
         </div>
       </div>
+    </div>
+
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 78,
+        opacity: mobileContactOpen ? 1 : 0,
+        pointerEvents: mobileContactOpen ? "auto" : "none",
+        transition: "opacity 420ms ease",
+        background: "rgba(0,0,0,0.98)",
+        overflowY: "auto",
+        overflowX: "hidden",
+        WebkitOverflowScrolling: "touch",
+        padding: "118px 20px 80px 20px",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* contact content */}
     </div>
   </>
 );
