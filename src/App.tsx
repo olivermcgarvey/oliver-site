@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 type OverlayItem = {
   label: string;
@@ -1441,6 +1442,36 @@ flashCenterCue(nextPlaying ? "pause" : "play", 800);
     e?.stopPropagation();
     setIsBioOpen((prev) => !prev);
   };
+
+  const returnHome = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    setHasEntered(false);
+    setLandingHover(null);
+    setSection("narrative");
+    setCurrentIndex(0);
+    setDisplayIndex(0);
+    setIsFullscreen(false);
+    setIsActive(false);
+    setIsPlaying(true);
+    setIsMuted(true);
+    setShowControls(false);
+    setCursorHidden(false);
+    setIsBioOpen(false);
+    setDesktopMenuOpen(false);
+    setMobileMenuOpen(false);
+    setMobileAboutOpen(false);
+    setMobileContactOpen(false);
+    setMobileActiveProject(null);
+    setDesktopActiveProjectIndex(null);
+    setDesktopHoveredProjectIndex(null);
+    setDesktopGalleryPlaying(true);
+    pendingFullscreenTimeRef.current = null;
+  };
   const openAbout = () => {
   if (isMobile) {
     setMobileMenuOpen(false);
@@ -1621,7 +1652,9 @@ useEffect(() => {
 
   const mobileHeader = (
   <>
-    <div
+    <button
+      type="button"
+      onClick={returnHome}
       style={{
         position: "fixed",
         top: isMobileLandscape ? 28 : 48,
@@ -1633,6 +1666,12 @@ useEffect(() => {
         textAlign: "left",
         pointerEvents: mobileActiveProject ? "none" : "auto",
         background: "transparent",
+        border: "none",
+        color: "white",
+        padding: 0,
+        margin: 0,
+        cursor: "pointer",
+        fontFamily: "inherit",
       }}
     >
       <div
@@ -1658,7 +1697,7 @@ useEffect(() => {
       >
         {roleText}
       </div>
-    </div>
+    </button>
 
     <div
       style={{
@@ -1891,7 +1930,7 @@ useEffect(() => {
         <>
           <button
             type="button"
-            onClick={toggleBio}
+            onClick={returnHome}
             onMouseEnter={() => setBioLinkHover(true)}
             onMouseLeave={() => setBioLinkHover(false)}
             aria-label={isBioOpen ? "Close bio" : "Open bio"}
@@ -3174,6 +3213,7 @@ useEffect(() => {
           )}
         </>
       )}
+      <Analytics />
     </div>
   );
 }
