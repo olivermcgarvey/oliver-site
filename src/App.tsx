@@ -677,7 +677,6 @@ function MobileCardMeta({
         style={{
           textAlign: "right",
           minWidth: 118,
-          marginTop: 27,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
@@ -1778,9 +1777,6 @@ useEffect(() => {
         boxSizing: "border-box",
       }}
     >
-      <button type="button" onClick={() => setMobileAboutOpen(false)} aria-label="Close about" style={{ position: "fixed", top: isMobileLandscape ? 28 : 48, right: isMobileLandscape ? 28 : 20, zIndex: 90, border: "none", background: "transparent", color: "rgba(255,255,255,0.9)", padding: "8px 0", margin: 0, fontSize: 28, fontWeight: 100, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', lineHeight: 0.8, cursor: "pointer" }}>
-        ×
-      </button>
 
       <div style={{ maxWidth: 520, margin: "0 auto" }}>
         <div style={{ marginBottom: 42 }}>
@@ -1827,9 +1823,6 @@ useEffect(() => {
         boxSizing: "border-box",
       }}
     >
-      <button type="button" onClick={() => setMobileContactOpen(false)} aria-label="Close contact" style={{ position: "fixed", top: isMobileLandscape ? 28 : 48, right: isMobileLandscape ? 28 : 20, zIndex: 90, border: "none", background: "transparent", color: "rgba(255,255,255,0.9)", padding: "8px 0", margin: 0, fontSize: 28, fontWeight: 100, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', lineHeight: 0.8, cursor: "pointer" }}>
-        ×
-      </button>
 
       <div style={{ maxWidth: 520, margin: "0 auto" }}>
         <div style={{ marginBottom: 42 }}>
@@ -2738,7 +2731,6 @@ useEffect(() => {
                           style={{
                             textAlign: "right",
                             minWidth: 140,
-                            marginTop: 23,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "flex-end",
@@ -3081,8 +3073,8 @@ useEffect(() => {
                     <div
                       style={{
                         position: "absolute",
-                        left: 50,
-                        bottom: fullscreenMetaBottom,
+                        right: 50,
+                        bottom: fullscreenRightMetaBottom,
                         zIndex: 130,
                         userSelect: "none",
                         opacity: hasVideo ? (showControls ? 1 : 0) : 1,
@@ -3090,18 +3082,8 @@ useEffect(() => {
                         pointerEvents: "none",
                       }}
                     >
-                      <div
-                        style={{
-                          fontSize: 13,
-                          letterSpacing: "0.13em",
-                          textTransform: "uppercase",
-                          marginBottom: 5,
-                          opacity: 0.74,
-                          fontWeight: 300,
-                        }}
-                      >
-                        {current.title}
-                      </div>
+                      {rightMetaStack}
+                    </div>
 
                       <div
                         style={{
