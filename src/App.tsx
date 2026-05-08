@@ -3069,79 +3069,88 @@ useEffect(() => {
 ) : null}
 
 {showFullscreenImageMeta || showFullscreenVideoMeta ? (
-                  <>
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: 50,
-                        bottom: fullscreenRightMetaBottom,
-                        zIndex: 130,
-                        userSelect: "none",
-                        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
-                        transition: "opacity 520ms ease",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      {rightMetaStack}
-                    </div>
+  <>
+    <div
+      style={{
+        position: "absolute",
+        left: 50,
+        bottom: fullscreenMetaBottom,
+        zIndex: 130,
+        userSelect: "none",
+        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
+        transition: "opacity 520ms ease",
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        style={{
+          fontSize: 13,
+          letterSpacing: "0.13em",
+          textTransform: "uppercase",
+          marginBottom: 5,
+          opacity: 0.74,
+          fontWeight: 300,
+        }}
+      >
+        {current.title}
+      </div>
 
-                      <div
-                        style={{
-                          fontSize: 11,
-                          letterSpacing: "0.12em",
-                          textTransform: "uppercase",
-                          opacity: 0.52,
-                          marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
-                        }}
-                      >
-                        {current.role} · {current.year}
-                      </div>
+      <div
+        style={{
+          fontSize: 11,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          opacity: 0.52,
+          marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
+        }}
+      >
+        {current.role} · {current.year}
+      </div>
 
-                      {current.leftMeta ? (
-                        <div
-                          style={{
-                            fontSize: 11,
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
-                            opacity: 0.42,
-                            marginBottom: current.leftMetaExtra ? 4 : 0,
-                          }}
-                        >
-                          <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-                        </div>
-                      ) : null}
+      {current.leftMeta ? (
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.42,
+            marginBottom: current.leftMetaExtra ? 4 : 0,
+          }}
+        >
+          <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
+        </div>
+      ) : null}
 
-                      {current.leftMetaExtra ? (
-                        <div
-                          style={{
-                            fontSize: 11,
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
-                            opacity: 0.42,
-                          }}
-                        >
-                          {current.leftMetaExtra}
-                        </div>
-                      ) : null}
-                    </div>
+      {current.leftMetaExtra ? (
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.42,
+          }}
+        >
+          {current.leftMetaExtra}
+        </div>
+      ) : null}
+    </div>
 
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: 50,
-                        bottom: fullscreenRightMetaBottom,
-                        transform: "translateY(23px)",
-                        zIndex: 130,
-                        userSelect: "none",
-                        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
-                        transition: "opacity 520ms ease",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      {rightMetaStack}
-                    </div>
-                  </>
-                ) : null}
+    <div
+      style={{
+        position: "absolute",
+        right: 50,
+        bottom: fullscreenRightMetaBottom,
+        zIndex: 130,
+        userSelect: "none",
+        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
+        transition: "opacity 520ms ease",
+        pointerEvents: "none",
+      }}
+    >
+      {rightMetaStack}
+    </div>
+  </>
+) : null}
 
                 <div
                   style={{
