@@ -156,7 +156,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "394936736",
     aspect: "vertical",
     rightMetaText: "PUBLISHED",
-    rightMetaLogo: "Highsnobiety",
+    rightMetaLogo: instagramLabel,
     overlays: [],
   },
   {
