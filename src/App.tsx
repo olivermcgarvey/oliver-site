@@ -33,7 +33,7 @@ type Project = {
 const netflixLogo = "/assets/shared/logos/netflix.png";
 const nownessLogo = "/assets/shared/logos/nowness.svg";
 const idLogo = "/assets/shared/logos/id.svg";
-const highsnobietyLogo = "/assets/shared/logos/highsnobiety.svg";
+const highsnobietyLogo = "/assets/shared/logos/highsnobiety.png";
 const unknownPicturesLogo = "/assets/shared/logos/unknown-pictures-logo.png";
 const instagramLabel = "IG";
 const instagramUrl = "https://www.instagram.com/oliver_mcgarvey/";
@@ -109,6 +109,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "868033223",
     aspect: "vertical",
     leftMeta: "Co-DOP · Zack Spiger",
+    leftMetaExtra: "↗ 1M+ Organic Views",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -156,7 +157,8 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "394936736",
     aspect: "vertical",
     rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
+    rightMetaLogo: highsnobietyLogo,
+    rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
     overlays: [],
   },
   {
@@ -250,6 +252,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "1185077699",
     aspect: "vertical",
     leftMeta: "Co-DOP · Zack Spiger",
+    leftMetaExtra: "↗ 1.6M+ Organic Views",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -462,11 +465,12 @@ function CenterCue({
 function platformLogoStyle(logo?: string): React.CSSProperties {
   if (logo === highsnobietyLogo) {
     return {
-      height: 10,
+      height: 8,
       width: "auto",
       display: "block",
-      opacity: 0.86,
-      filter: "brightness(0) invert(1)",
+      opacity: 0.68,
+      filter: "none",
+      transform: "translateY(1px)",
     };
   }
 
