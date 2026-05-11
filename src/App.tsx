@@ -45,7 +45,7 @@ const bunny = (path: string) => `${BUNNY_BASE}${path}`;
 
 const narrativeProjects: Project[] = [
   {
-    title: "Falling Into The Grass (Brom's Lament)",
+    title: "Brom's Lament",
     status: "Unreleased",
     role: "Short Film · 35MM",
     year: "2026",
@@ -58,14 +58,14 @@ const narrativeProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "Under the Living Sky",
+    title: "An Invisible Tribunal In My Head",
     status: "In Post Production",
     role: "Hybrid Documentary · 35MM & Digital",
     year: "Ongoing",
     image: bunny("/narrative/happy-citizens/poster.webp"),
     video: bunny("/narrative/happy-citizens/trailer.mp4"),
     mobileVimeoId: "1185277116",
-    leftMeta: "Canada Council for the Arts",
+    leftMeta: "Supported by Canada Council for the Arts",
     rightMetaText: "IN POST PRODUCTION",
     overlays: [],
   },
@@ -125,7 +125,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "1185057987",
     aspect: "vertical",
     leftMeta: "Art Direction · Fritz Schiffers",
-    leftMetaExtra: "Paris Fashion Week",
+    leftMetaExtra: "Paris Fashion Week · Summer/Spring",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -156,11 +156,11 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "394936736",
     aspect: "vertical",
     rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
+    rightMetaLogo: "Highsnobiety",
     overlays: [],
   },
   {
-    title: "MYKITA",
+    title: "MYKITA · TUMI",
     status: "Released",
     role: "Campaign · 16MM · 8MM",
     year: "2024",
@@ -239,7 +239,7 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "MYKITA",
+    title: "MYKITA · KAT",
     status: "Released",
     role: "Campaign · 16MM · 8MM",
     year: "2024",
