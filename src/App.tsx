@@ -58,7 +58,7 @@ const narrativeProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "An Invisible Tribunal In My Head",
+    title: "Portrait of The Living Sky",
     status: "In Post Production",
     role: "Hybrid Documentary · 35MM & Digital",
     year: "Ongoing",
