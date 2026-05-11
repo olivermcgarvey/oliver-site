@@ -109,7 +109,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "868033223",
     aspect: "vertical",
     leftMeta: "Co-DOP · Zack Spiger",
-    leftMetaExtra: "↗ 1M+ Organic Views",
+    leftMetaExtra: "ORGANIC VIEWS · 1M+",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -252,7 +252,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "1185077699",
     aspect: "vertical",
     leftMeta: "Co-DOP · Zack Spiger",
-    leftMetaExtra: "↗ 1.6M+ Organic Views",
+    leftMetaExtra: "ORGANIC VIEWS · 1.6M+",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -465,7 +465,7 @@ function CenterCue({
 function platformLogoStyle(logo?: string): React.CSSProperties {
   if (logo === highsnobietyLogo) {
     return {
-      height: 8,
+      height: 11,
       width: "auto",
       display: "block",
       opacity: 0.68,
