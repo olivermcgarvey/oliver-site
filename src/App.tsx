@@ -331,7 +331,7 @@ function PauseIcon({ size = 12 }: { size?: number }) {
   );
 }
 
-function MuteIcon({ muted }: { muted: boolean }) {
+function MuteIcon({ muted, size = 12 }: { muted: boolean; size?: number }) {
   return muted ? (
     <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M1.5 4.5H3.8L6.4 2.2V9.8L3.8 7.5H1.5V4.5Z" fill="currentColor" />
@@ -1158,11 +1158,19 @@ useEffect(() => {
 
     const handleFullscreenChange = () => {
       const active = !!document.fullscreenElement;
-      setIsFullscreen(active);
+
+      if (!active) {
+        setIsFullscreen(false);
+        setShowControls(false);
+        setCursorHidden(false);
+        return;
+      }
+
+      setIsFullscreen(true);
       setShowControls(true);
       setCursorHidden(false);
 
-      if (active && hasVideo) {
+      if (hasVideo) {
         setIsMuted(false);
         setIsActive(true);
         setIsPlaying(true);
@@ -1180,6 +1188,21 @@ useEffect(() => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, [hasVideo, isMobile]);
+
+  useEffect(() => {
+    if (isMobile || !isFullscreen) return;
+
+    const frameId = window.requestAnimationFrame(() => {
+      if (!frameRef.current) return;
+      if (document.fullscreenElement) return;
+
+      frameRef.current.requestFullscreen?.().catch(() => {});
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [isFullscreen, isMobile, displayIndex]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -2627,51 +2650,62 @@ useEffect(() => {
                           </div>
                         ) : null}
 
-<div
-  style={{
-    position: "absolute",
-    right: 22,
-    bottom: 22,
-    zIndex: 6,
-    display: "flex",
-    gap: 8,
-    opacity: desktopHoveredProjectIndex === i ? 0.72 : 0.28,
-    transform: desktopHoveredProjectIndex === i ? "scale(1.04)" : "scale(1)",
-    transition: "opacity 320ms ease, transform 320ms ease",
-    pointerEvents: "auto",
-  }}
->
-                          <ControlButton
-                            onClick={(e) => {
-                              e.stopPropagation();
+{cardHasPlayback ? (
+  <div
+    style={{
+      position: "absolute",
+      right: 18,
+      bottom: 18,
+      zIndex: 6,
+      display: "flex",
+      gap: 8,
+      opacity:
+        !isDesktopCardActive ||
+        !desktopGalleryPlaying ||
+        desktopHoveredProjectIndex === i
+          ? 0.78
+          : 0,
+      transform:
+        !isDesktopCardActive ||
+        !desktopGalleryPlaying ||
+        desktopHoveredProjectIndex === i
+          ? "scale(1)"
+          : "scale(0.96)",
+      transition: "opacity 320ms ease, transform 320ms ease",
+      pointerEvents:
+        !isDesktopCardActive ||
+        !desktopGalleryPlaying ||
+        desktopHoveredProjectIndex === i
+          ? "auto"
+          : "none",
+    }}
+  >
+    <ControlButton
+      onClick={(e) => {
+        e.stopPropagation();
 
-                              const sourceVideo = desktopGalleryVideoRefs.current[i];
-                              pendingFullscreenTimeRef.current = sourceVideo
-                                ? sourceVideo.currentTime
-                                : null;
+        const sourceVideo = desktopGalleryVideoRefs.current[i];
+        pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
 
-                              setCurrentIndex(i);
-                              setDisplayIndex(i);
-                              setIsActive(cardHasPlayback);
-                              setIsPlaying(true);
-                              setIsMuted(false);
-                              setVideoReady(!cardHasPlayback);
-                              setShowControls(true);
-                              setCursorHidden(false);
-                              setDesktopActiveProjectIndex(null);
-                              setDesktopHoveredProjectIndex(null);
-                              setDesktopGalleryPlaying(true);
-                              setIsFullscreen(true);
-
-                              if (document.documentElement.requestFullscreen) {
-                              document.documentElement.requestFullscreen().catch(() => {});
-                             }
-                            }}
-                            ariaLabel="Open fullscreen"
-                          >
-                            <FullscreenIcon active={false} size={17} />
-                          </ControlButton>
-                        </div>
+        setCurrentIndex(i);
+        setDisplayIndex(i);
+        setIsActive(true);
+        setIsPlaying(true);
+        setIsMuted(false);
+        setVideoReady(false);
+        setShowControls(true);
+        setCursorHidden(false);
+        setDesktopActiveProjectIndex(null);
+        setDesktopHoveredProjectIndex(null);
+        setDesktopGalleryPlaying(true);
+        setIsFullscreen(true);
+      }}
+      ariaLabel="Open fullscreen"
+    >
+      <FullscreenIcon active={false} size={17} />
+    </ControlButton>
+  </div>
+) : null}
 
 {cardHasPlayback && isDesktopCardActive ? (
   <div
