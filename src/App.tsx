@@ -934,8 +934,8 @@ const isMobileLandscape =
   const showFullscreenImageMeta = isFullscreen && !hasVideo;
   const showFullscreenVideoMeta = isFullscreen && hasVideo && showControls;
 
-  const frameWidth = isMobile ? "92vw" : "64vw";
-  const frameMaxWidth = isMobile ? "none" : "1080px";
+  const frameWidth = isMobile ? "92vw" : "72vw";
+  const frameMaxWidth = isMobile ? "none" : "1480px";
 
   const metaBottom = isMobile ? 28 : 42;
   const rightMetaBottom = metaBottom;
