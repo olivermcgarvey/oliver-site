@@ -2553,9 +2553,9 @@ useEffect(() => {
   ref={(el) => {
     desktopCardRefs.current[i] = el;
   }}
-  style={{
-    marginBottom: i === projects.length - 1 ? 24 : 96,
-  }}
+style={{
+  marginBottom: i === projects.length - 1 ? 24 : 148,
+}}
 >
                       <div
                         onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
