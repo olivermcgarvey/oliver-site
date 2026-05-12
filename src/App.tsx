@@ -53,7 +53,7 @@ const narrativeProjects: Project[] = [
     video: bunny("/narrative/falling-into-the-grass/trailer.mp4"),
     mobileVimeoId: "1078472394",
     leftMeta: "Executive Producer · Lemohang Mosese",
-    leftMetaLink: "https://en.wikipedia.org/wiki/Lemohang_Jeremiah_Mosese",
+    leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese"
     rightMetaText: "UNRELEASED",
     overlays: [],
   },
@@ -88,7 +88,7 @@ const narrativeProjects: Project[] = [
     video: bunny("/narrative/romantic-road/trailer.mp4"),
     mobileVimeoId: "272953327",
     leftMeta: "Executive Producer · Sharon Stone",
-    leftMetaLink: "https://en.wikipedia.org/wiki/Sharon_Stone",
+    leftMetaLink: "https://www.imdb.com/name/nm0000232/?ref_=ext_shr_lnk",
     rightMetaText: "THEATRICAL · STREAMING",
     rightMetaLogo: netflixLogo,
     rightMetaLink: "https://www.netflix.com/title/81639637",
