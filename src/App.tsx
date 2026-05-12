@@ -2627,19 +2627,20 @@ useEffect(() => {
                           </div>
                         ) : null}
 
-                        <div
-                          style={{
-                            position: "absolute",
-                            right: 14,
-                            bottom: 14,
-                            zIndex: 6,
-                            display: "flex",
-                            gap: 8,
-                            opacity: desktopHoveredProjectIndex === i ? 0.86 : 0,
-                            transition: "opacity 420ms ease",
-                            pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
-                          }}
-                        >
+<div
+  style={{
+    position: "absolute",
+    right: 22,
+    bottom: 22,
+    zIndex: 6,
+    display: "flex",
+    gap: 8,
+    opacity: desktopHoveredProjectIndex === i ? 0.72 : 0.28,
+    transform: desktopHoveredProjectIndex === i ? "scale(1.04)" : "scale(1)",
+    transition: "opacity 320ms ease, transform 320ms ease",
+    pointerEvents: "auto",
+  }}
+>
                           <ControlButton
                             onClick={(e) => {
                               e.stopPropagation();
