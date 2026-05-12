@@ -934,8 +934,8 @@ const isMobileLandscape =
   const showFullscreenImageMeta = isFullscreen && !hasVideo;
   const showFullscreenVideoMeta = isFullscreen && hasVideo && showControls;
 
-  const frameWidth = isMobile ? "92vw" : "72vw";
-  const frameMaxWidth = isMobile ? "none" : "1480px";
+  const frameWidth = isMobile ? "92vw" : "min(68vw, 1900px)";
+  const frameMaxWidth = isMobile ? "none" : "none";
 
   const metaBottom = isMobile ? 28 : 42;
   const rightMetaBottom = metaBottom;
@@ -1956,32 +1956,33 @@ useEffect(() => {
         mobileHeader
       ) : (
         <>
-          <button
-            type="button"
-            onClick={returnHome}
-            onMouseEnter={() => setBioLinkHover(true)}
-            onMouseLeave={() => setBioLinkHover(false)}
-            aria-label={isBioOpen ? "Close bio" : "Open bio"}
-            style={{
-              position: "absolute",
-              top: 42,
-              left: 52,
-              zIndex: 60,
-              userSelect: "none",
-              opacity: isFullscreen ? 0 : bioLinkHover ? 0.98 : 0.88,
-              transition: "opacity 320ms ease",
-              border: "none",
-              background: "transparent",
-              color: "inherit",
-              padding: 0,
-              margin: 0,
-              textAlign: "left",
-              cursor: "pointer",
-            }}
-          >
+<button
+  type="button"
+  onClick={returnHome}
+  onMouseEnter={() => setBioLinkHover(true)}
+  onMouseLeave={() => setBioLinkHover(false)}
+  aria-label={isBioOpen ? "Close bio" : "Open bio"}
+  style={{
+    position: "absolute",
+    top: 42,
+    left: 52,
+    zIndex: 60,
+    userSelect: "none",
+    opacity: isFullscreen ? 0 : bioLinkHover ? 0.98 : 0.88,
+    transition: "opacity 320ms ease",
+    border: "none",
+    background: "transparent",
+    color: "inherit",
+    padding: 0,
+    margin: 0,
+    textAlign: "left",
+    cursor: "pointer",
+    fontFamily: "inherit",
+  }}
+>
             <div
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
               }}
@@ -1992,7 +1993,7 @@ useEffect(() => {
             <div
               style={{
                 marginTop: 8,
-                fontSize: 10,
+                fontSize: 11,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 opacity: roleVisible ? (bioLinkHover ? 0.58 : hasEntered ? 0.46 : 0.38) : 0,
@@ -2032,7 +2033,7 @@ useEffect(() => {
       padding: 0,
       margin: 0,
       cursor: "pointer",
-      fontSize: 11,
+      fontSize: 12,
       letterSpacing: "0.14em",
       textTransform: "uppercase",
       opacity: navHover === "about" || desktopMenuOpen ? 0.96 : 0.72,
@@ -2528,7 +2529,7 @@ useEffect(() => {
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: "132px 0 120px 0",
+                padding: "0",
                 boxSizing: "border-box",
                 zIndex: 10,
               }}
@@ -2553,7 +2554,11 @@ useEffect(() => {
     desktopCardRefs.current[i] = el;
   }}
   style={{
-    marginBottom: i === projects.length - 1 ? 24 : 96,
+    minHeight: "100vh",
+    marginBottom: 0,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   }}
 >
                       <div
