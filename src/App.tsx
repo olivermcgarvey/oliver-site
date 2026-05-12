@@ -53,7 +53,7 @@ const narrativeProjects: Project[] = [
     video: bunny("/narrative/falling-into-the-grass/trailer.mp4"),
     mobileVimeoId: "1078472394",
     leftMeta: "Executive Producer · Lemohang Mosese",
-    leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese"
+    leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese",
     rightMetaText: "UNRELEASED",
     overlays: [],
   },
