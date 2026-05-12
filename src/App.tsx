@@ -316,7 +316,7 @@ function ArrowIcon({ direction }: { direction: "left" | "right" }) {
 
 function PlayIcon({ size = 12 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 10 10" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M2 1.5L8 5L2 8.5V1.5Z" fill="currentColor" />
     </svg>
   );
@@ -324,7 +324,7 @@ function PlayIcon({ size = 12 }: { size?: number }) {
 
 function PauseIcon({ size = 12 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 10 10" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <rect x="2" y="1.5" width="2" height="7" fill="currentColor" />
       <rect x="6" y="1.5" width="2" height="7" fill="currentColor" />
     </svg>
@@ -333,12 +333,12 @@ function PauseIcon({ size = 12 }: { size?: number }) {
 
 function MuteIcon({ muted }: { muted: boolean }) {
   return muted ? (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M1.5 4.5H3.8L6.4 2.2V9.8L3.8 7.5H1.5V4.5Z" fill="currentColor" />
       <path d="M2 2L10 10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
     </svg>
   ) : (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M1.5 4.5H3.8L6.4 2.2V9.8L3.8 7.5H1.5V4.5Z" fill="currentColor" />
       <path
         d="M8 4C8.5 4.4 8.8 5.1 8.8 6C8.8 6.9 8.5 7.6 8 8"
@@ -350,16 +350,16 @@ function MuteIcon({ muted }: { muted: boolean }) {
   );
 }
 
-function FullscreenIcon({ active }: { active: boolean }) {
+function FullscreenIcon({ active, size = 12 }: { active: boolean; size?: number }) {
   return active ? (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M4 1.8H1.8V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
       <path d="M8 1.8H10.2V4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
       <path d="M4 10.2H1.8V8" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
       <path d="M8 10.2H10.2V8" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
     </svg>
   ) : (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path d="M3.5 1.8H1.8V3.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
       <path d="M8.5 1.8H10.2V3.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
       <path d="M3.5 10.2H1.8V8.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
