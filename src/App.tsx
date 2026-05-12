@@ -934,8 +934,8 @@ const isMobileLandscape =
   const showFullscreenImageMeta = isFullscreen && !hasVideo;
   const showFullscreenVideoMeta = isFullscreen && hasVideo && showControls;
 
-  const frameWidth = isMobile ? "92vw" : "min(68vw, 1900px)";
-  const frameMaxWidth = isMobile ? "none" : "none";
+  const frameWidth = isMobile ? "92vw" : "64vw";
+  const frameMaxWidth = isMobile ? "none" : "1080px";
 
   const metaBottom = isMobile ? 28 : 42;
   const rightMetaBottom = metaBottom;
@@ -2529,7 +2529,7 @@ useEffect(() => {
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: "0",
+                padding: "132px 0 120px 0",
                 boxSizing: "border-box",
                 zIndex: 10,
               }}
@@ -2554,11 +2554,7 @@ useEffect(() => {
     desktopCardRefs.current[i] = el;
   }}
   style={{
-    minHeight: "100vh",
-    marginBottom: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    marginBottom: i === projects.length - 1 ? 24 : 96,
   }}
 >
                       <div
@@ -2655,62 +2651,44 @@ useEffect(() => {
                           </div>
                         ) : null}
 
-{cardHasPlayback ? (
-  <div
-    style={{
-      position: "absolute",
-      right: 18,
-      bottom: 18,
-      zIndex: 6,
-      display: "flex",
-      gap: 8,
-      opacity:
-        !isDesktopCardActive ||
-        !desktopGalleryPlaying ||
-        desktopHoveredProjectIndex === i
-          ? 0.78
-          : 0,
-      transform:
-        !isDesktopCardActive ||
-        !desktopGalleryPlaying ||
-        desktopHoveredProjectIndex === i
-          ? "scale(1)"
-          : "scale(0.96)",
-      transition: "opacity 320ms ease, transform 320ms ease",
-      pointerEvents:
-        !isDesktopCardActive ||
-        !desktopGalleryPlaying ||
-        desktopHoveredProjectIndex === i
-          ? "auto"
-          : "none",
+<div
+  style={{
+    position: "absolute",
+    right: 14,
+    bottom: 14,
+    zIndex: 6,
+    display: "flex",
+    gap: 8,
+    opacity: desktopHoveredProjectIndex === i ? 0.86 : 0,
+    transition: "opacity 420ms ease",
+    pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
+  }}
+>
+  <ControlButton
+    onClick={(e) => {
+      e.stopPropagation();
+
+      const sourceVideo = desktopGalleryVideoRefs.current[i];
+      pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
+
+      setCurrentIndex(i);
+      setDisplayIndex(i);
+      setIsActive(cardHasPlayback);
+      setIsPlaying(true);
+      setIsMuted(false);
+      setVideoReady(!cardHasPlayback);
+      setShowControls(true);
+      setCursorHidden(false);
+      setDesktopActiveProjectIndex(null);
+      setDesktopHoveredProjectIndex(null);
+      setDesktopGalleryPlaying(true);
+      setIsFullscreen(true);
     }}
+    ariaLabel="Open fullscreen"
   >
-    <ControlButton
-      onClick={(e) => {
-        e.stopPropagation();
-
-        const sourceVideo = desktopGalleryVideoRefs.current[i];
-        pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
-
-        setCurrentIndex(i);
-        setDisplayIndex(i);
-        setIsActive(true);
-        setIsPlaying(true);
-        setIsMuted(false);
-        setVideoReady(false);
-        setShowControls(true);
-        setCursorHidden(false);
-        setDesktopActiveProjectIndex(null);
-        setDesktopHoveredProjectIndex(null);
-        setDesktopGalleryPlaying(true);
-        setIsFullscreen(true);
-      }}
-      ariaLabel="Open fullscreen"
-    >
-      <FullscreenIcon active={false} size={17} />
-    </ControlButton>
-  </div>
-) : null}
+    <FullscreenIcon active={false} />
+  </ControlButton>
+</div>
 
 {cardHasPlayback && isDesktopCardActive ? (
   <div
@@ -2741,7 +2719,9 @@ useEffect(() => {
   </div>
 ) : null}
 
-{project.flashWarning ? <WarningBadge /> : null}
+{project.flashWarning && (!isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i) ? (
+  <WarningBadge />
+) : null}
                       </div>
 
                       <div
