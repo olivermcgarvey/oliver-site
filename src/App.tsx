@@ -1873,40 +1873,24 @@ useEffect(() => {
       marginBottom: 14,
     }}
   >
-    Featured In
+    Selected Clients & Features
   </div>
 
   <div
     style={{
       fontSize: 13.5,
-      lineHeight: 1.72,
+      lineHeight: 1.82,
       letterSpacing: "0.01em",
       opacity: 0.86,
-      marginBottom: 24,
     }}
   >
-    Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
+    Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
+    <br />
+    Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+    <br />
+    The Guardian · Vanity Fair · Vogue
   </div>
-
-  <div
-    style={{
-      fontSize: 10.5,
-      letterSpacing: "0.14em",
-      textTransform: "uppercase",
-      lineHeight: 1.9,
-      opacity: 0.52,
-    }}
-  >
-    Selected Clients & Features
-    <br />
-    <br />
-  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
-  <br />
-  Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
-  <br />
-  The Guardian · Vanity Fair · Vogue
-</div>
-</div>
+</div> 
       </div>
     </div>
 
