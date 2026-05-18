@@ -1851,26 +1851,62 @@ useEffect(() => {
             Bio
           </div>
 
-          <div style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", opacity: 0.86 }}>
-            Canadian director working between Berlin and Canada.
-            <br />
-            <br />
-            Working across narrative and commercial film, his projects span documentary, slow cinema, fashion and cultural commissions.
-            <br />
-            <br />
-            His work focuses on atmosphere, messy human emotions and formal restraint.
-          </div>
+<div style={{ fontSize: 13.5, lineHeight: 1.78, letterSpacing: "0.01em", opacity: 0.86 }}>
+  Oliver McGarvey is a Canadian director working between Edmonton and Berlin.
+  <br />
+  <br />
+  His work spans narrative, documentary and commissioned film, often drawn to social and spiritual spaces. Led by empathy and curiosity, his films move between the intimate and observational, searching for real moments of connection inside worlds shaped by ideology, technology and isolation.
+  <br />
+  <br />
+  Open in form, theme and subject, his work often returns to the tension between community and radical individualism, nature and technology, inner being and public performance. He approaches each project with atmospheric restraint, looking closely at the ways people try to understand themselves, each other and the worlds they belong to.
+</div>
         </div>
 
-        <div>
-          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
-            Featured In
-          </div>
+<div>
+  <div
+    style={{
+      fontSize: 10.5,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      opacity: 0.38,
+      lineHeight: 1.45,
+      marginBottom: 14,
+    }}
+  >
+    Featured In
+  </div>
 
-          <div style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", opacity: 0.86 }}>
-            Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
-          </div>
-        </div>
+  <div
+    style={{
+      fontSize: 13.5,
+      lineHeight: 1.72,
+      letterSpacing: "0.01em",
+      opacity: 0.86,
+      marginBottom: 24,
+    }}
+  >
+    Nowness, The Guardian, The Times, i-D, Vogue and Vanity Fair.
+  </div>
+
+  <div
+    style={{
+      fontSize: 10.5,
+      letterSpacing: "0.14em",
+      textTransform: "uppercase",
+      lineHeight: 1.9,
+      opacity: 0.52,
+    }}
+  >
+    Selected Clients & Features
+    <br />
+    <br />
+  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
+  <br />
+  Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+  <br />
+  The Guardian · Vanity Fair · Vogue
+</div>
+</div>
       </div>
     </div>
 
@@ -2154,29 +2190,26 @@ useEffect(() => {
       Bio
     </div>
 
-    <div
-      style={{
-        fontSize: 14,
-        lineHeight: 1.7,
-        letterSpacing: "0.01em",
-        opacity: 0.9,
-      }}
-    >
-      <div style={{ marginBottom: 20 }}>
-        Canadian director working between Berlin and Canada.
-      </div>
+<div
+  style={{
+    fontSize: 14,
+    lineHeight: 1.78,
+    letterSpacing: "0.01em",
+    opacity: 0.9,
+  }}
+>
+  <div style={{ marginBottom: 22 }}>
+    Oliver McGarvey is a Canadian director working between Edmonton and Berlin.
+  </div>
 
-      <div style={{ marginBottom: 20 }}>
-        Working across narrative and commercial film,<br />
-        his projects span documentary, slow cinema,<br />
-        fashion and cultural commissions.
-      </div>
+  <div style={{ marginBottom: 22 }}>
+    His work spans narrative, documentary and commissioned film, often drawn to social and spiritual spaces. Led by empathy and curiosity, his films move between the intimate and observational, searching for real moments of connection inside worlds shaped by ideology, technology and isolation.
+  </div>
 
-      <div>
-        His work focuses on atmosphere,<br />
-        messy human emotions and formal restraint.
-      </div>
-    </div>
+  <div>
+    Open in form, theme and subject, his work often returns to the tension between community and radical individualism, nature and technology, inner being and public performance. He approaches each project with atmospheric restraint, looking closely at the ways people try to understand themselves, each other and the worlds they belong to.
+  </div>
+</div>
   </div>
 
   <div>
@@ -2256,7 +2289,7 @@ useEffect(() => {
         marginBottom: 14,
       }}
     >
-      Featured In
+      Selected Clients & Features
     </div>
 
     <div
@@ -2267,9 +2300,12 @@ useEffect(() => {
         opacity: 0.9,
       }}
     >
-      Nowness, The Guardian, The Times,<br />
-      i-D, Vogue and Vanity Fair.
-    </div>
+  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
+  <br />
+  Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+  <br />
+  The Guardian · Vanity Fair · Vogue
+</div>
   </div>
 
   <div>
