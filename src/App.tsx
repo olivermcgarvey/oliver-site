@@ -2280,16 +2280,16 @@ useEffect(() => {
     fontSize: 14,
     lineHeight: 1.7,
     letterSpacing: "0.01em",
-    opacity: 0.9,
+    opacity: 0.78,
   }}
 >
-  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine
+  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards
   <br />
-  Highsnobiety · i-D · Leica · Miu Miu · MYKITA · Netflix · Nowness
+  Gruppe Magazine · Highsnobiety · i-D · Leica · Miu Miu · MYKITA
   <br />
-  Pool · Schinkel Pavillon · Sia Arnika · Slam Jam · The Guardian
+  Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
   <br />
-  Vanity Fair · Vogue
+  The Guardian · Vanity Fair · Vogue
 </div>
   </div>
 
