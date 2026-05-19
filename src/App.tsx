@@ -2002,8 +2002,8 @@ useEffect(() => {
 >
             <div
               style={{
-                fontSize: 12,
-                letterSpacing: "0.18em",
+                fontSize: 14,
+                letterSpacing: "0.16em",
                 textTransform: "uppercase",
               }}
             >
@@ -2012,9 +2012,9 @@ useEffect(() => {
 
             <div
               style={{
-                marginTop: 8,
-                fontSize: 11,
-                letterSpacing: "0.14em",
+                marginTop: 9,
+                fontSize: 12,
+                letterSpacing: "0.13em",
                 textTransform: "uppercase",
                 opacity: roleVisible ? (bioLinkHover ? 0.58 : hasEntered ? 0.46 : 0.38) : 0,
                 transform: roleVisible ? "translateY(0)" : "translateY(8px)",
@@ -2053,8 +2053,8 @@ useEffect(() => {
       padding: 0,
       margin: 0,
       cursor: "pointer",
-      fontSize: 12,
-      letterSpacing: "0.14em",
+      fontSize: 14,
+      letterSpacing: "0.13em",
       textTransform: "uppercase",
       opacity: navHover === "about" || desktopMenuOpen ? 0.96 : 0.72,
       transition: "opacity 320ms ease",
@@ -2099,8 +2099,8 @@ useEffect(() => {
           padding: 0,
           margin: 0,
           cursor: "pointer",
-          fontSize: 12,
-          letterSpacing: "0.12em",
+          fontSize: 14,
+          letterSpacing: "0.11em",
           textTransform: "uppercase",
           opacity: navHover === item.key ? 0.96 : 0.58,
           transition: "opacity 280ms ease",
@@ -2141,8 +2141,8 @@ useEffect(() => {
     position: "fixed",
     top: 86,
     left: 52,
-    width: 780,
-    minHeight: 360,
+    width: 920,
+    minHeight: 390,
     background: "rgba(0,0,0,0.9)",
     zIndex: 56,
     opacity: isBioOpen ? 1 : 0,
@@ -2152,9 +2152,9 @@ useEffect(() => {
     padding: "34px 40px 38px 40px",
     boxSizing: "border-box",
     display: "grid",
-    gridTemplateColumns: "380px 280px",
+    gridTemplateColumns: "480px 280px",
     gridTemplateRows: "auto auto",
-    columnGap: 68,
+    columnGap: 80,
     rowGap: 30,
     alignItems: "start",
     backdropFilter: "blur(4px)",
