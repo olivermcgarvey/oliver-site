@@ -908,7 +908,7 @@ const isMobileLandscape =
   const [bioLinkHover, setBioLinkHover] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
-  const [roleText, setRoleText] = useState("Director");
+  const [roleText, setRoleText] = useState("Film Director");
   const [roleVisible, setRoleVisible] = useState(true);
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
@@ -1024,7 +1024,7 @@ if (mobileActiveProject) {
     ? section === "narrative"
       ? "Writer · Director"
       : "Director · Cinematographer"
-   : "Director";
+   : "Film Director";
 
     setRoleVisible(false);
 
@@ -2012,7 +2012,7 @@ useEffect(() => {
 
             <div
               style={{
-                marginTop: 9,
+                marginTop: 5,
                 fontSize: 12,
                 letterSpacing: "0.13em",
                 textTransform: "uppercase",
