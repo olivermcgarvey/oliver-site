@@ -1870,11 +1870,11 @@ useEffect(() => {
   <br />
   He is currently completing a hybrid documentary supported by the Canada Council for the Arts and developing his debut narrative feature screenplay with support from Telefilm Canada.
 </div>
-        </div>
+  </div>
 
-<div>
-  <div
-    style={{
+  <div>
+    <div
+      style={{
       fontSize: 10.5,
       letterSpacing: "0.14em",
       textTransform: "uppercase",
