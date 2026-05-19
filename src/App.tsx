@@ -2141,7 +2141,7 @@ useEffect(() => {
     position: "fixed",
     top: 86,
     left: 52,
-    width: 920,
+    width: 1020,
     minHeight: 390,
     background: "rgba(0,0,0,0.9)",
     zIndex: 56,
@@ -2152,7 +2152,7 @@ useEffect(() => {
     padding: "34px 40px 38px 40px",
     boxSizing: "border-box",
     display: "grid",
-    gridTemplateColumns: "480px 280px",
+    gridTemplateColumns: "520px 280px",
     gridTemplateRows: "auto auto",
     columnGap: 80,
     rowGap: 30,
@@ -2275,20 +2275,21 @@ useEffect(() => {
     >
       Selected Clients & Features
     </div>
-
-    <div
-      style={{
-        fontSize: 14,
-        lineHeight: 1.7,
-        letterSpacing: "0.01em",
-        opacity: 0.9,
-      }}
-    >
-  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
+<div
+  style={{
+    fontSize: 14,
+    lineHeight: 1.7,
+    letterSpacing: "0.01em",
+    opacity: 0.9,
+  }}
+>
+  Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine
   <br />
-  Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+  Highsnobiety · i-D · Leica · Miu Miu · MYKITA · Netflix · Nowness
   <br />
-  The Guardian · Vanity Fair · Vogue
+  Pool · Schinkel Pavillon · Sia Arnika · Slam Jam · The Guardian
+  <br />
+  Vanity Fair · Vogue
 </div>
   </div>
 
