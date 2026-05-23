@@ -1859,16 +1859,13 @@ useEffect(() => {
     opacity: 0.86,
   }}
 >
-  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin.
+  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin. His work spans documentary, narrative and commissioned films.
   <br />
   <br />
-  His work is about entering the rarely exposed spaces where people really feel and experience life. Travelling beneath the surface into the complex realm of our beautiful but distorted experiences.
+  His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and emotional realism.
   <br />
   <br />
-  Open in form, he allows each project to grow naturally, yet generally gravitates towards atmospheric images, visual restraint and emotional realism.
-  <br />
-  <br />
-  He is currently completing a hybrid documentary (supported by the Canada Council) and actively developing his debut narrative feature screenplay with support from Telefilm Canada.
+  Alongside being a regular Canada Council jury member, he is currently in post-production on a hybrid documentary and developing his debut feature screenplay with support from Telefilm Canada.
 </div>
   </div>
 
@@ -1896,7 +1893,7 @@ useEffect(() => {
   >
     Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
     <br />
-    Leica · Miu Miu · MYKITA · Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+    Leica · Miu Miu · MYKITA · Netflix · Nowness · Schinkel Pavillon · Sia Arnika · Slam Jam
     <br />
     The Guardian · Vanity Fair · Vogue
   </div>
@@ -2193,19 +2190,15 @@ useEffect(() => {
       }}
     >
       <div style={{ marginBottom: 20 }}>
-        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin.
+        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin. His work spans documentary, narrative and commissioned films.
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        His work is about entering the rarely exposed spaces where people really feel and experience life. Travelling beneath the surface into the complex realm of our beautiful but distorted experiences.
-      </div>
-
-      <div style={{ marginBottom: 20 }}>
-        Open in form, he allows each project to grow naturally, yet generally gravitates towards atmospheric images, visual restraint and emotional realism.
+        His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and emotional realism.
       </div>
 
       <div>
-        He is currently completing a hybrid documentary (supported by the Canada Council) and actively developing his debut narrative feature screenplay with support from Telefilm Canada.
+        Alongside being a regular Canada Council jury member, he is currently in post-production on a hybrid documentary and developing his debut feature screenplay with support from Telefilm Canada.
       </div>
     </div>
   </div>
@@ -2300,7 +2293,7 @@ useEffect(() => {
   <br />
   Gruppe Magazine · Highsnobiety · i-D · Leica · Miu Miu · MYKITA
   <br />
-  Netflix · Nowness · Pool · Schinkel Pavillon · Sia Arnika · Slam Jam
+  Netflix · Nowness · Schinkel Pavillon · Sia Arnika · Slam Jam
   <br />
   The Guardian · Vanity Fair · Vogue
 </div>
