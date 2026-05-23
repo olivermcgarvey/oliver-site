@@ -1859,7 +1859,7 @@ useEffect(() => {
     opacity: 0.86,
   }}
 >
-  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin. His work spans documentary, narrative and commissioned films.
+  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin across documentary, narrative and commissioned films.
   <br />
   <br />
   His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and emotional realism.
@@ -2190,7 +2190,7 @@ useEffect(() => {
       }}
     >
       <div style={{ marginBottom: 20 }}>
-        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin. His work spans documentary, narrative and commissioned films.
+        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin across documentary, narrative and commissioned films.
       </div>
 
       <div style={{ marginBottom: 20 }}>
