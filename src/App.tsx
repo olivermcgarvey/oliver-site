@@ -1859,16 +1859,16 @@ useEffect(() => {
     opacity: 0.86,
   }}
 >
-  Oliver McGarvey is a Canadian director working between Edmonton and Berlin.
+  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin.
   <br />
   <br />
-  His work spans narrative, documentary and commissioned film, often drawn to social and spiritual spaces. Through empathy and curiosity, his films move between the intimate and observational, searching for moments of connection inside worlds shaped by ideology, isolation and technology.
+  His work is about entering the rarely exposed spaces where people really feel and experience life. Travelling beneath the surface into the complex realm of our beautiful but distorted experiences.
   <br />
   <br />
-  Although open in form and theme, his work often returns to the tension between community and radical individualism, nature and technology, inner being and public performance. He approaches each project with atmospheric restraint, looking closely at the ways people try to understand themselves, each other and the worlds they belong to.
+  Open in form, he allows each project to grow naturally, yet generally gravitates towards atmospheric images, visual restraint and emotional realism.
   <br />
   <br />
-  He is currently completing a hybrid documentary supported by the Canada Council for the Arts and developing his debut narrative feature screenplay with support from Telefilm Canada.
+  He is currently completing a hybrid documentary (supported by the Canada Council) and actively developing his debut narrative feature screenplay with support from Telefilm Canada.
 </div>
   </div>
 
@@ -2193,23 +2193,22 @@ useEffect(() => {
       }}
     >
       <div style={{ marginBottom: 20 }}>
-        Oliver McGarvey is a Canadian director working between Edmonton and Berlin.
+        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin.
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        His work spans narrative, documentary and commissioned film, often drawn to social and spiritual spaces. Through empathy and curiosity, his films move between the intimate and observational, searching for moments of connection inside worlds shaped by ideology, isolation and technology.
+        His work is about entering the rarely exposed spaces where people really feel and experience life. Travelling beneath the surface into the complex realm of our beautiful but distorted experiences.
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        Although open in form and theme, his work often returns to the tension between community and radical individualism, nature and technology, inner being and public performance. He approaches each project with atmospheric restraint, looking closely at the ways people try to understand themselves, each other and the worlds they belong to.
+        Open in form, he allows each project to grow naturally, yet generally gravitates towards atmospheric images, visual restraint and emotional realism.
       </div>
 
       <div>
-        He is currently completing a hybrid documentary supported by the Canada Council for the Arts and developing his debut narrative feature screenplay with support from Telefilm Canada.
+        He is currently completing a hybrid documentary (supported by the Canada Council) and actively developing his debut narrative feature screenplay with support from Telefilm Canada.
       </div>
     </div>
   </div>
-
   <div>
     <div
       style={{
