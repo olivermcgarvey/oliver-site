@@ -2794,6 +2794,9 @@ style={{
                               fontWeight: 300,
                             }}
                           >
+                            {project.title}
+                          </div>
+
                           <div
                             style={{
                               fontSize: 11,
@@ -2821,33 +2824,6 @@ style={{
                               }}
                             >
                               <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
-                            </div>
-                          ) : null}
-
-                          {project.leftMetaExtra ? (
-                            <div
-                              style={{
-                                fontSize: 11,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                opacity: 0.42,
-                                marginBottom: project.leftMetaThird ? 4 : 0,
-                              }}
-                            >
-                              {project.leftMetaExtra}
-                            </div>
-                          ) : null}
-
-                          {project.leftMetaThird ? (
-                            <div
-                              style={{
-                                fontSize: 11,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                opacity: 0.42,
-                              }}
-                            >
-                              {project.leftMetaThird}
                             </div>
                           ) : null}
 
