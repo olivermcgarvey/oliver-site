@@ -159,7 +159,8 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-leica/trailer.mp4"),
     mobileVimeoId: "394936736",
     aspect: "vertical",
-    leftMeta: "Director / DOP · Oliver McGarvey",
+    leftMeta: "Director · Oliver McGarvey",
+    leftMetaExtra: "Cinematography · Oliver McGarvey",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: highsnobietyLogo,
     rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
@@ -3197,19 +3198,24 @@ style={{
 ) : null}
 
 {showFullscreenImageMeta || showFullscreenVideoMeta ? (
-  <>
-    <div
-      style={{
-        position: "absolute",
-        left: 50,
-        bottom: fullscreenMetaBottom,
-        zIndex: 130,
-        userSelect: "none",
-        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
-        transition: "opacity 520ms ease",
-        pointerEvents: "none",
-      }}
-    >
+  <div
+    style={{
+      position: "absolute",
+      left: 50,
+      right: 50,
+      bottom: fullscreenMetaBottom,
+      zIndex: 130,
+      userSelect: "none",
+      opacity: hasVideo ? (showControls ? 1 : 0) : 1,
+      transition: "opacity 520ms ease",
+      pointerEvents: "none",
+      display: "grid",
+      gridTemplateColumns: "1fr auto",
+      gap: 28,
+      alignItems: "start",
+    }}
+  >
+    <div>
       <div
         style={{
           fontSize: 13,
@@ -3250,6 +3256,20 @@ style={{
         </div>
       ) : null}
 
+      {current.leftMetaExtra ? (
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.42,
+            marginBottom: current.leftMetaThird ? 4 : 0,
+          }}
+        >
+          {current.leftMetaExtra}
+        </div>
+      ) : null}
+
       {current.leftMetaThird ? (
         <div
           style={{
@@ -3266,19 +3286,17 @@ style={{
 
     <div
       style={{
-        position: "absolute",
-        right: 50,
-        bottom: fullscreenRightMetaBottom,
-        zIndex: 130,
-        userSelect: "none",
-        opacity: hasVideo ? (showControls ? 1 : 0) : 1,
-        transition: "opacity 520ms ease",
-        pointerEvents: "none",
+        textAlign: "right",
+        minWidth: 140,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "flex-end",
+        flexDirection: "column",
       }}
     >
       {rightMetaStack}
     </div>
-  </>
+  </div>
 ) : null}
 
                 <div
