@@ -62,7 +62,7 @@ const narrativeProjects: Project[] = [
     title: "Portrait of The Living Sky",
     status: "In Post Production",
     role: "Hybrid Documentary · 35MM & Digital",
-    year: "Ongoing",
+    year: "",
     image: bunny("/narrative/happy-citizens/poster.webp"),
     video: bunny("/narrative/happy-citizens/trailer.mp4"),
     mobileVimeoId: "1185277116",
