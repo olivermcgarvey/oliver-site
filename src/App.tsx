@@ -2794,9 +2794,6 @@ style={{
                               fontWeight: 300,
                             }}
                           >
-                            {project.title}
-                          </div>
-
                           <div
                             style={{
                               fontSize: 11,
@@ -3287,19 +3284,6 @@ style={{
           }}
         >
           {current.leftMetaThird}
-        </div>
-      ) : null}
-
-      {current.leftMetaExtra ? (
-        <div
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            opacity: 0.42,
-          }}
-        >
-          {current.leftMetaExtra}
         </div>
       ) : null}
     </div>
