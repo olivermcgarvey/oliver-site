@@ -57,9 +57,8 @@ const narrativeProjects: Project[] = [
     mobileVimeoId: "1078472394",
     leftMeta: "Executive Producer · Lemohang Mosese",
     leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese",
-    leftMetaExtra: "Festival Distribution · Gargantua Films",
-    leftMetaExtraLink: "https://www.gargantuafilm.it",
-    rightMetaText: "UNRELEASED",
+    rightMetaText: "Festival Distribution · Gargantua Films",
+    rightMetaLink: "https://gargantuafilms.com",
     overlays: [],
   },
   {
@@ -725,7 +724,25 @@ function MobileCardMeta({
             marginBottom: project.rightMetaLogo ? 8 : 0,
           }}
         >
-          {project.rightMetaText || project.status}
+          {!project.rightMetaLogo && project.rightMetaLink ? (
+            <a
+              href={project.rightMetaLink}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "inherit",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <span>{project.rightMetaText || project.status}</span>
+              <ExternalArrowIcon />
+            </a>
+          ) : (
+            project.rightMetaText || project.status
+          )}
         </div>
 
         {project.rightMetaLogo ? (
@@ -1660,7 +1677,25 @@ useEffect(() => {
           marginBottom: current.rightMetaLogo ? 4 : 0,
         }}
       >
-        {current.rightMetaText || current.status}
+        {!current.rightMetaLogo && current.rightMetaLink ? (
+          <a
+            href={current.rightMetaLink}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: "inherit",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
+            <span>{current.rightMetaText || current.status}</span>
+            <ExternalArrowIcon />
+          </a>
+        ) : (
+          current.rightMetaText || current.status
+        )}
       </div>
 
       {current.rightMetaLogo ? (
@@ -2912,11 +2947,29 @@ style={{
                               fontSize: 11,
                               letterSpacing: "0.12em",
                               textTransform: "uppercase",
-                              opacity: 0.52,
+                              opacity: 0.58,
                               marginBottom: project.rightMetaLogo ? 4 : 0,
                             }}
                           >
-                            {project.rightMetaText || project.status}
+                            {!project.rightMetaLogo && project.rightMetaLink ? (
+                              <a
+                                href={project.rightMetaLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{
+                                  color: "inherit",
+                                  textDecoration: "none",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: 6,
+                                }}
+                              >
+                                <span>{project.rightMetaText || project.status}</span>
+                                <ExternalArrowIcon />
+                              </a>
+                            ) : (
+                              project.rightMetaText || project.status
+                            )}
                           </div>
 
                           {project.rightMetaLogo ? (
