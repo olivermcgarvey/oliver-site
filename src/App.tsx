@@ -62,7 +62,7 @@ const narrativeProjects: Project[] = [
     title: "Portrait of The Living Sky",
     status: "In Post Production",
     role: "Hybrid Documentary · 35MM & Digital",
-    year: "",
+    year: "2026",
     image: bunny("/narrative/happy-citizens/poster.webp"),
     video: bunny("/narrative/happy-citizens/trailer.mp4"),
     mobileVimeoId: "1185277116",
@@ -73,7 +73,7 @@ const narrativeProjects: Project[] = [
   {
     title: "Cosmic Loneliness",
     status: "In Development",
-    role: "Feature Film",
+    role: "Debut Feature Film",
     year: "2027",
     image: bunny("/narrative/cosmic-loneliness/poster.webp"),
     leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
