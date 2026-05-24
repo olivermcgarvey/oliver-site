@@ -2810,7 +2810,7 @@ style={{
     }}
     ariaLabel="Open fullscreen"
   >
-    <FullscreenIcon active={false} />
+    <FullscreenIcon active={false} size={18} />
   </ControlButton>
 </div>
 
