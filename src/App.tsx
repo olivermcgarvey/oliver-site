@@ -2803,19 +2803,6 @@ style={{
                               letterSpacing: "0.12em",
                               textTransform: "uppercase",
                               opacity: 0.52,
-                              marginBottom: project.leftMeta || project.leftMetaExtra ? 4 : 0,
-                            }}
-                          >
-                            {project.role} · {project.year}
-                          </div>
-
-                          {project.leftMeta ? (
-                          <div
-                            style={{
-                              fontSize: 11,
-                              letterSpacing: "0.12em",
-                              textTransform: "uppercase",
-                              opacity: 0.52,
                               marginBottom:
                                 project.leftMeta || project.leftMetaExtra || project.leftMetaThird
                                   ? 4
@@ -2837,6 +2824,33 @@ style={{
                               }}
                             >
                               <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
+                            </div>
+                          ) : null}
+
+                          {project.leftMetaExtra ? (
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.12em",
+                                textTransform: "uppercase",
+                                opacity: 0.42,
+                                marginBottom: project.leftMetaThird ? 4 : 0,
+                              }}
+                            >
+                              {project.leftMetaExtra}
+                            </div>
+                          ) : null}
+
+                          {project.leftMetaThird ? (
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.12em",
+                                textTransform: "uppercase",
+                                opacity: 0.42,
+                              }}
+                            >
+                              {project.leftMetaThird}
                             </div>
                           ) : null}
 
@@ -3260,20 +3274,6 @@ style={{
           }}
         >
           <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-        </div>
-      ) : null}
-
-      {current.leftMetaExtra ? (
-        <div
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            opacity: 0.42,
-            marginBottom: current.leftMetaThird ? 4 : 0,
-          }}
-        >
-          {current.leftMetaExtra}
         </div>
       ) : null}
 
