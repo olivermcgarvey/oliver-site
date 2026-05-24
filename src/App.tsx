@@ -23,9 +23,11 @@ type Project = {
   leftMetaExtra?: string;
   leftMetaThird?: string;
   rightMetaText?: string;
+  rightMetaExtra?: string;
   rightMetaLogo?: string;
   rightMetaLink?: string;
   leftMetaLink?: string;
+  leftMetaExtraLink?: string;
   blurb?: string;
   overlays?: OverlayItem[];
   flashWarning?: boolean;
@@ -55,6 +57,8 @@ const narrativeProjects: Project[] = [
     mobileVimeoId: "1078472394",
     leftMeta: "Executive Producer · Lemohang Mosese",
     leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese",
+    leftMetaExtra: "Festival Distribution · Gargantua Films",
+    leftMetaExtraLink: "https://www.gargantuafilm.it",
     rightMetaText: "UNRELEASED",
     overlays: [],
   },
@@ -109,10 +113,10 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-hero/trailer.mp4"),
     mobileVimeoId: "868033223",
     aspect: "vertical",
-    leftMeta: "Director · Oliver McGarvey",
-    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
-    leftMetaThird: "ORGANIC VIEWS · 1M+",
+    leftMeta: "Director / Co-DOP",
+    leftMetaExtra: "Zack Spiger · Co-DOP",
     rightMetaText: "PUBLISHED",
+    rightMetaExtra: "1M+ Organic Views",
     rightMetaLogo: instagramLabel,
     overlays: [],
   },
@@ -127,8 +131,8 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/miu-miu-1/trailer.mp4"),
     mobileVimeoId: "1185057987",
     aspect: "vertical",
-    leftMeta: "Cinematography & Model Direction · Oliver McGarvey",
-    leftMetaExtra: "Artist · Fritz Schiffers",
+    leftMeta: "Cinematography & Model Direction",
+    leftMetaExtra: "Fritz Schiffers · Artist",
     leftMetaThird: "Paris Fashion Week · SS23",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
@@ -143,7 +147,7 @@ const commercialProjects: Project[] = [
     imageLandscape: bunny("/commercial/adidas/poster.webp"),
     video: bunny("/commercial/adidas/trailer.mp4"),
     mobileVimeoId: "1185056415",
-    leftMeta: "Director · Oliver McGarvey",
+    leftMeta: "Director",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -159,8 +163,7 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-leica/trailer.mp4"),
     mobileVimeoId: "394936736",
     aspect: "vertical",
-    leftMeta: "Director · Oliver McGarvey",
-    leftMetaExtra: "Cinematography · Oliver McGarvey",
+    leftMeta: "Director / DOP",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: highsnobietyLogo,
     rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
@@ -177,9 +180,8 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-tumi/trailer.mp4"),
     mobileVimeoId: "961115198",
     aspect: "vertical",
-    leftMeta: "Director · Oliver McGarvey",
-    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
-    leftMetaThird: "Berlin Commercial Awards · Cultural Impact",
+    leftMeta: "Director / Co-DOP",
+    leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -194,7 +196,7 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/krista-papista/poster.webp"),
     video: bunny("/commercial/krista-papista/trailer.mp4"),
     mobileVimeoId: "726938602",
-    leftMeta: "Director · Oliver McGarvey",
+    leftMeta: "Director",
     leftMetaExtra: "Berlin Music Video Awards · Silver Screening Selection",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: nownessLogo,
@@ -212,7 +214,7 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/homeshake/poster.webp"),
     video: bunny("/commercial/homeshake/trailer.mp4"),
     mobileVimeoId: "310845245",
-    leftMeta: "Director · Oliver McGarvey",
+    leftMeta: "Director",
     leftMetaExtra: "Prism Prize Nomination · Best Director",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: idLogo,
@@ -228,7 +230,7 @@ const commercialProjects: Project[] = [
     imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
     video: bunny("/commercial/adidas-2/trailer.mp4"),
     mobileVimeoId: "1185056841",
-    leftMeta: "Director · Oliver McGarvey",
+    leftMeta: "Director",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -243,8 +245,8 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
     video: bunny("/commercial/miu-miu-2/trailer.mp4"),
     aspect: "vertical",
-    leftMeta: "Cinematography & Model Direction · Oliver McGarvey",
-    leftMetaExtra: "Artist · Fritz Schiffers",
+    leftMeta: "Cinematography & Model Direction",
+    leftMetaExtra: "Fritz Schiffers · Artist",
     leftMetaThird: "Paris Fashion Week · SS23",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
@@ -261,10 +263,10 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-kat/trailer.mp4"),
     mobileVimeoId: "1185077699",
     aspect: "vertical",
-    leftMeta: "Director · Oliver McGarvey",
-    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
-    leftMetaThird: "ORGANIC VIEWS · 1.6M+",
+    leftMeta: "Director / Co-DOP",
+    leftMetaExtra: "Zack Spiger · Co-DOP",
     rightMetaText: "PUBLISHED",
+    rightMetaExtra: "1.6M+ Organic Views",
     rightMetaLogo: instagramLabel,
     overlays: [],
   },
@@ -683,7 +685,7 @@ function MobileCardMeta({
               marginBottom: project.leftMetaThird ? 4 : 0,
             }}
           >
-            {project.leftMetaExtra}
+            <LinkedMeta text={project.leftMetaExtra} link={project.leftMetaExtraLink} />
           </div>
         ) : null}
 
@@ -779,6 +781,23 @@ function MobileCardMeta({
               style={platformLogoStyle(project.rightMetaLogo)}
             />
           )
+        ) : null}
+        
+                {project.rightMetaExtra ? (
+          <div
+            style={{
+              marginTop: 8,
+              fontSize: 10,
+              letterSpacing: "0.11em",
+              textTransform: "uppercase",
+              lineHeight: 1.35,
+              opacity: 0.46,
+              fontWeight: 400,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.rightMetaExtra}
+          </div>
         ) : null}
       </div>
     </div>
@@ -1701,6 +1720,20 @@ useEffect(() => {
             style={platformLogoStyle(current.rightMetaLogo)}
           />
         )
+      ) : null}
+            {current.rightMetaExtra ? (
+        <div
+          style={{
+            marginTop: 7,
+            fontSize: 9.5,
+            letterSpacing: "0.11em",
+            textTransform: "uppercase",
+            opacity: 0.36,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {current.rightMetaExtra}
+        </div>
       ) : null}
     </div>
   );
@@ -2847,7 +2880,7 @@ style={{
                                 marginBottom: project.leftMetaThird ? 4 : 0,
                               }}
                             >
-                              {project.leftMetaExtra}
+                              <LinkedMeta text={project.leftMetaExtra} link={project.leftMetaExtraLink} />
                             </div>
                           ) : null}
 
@@ -2943,6 +2976,20 @@ style={{
                                 style={platformLogoStyle(project.rightMetaLogo)}
                               />
                             )
+                          ) : null}
+                                                    {project.rightMetaExtra ? (
+                            <div
+                              style={{
+                                marginTop: 7,
+                                fontSize: 9.5,
+                                letterSpacing: "0.11em",
+                                textTransform: "uppercase",
+                                opacity: 0.36,
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {project.rightMetaExtra}
+                            </div>
                           ) : null}
                         </div>
                       </div>
@@ -3275,7 +3322,7 @@ style={{
             marginBottom: current.leftMetaThird ? 4 : 0,
           }}
         >
-          {current.leftMetaExtra}
+          <LinkedMeta text={current.leftMetaExtra} link={current.leftMetaExtraLink} />
         </div>
       ) : null}
 
