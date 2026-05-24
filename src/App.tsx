@@ -21,6 +21,7 @@ type Project = {
   aspect?: "landscape" | "vertical";
   leftMeta?: string;
   leftMetaExtra?: string;
+  leftMetaThird?: string;
   rightMetaText?: string;
   rightMetaLogo?: string;
   rightMetaLink?: string;
@@ -100,7 +101,7 @@ const commercialProjects: Project[] = [
   {
     title: "MYKITA",
     status: "Released",
-    role: "Campaign · 16MM · 8MM",
+    role: "Campaign · 16MM & 8MM",
     year: "2024",
     image: bunny("/commercial/mykita-hero/poster.webp"),
     imageLandscape: bunny("/commercial/mykita-hero/poster.webp"),
@@ -108,8 +109,9 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-hero/trailer.mp4"),
     mobileVimeoId: "868033223",
     aspect: "vertical",
-    leftMeta: "Co-DOP · Zack Spiger",
-    leftMetaExtra: "ORGANIC VIEWS · 1M+",
+    leftMeta: "Director · Oliver McGarvey",
+    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
+    leftMetaThird: "ORGANIC VIEWS · 1M+",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -125,8 +127,9 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/miu-miu-1/trailer.mp4"),
     mobileVimeoId: "1185057987",
     aspect: "vertical",
-    leftMeta: "Art Direction · Fritz Schiffers",
-    leftMetaExtra: "Paris Fashion Week · SS 23",
+    leftMeta: "Cinematography & Model Direction · Oliver McGarvey",
+    leftMetaExtra: "Artist · Fritz Schiffers",
+    leftMetaThird: "Paris Fashion Week · SS23",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -140,7 +143,7 @@ const commercialProjects: Project[] = [
     imageLandscape: bunny("/commercial/adidas/poster.webp"),
     video: bunny("/commercial/adidas/trailer.mp4"),
     mobileVimeoId: "1185056415",
-    leftMeta: "ADIDAS · POOL",
+    leftMeta: "Director · Oliver McGarvey",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -156,6 +159,7 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-leica/trailer.mp4"),
     mobileVimeoId: "394936736",
     aspect: "vertical",
+    leftMeta: "Director / DOP · Oliver McGarvey",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: highsnobietyLogo,
     rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
@@ -164,7 +168,7 @@ const commercialProjects: Project[] = [
   {
     title: "MYKITA · TUMI",
     status: "Released",
-    role: "Campaign · 16MM · 8MM",
+    role: "Campaign · 16MM & 8MM",
     year: "2024",
     image: bunny("/commercial/mykita-tumi/poster.webp"),
     imageLandscape: bunny("/commercial/mykita-tumi/poster.webp"),
@@ -172,8 +176,9 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-tumi/trailer.mp4"),
     mobileVimeoId: "961115198",
     aspect: "vertical",
-    leftMeta: "Co-DOP · Zack Spiger",
-    leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
+    leftMeta: "Director · Oliver McGarvey",
+    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
+    leftMetaThird: "Berlin Commercial Awards · Cultural Impact",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -188,6 +193,7 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/krista-papista/poster.webp"),
     video: bunny("/commercial/krista-papista/trailer.mp4"),
     mobileVimeoId: "726938602",
+    leftMeta: "Director · Oliver McGarvey",
     leftMetaExtra: "Berlin Music Video Awards · Silver Screening Selection",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: nownessLogo,
@@ -205,6 +211,7 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/homeshake/poster.webp"),
     video: bunny("/commercial/homeshake/trailer.mp4"),
     mobileVimeoId: "310845245",
+    leftMeta: "Director · Oliver McGarvey",
     leftMetaExtra: "Prism Prize Nomination · Best Director",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: idLogo,
@@ -220,7 +227,7 @@ const commercialProjects: Project[] = [
     imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
     video: bunny("/commercial/adidas-2/trailer.mp4"),
     mobileVimeoId: "1185056841",
-    leftMeta: "ADIDAS · POOL",
+    leftMeta: "Director · Oliver McGarvey",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -235,8 +242,9 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
     video: bunny("/commercial/miu-miu-2/trailer.mp4"),
     aspect: "vertical",
-    leftMeta: "Art Direction · Fritz Schiffers",
-    leftMetaExtra: "Paris Fashion Week · SS 23",
+    leftMeta: "Cinematography & Model Direction · Oliver McGarvey",
+    leftMetaExtra: "Artist · Fritz Schiffers",
+    leftMetaThird: "Paris Fashion Week · SS23",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -244,7 +252,7 @@ const commercialProjects: Project[] = [
   {
     title: "MYKITA · KAT",
     status: "Released",
-    role: "Campaign · 16MM · 8MM",
+    role: "Campaign · 16MM & 8MM",
     year: "2024",
     image: bunny("/commercial/mykita-kat/poster.webp"),
     imageLandscape: bunny("/commercial/mykita-kat/poster.webp"),
@@ -252,24 +260,9 @@ const commercialProjects: Project[] = [
     video: bunny("/commercial/mykita-kat/trailer.mp4"),
     mobileVimeoId: "1185077699",
     aspect: "vertical",
-    leftMeta: "Co-DOP · Zack Spiger",
-    leftMetaExtra: "ORGANIC VIEWS · 1.6M+",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
-    title: "ASICS",
-    status: "Published",
-    role: "Editorial · Digital",
-    year: "2022",
-    image: bunny("/commercial/asics/poster.webp"),
-    imageLandscape: bunny("/commercial/asics/poster.webp"),
-    imageVertical: bunny("/commercial/asics/poster.webp"),
-    video: bunny("/commercial/asics/trailer.mp4"),
-    mobileVimeoId: "1185076669",
-    leftMeta: "Cinematography",
-    leftMetaExtra: "Slam Jam · Directed by Fritz Schiffers",
+    leftMeta: "Director · Oliver McGarvey",
+    leftMetaExtra: "Cinematography · Zack Spiger & Oliver McGarvey",
+    leftMetaThird: "ORGANIC VIEWS · 1.6M+",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
     overlays: [],
@@ -611,26 +604,28 @@ function MobileCardMeta({
 }: {
   project: Project;
 }) {
+  const hasLeftMeta = !!project.leftMeta || !!project.leftMetaExtra || !!project.leftMetaThird;
+
   return (
     <div
       style={{
-        marginTop: 16,
+        marginTop: 18,
         display: "grid",
         gridTemplateColumns: "1fr auto",
-        gap: 16,
+        gap: 18,
         alignItems: "start",
       }}
     >
       <div>
         <div
           style={{
-            fontSize: 13,
-            letterSpacing: "0.13em",
+            fontSize: 15,
+            letterSpacing: "0.14em",
             textTransform: "uppercase",
             lineHeight: 1.28,
-            opacity: 0.72,
-            marginBottom: 8,
-            fontWeight: 300,
+            opacity: 0.9,
+            marginBottom: 9,
+            fontWeight: 400,
           }}
         >
           {project.title}
@@ -638,12 +633,13 @@ function MobileCardMeta({
 
         <div
           style={{
-            fontSize: 10.5,
+            fontSize: 12,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            lineHeight: 1.5,
-            opacity: 0.52,
-            marginBottom: project.leftMeta || project.leftMetaExtra ? 4 : 0,
+            lineHeight: 1.55,
+            opacity: 0.68,
+            fontWeight: 400,
+            marginBottom: hasLeftMeta ? 5 : 0,
           }}
         >
           {project.role} · {project.year}
@@ -652,12 +648,13 @@ function MobileCardMeta({
         {project.leftMeta ? (
           <div
             style={{
-              fontSize: 10.5,
+              fontSize: 12,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              lineHeight: 1.5,
-              opacity: 0.42,
-              marginBottom: project.leftMetaExtra ? 3 : 0,
+              lineHeight: 1.55,
+              opacity: 0.62,
+              fontWeight: 400,
+              marginBottom: project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
             }}
           >
             <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
@@ -667,14 +664,31 @@ function MobileCardMeta({
         {project.leftMetaExtra ? (
           <div
             style={{
-              fontSize: 10.5,
+              fontSize: 12,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              lineHeight: 1.5,
-              opacity: 0.42,
+              lineHeight: 1.55,
+              opacity: 0.62,
+              fontWeight: 400,
+              marginBottom: project.leftMetaThird ? 4 : 0,
             }}
           >
             {project.leftMetaExtra}
+          </div>
+        ) : null}
+
+        {project.leftMetaThird ? (
+          <div
+            style={{
+              fontSize: 12,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              lineHeight: 1.55,
+              opacity: 0.62,
+              fontWeight: 400,
+            }}
+          >
+            {project.leftMetaThird}
           </div>
         ) : null}
       </div>
@@ -682,7 +696,7 @@ function MobileCardMeta({
       <div
         style={{
           textAlign: "right",
-          minWidth: 118,
+          minWidth: 120,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
@@ -690,11 +704,12 @@ function MobileCardMeta({
       >
         <div
           style={{
-            fontSize: 11,
-            letterSpacing: "0.12em",
+            fontSize: 12,
+            letterSpacing: "0.13em",
             textTransform: "uppercase",
-            lineHeight: 1.4,
-            opacity: 0.52,
+            lineHeight: 1.45,
+            opacity: 0.72,
+            fontWeight: 400,
             marginBottom: project.rightMetaLogo ? 8 : 0,
           }}
         >
@@ -712,10 +727,11 @@ function MobileCardMeta({
                   color: "inherit",
                   textDecoration: "none",
                   display: "inline-block",
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  opacity: 0.82,
+                  opacity: 0.9,
+                  fontWeight: 400,
                 }}
               >
                 IG
@@ -723,10 +739,11 @@ function MobileCardMeta({
             ) : (
               <div
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  opacity: 0.82,
+                  opacity: 0.9,
+                  fontWeight: 400,
                 }}
               >
                 IG
@@ -1023,7 +1040,7 @@ if (mobileActiveProject) {
     const nextRole = hasEntered
     ? section === "narrative"
       ? "Writer · Director"
-      : "Director · Cinematographer"
+      : "Director"
    : "Film Director";
 
     setRoleVisible(false);
@@ -1704,9 +1721,10 @@ useEffect(() => {
     >
       <div
         style={{
-          fontSize: 11,
+          fontSize: 12.5,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
+          fontWeight: 400,
         }}
       >
         Oliver McGarvey
@@ -1715,10 +1733,11 @@ useEffect(() => {
       <div
         style={{
           marginTop: 8,
-          fontSize: 10,
+          fontSize: 11,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
-          opacity: roleVisible ? (hasEntered ? 0.46 : 0.38) : 0,
+          opacity: roleVisible ? (hasEntered ? 0.62 : 0.52) : 0,
+          fontWeight: 400,
           transform: roleVisible ? "translateY(0)" : "translateY(8px)",
           transition: "opacity 320ms ease, transform 1400ms ease",
         }}
@@ -1752,8 +1771,8 @@ useEffect(() => {
           color: "rgba(255,255,255,0.9)",
           padding: "8px 0",
           margin: 0,
-          fontSize: mobileMenuOpen ? 28 : 12,
-          fontWeight: mobileMenuOpen ? 100 : 300,
+          fontSize: mobileMenuOpen ? 30 : 13,
+          fontWeight: mobileMenuOpen ? 200 : 400,
           fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
           lineHeight: mobileMenuOpen ? 0.8 : 1,
           cursor: "pointer",
@@ -2791,13 +2810,30 @@ style={{
                           </div>
 
                           {project.leftMeta ? (
+                          <div
+                            style={{
+                              fontSize: 11,
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              opacity: 0.52,
+                              marginBottom:
+                                project.leftMeta || project.leftMetaExtra || project.leftMetaThird
+                                  ? 4
+                                  : 0,
+                            }}
+                          >
+                            {project.role} · {project.year}
+                          </div>
+
+                          {project.leftMeta ? (
                             <div
                               style={{
                                 fontSize: 11,
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
                                 opacity: 0.42,
-                                marginBottom: project.leftMetaExtra ? 4 : 0,
+                                marginBottom:
+                                  project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
                               }}
                             >
                               <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
@@ -2811,9 +2847,23 @@ style={{
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
                                 opacity: 0.42,
+                                marginBottom: project.leftMetaThird ? 4 : 0,
                               }}
                             >
                               {project.leftMetaExtra}
+                            </div>
+                          ) : null}
+
+                          {project.leftMetaThird ? (
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.12em",
+                                textTransform: "uppercase",
+                                opacity: 0.42,
+                              }}
+                            >
+                              {project.leftMetaThird}
                             </div>
                           ) : null}
                         </div>
@@ -3192,7 +3242,8 @@ style={{
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           opacity: 0.52,
-          marginBottom: current.leftMeta || current.leftMetaExtra ? 4 : 0,
+          marginBottom:
+            current.leftMeta || current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
         }}
       >
         {current.role} · {current.year}
@@ -3205,10 +3256,37 @@ style={{
             letterSpacing: "0.12em",
             textTransform: "uppercase",
             opacity: 0.42,
-            marginBottom: current.leftMetaExtra ? 4 : 0,
+            marginBottom: current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
           }}
         >
           <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
+        </div>
+      ) : null}
+
+      {current.leftMetaExtra ? (
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.42,
+            marginBottom: current.leftMetaThird ? 4 : 0,
+          }}
+        >
+          {current.leftMetaExtra}
+        </div>
+      ) : null}
+
+      {current.leftMetaThird ? (
+        <div
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.42,
+          }}
+        >
+          {current.leftMetaThird}
         </div>
       ) : null}
 
