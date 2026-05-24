@@ -542,7 +542,16 @@ function getMobileVimeoSrc(id: string) {
 
   return `https://player.vimeo.com/video/${id}?${params.toString()}`;
 }
+function isSoftProofMeta(text?: string) {
+  if (!text) return false;
 
+  const normalized = text.toUpperCase();
+
+  return (
+    normalized.includes("ORGANIC VIEWS") ||
+    normalized.includes("BERLIN COMMERCIAL AWARDS")
+  );
+}
 function LinkedMeta({
   text,
   link,
@@ -638,7 +647,7 @@ function MobileCardMeta({
             letterSpacing: "0.12em",
             textTransform: "uppercase",
             lineHeight: 1.55,
-            opacity: 0.68,
+            opacity: 0.74,
             fontWeight: 400,
             marginBottom: hasLeftMeta ? 5 : 0,
           }}
@@ -646,19 +655,18 @@ function MobileCardMeta({
           {project.role} · {project.year}
         </div>
 
-        {project.leftMeta ? (
+        {project.leftMetaThird ? (
           <div
             style={{
               fontSize: 12,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               lineHeight: 1.55,
-              opacity: 0.62,
+              opacity: isSoftProofMeta(project.leftMetaThird) ? 0.52 : 0.66,
               fontWeight: 400,
-              marginBottom: project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
             }}
           >
-            <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
+            {project.leftMetaThird}
           </div>
         ) : null}
 
@@ -669,7 +677,7 @@ function MobileCardMeta({
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               lineHeight: 1.55,
-              opacity: 0.62,
+              opacity: 0.68,
               fontWeight: 400,
               marginBottom: project.leftMetaThird ? 4 : 0,
             }}
@@ -1628,7 +1636,7 @@ useEffect(() => {
           fontSize: 11,
           letterSpacing: "0.12em",
           textTransform: "uppercase",
-          opacity: 0.52,
+          opacity: 0.58,
           marginBottom: current.rightMetaLogo ? 4 : 0,
         }}
       >
@@ -2819,7 +2827,7 @@ style={{
                                 fontSize: 11,
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
-                                opacity: 0.42,
+                                opacity: 0.5,
                                 marginBottom:
                                   project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
                               }}
@@ -2834,7 +2842,7 @@ style={{
                                 fontSize: 11,
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
-                                opacity: 0.42,
+                                opacity: 0.5,
                                 marginBottom: project.leftMetaThird ? 4 : 0,
                               }}
                             >
@@ -2848,7 +2856,7 @@ style={{
                                 fontSize: 11,
                                 letterSpacing: "0.12em",
                                 textTransform: "uppercase",
-                                opacity: 0.42,
+                                opacity: isSoftProofMeta(project.leftMetaThird) ? 0.38 : 0.5,
                               }}
                             >
                               {project.leftMetaThird}
