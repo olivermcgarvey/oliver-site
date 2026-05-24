@@ -652,21 +652,22 @@ function MobileCardMeta({
             marginBottom: hasLeftMeta ? 5 : 0,
           }}
         >
-          {project.role} · {project.year}
+          {project.year ? `${project.role} · ${project.year}` : project.role}
         </div>
 
-        {project.leftMetaThird ? (
+        {project.leftMeta ? (
           <div
             style={{
               fontSize: 12,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               lineHeight: 1.55,
-              opacity: isSoftProofMeta(project.leftMetaThird) ? 0.52 : 0.66,
+              opacity: 0.68,
               fontWeight: 400,
+              marginBottom: project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
             }}
           >
-            {project.leftMetaThird}
+            <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
           </div>
         ) : null}
 
@@ -693,7 +694,7 @@ function MobileCardMeta({
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               lineHeight: 1.55,
-              opacity: 0.62,
+              opacity: isSoftProofMeta(project.leftMetaThird) ? 0.52 : 0.66,
               fontWeight: 400,
             }}
           >
