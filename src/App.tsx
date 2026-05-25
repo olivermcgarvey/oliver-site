@@ -615,28 +615,39 @@ function MobileCardMeta({
 }: {
   project: Project;
 }) {
-  const hasLeftMeta = !!project.leftMeta || !!project.leftMetaExtra || !!project.leftMetaThird;
+  const mobileLeftMeta =
+    project.leftMeta?.replace(/^Executive Producer · /i, "EP · ");
+
+  const mobileLeftMetaExtra = project.leftMetaExtra;
+
+  const mobileRightMetaText =
+    project.rightMetaText?.toUpperCase().includes("GARGANTUA")
+      ? "Gargantua Films"
+      : project.rightMetaText || project.status;
+
+  const hasLeftMeta =
+    !!mobileLeftMeta || !!mobileLeftMetaExtra || !!project.leftMetaThird;
 
   return (
     <div
       style={{
-        marginTop: 18,
+        marginTop: 16,
         display: "grid",
-        gridTemplateColumns: "1fr auto",
-        gap: 18,
+        gridTemplateColumns: "minmax(0, 1fr) auto",
+        gap: 14,
         alignItems: "start",
       }}
     >
-      <div>
+      <div style={{ minWidth: 0 }}>
         <div
           style={{
-            fontSize: 15,
-            letterSpacing: "0.14em",
+            fontSize: 14,
+            letterSpacing: "0.12em",
             textTransform: "uppercase",
-            lineHeight: 1.28,
-            opacity: 0.9,
-            marginBottom: 9,
-            fontWeight: 400,
+            lineHeight: 1.22,
+            opacity: 0.92,
+            marginBottom: 8,
+            fontWeight: 450,
           }}
         >
           {project.title}
@@ -644,58 +655,61 @@ function MobileCardMeta({
 
         <div
           style={{
-            fontSize: 12,
-            letterSpacing: "0.12em",
+            fontSize: 10.5,
+            letterSpacing: "0.105em",
             textTransform: "uppercase",
-            lineHeight: 1.55,
-            opacity: 0.74,
+            lineHeight: 1.42,
+            opacity: 0.58,
             fontWeight: 400,
-            marginBottom: hasLeftMeta ? 5 : 0,
+            marginBottom: hasLeftMeta ? 4 : 0,
           }}
         >
           {project.year ? `${project.role} · ${project.year}` : project.role}
         </div>
 
-        {project.leftMeta ? (
+        {mobileLeftMeta ? (
           <div
             style={{
-              fontSize: 12,
-              letterSpacing: "0.12em",
+              fontSize: 10.5,
+              letterSpacing: "0.105em",
               textTransform: "uppercase",
-              lineHeight: 1.55,
-              opacity: 0.68,
+              lineHeight: 1.42,
+              opacity: 0.54,
               fontWeight: 400,
-              marginBottom: project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
+              marginBottom: mobileLeftMetaExtra || project.leftMetaThird ? 3 : 0,
             }}
           >
-            <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
+            <LinkedMeta text={mobileLeftMeta} link={project.leftMetaLink} />
           </div>
         ) : null}
 
-        {project.leftMetaExtra ? (
+        {mobileLeftMetaExtra ? (
           <div
             style={{
-              fontSize: 12,
-              letterSpacing: "0.12em",
+              fontSize: 10.5,
+              letterSpacing: "0.105em",
               textTransform: "uppercase",
-              lineHeight: 1.55,
-              opacity: 0.68,
+              lineHeight: 1.42,
+              opacity: 0.54,
               fontWeight: 400,
-              marginBottom: project.leftMetaThird ? 4 : 0,
+              marginBottom: project.leftMetaThird ? 3 : 0,
             }}
           >
-            <LinkedMeta text={project.leftMetaExtra} link={project.leftMetaExtraLink} />
+            <LinkedMeta
+              text={mobileLeftMetaExtra}
+              link={project.leftMetaExtraLink}
+            />
           </div>
         ) : null}
 
         {project.leftMetaThird ? (
           <div
             style={{
-              fontSize: 12,
-              letterSpacing: "0.12em",
+              fontSize: 10.5,
+              letterSpacing: "0.105em",
               textTransform: "uppercase",
-              lineHeight: 1.55,
-              opacity: isSoftProofMeta(project.leftMetaThird) ? 0.52 : 0.66,
+              lineHeight: 1.42,
+              opacity: isSoftProofMeta(project.leftMetaThird) ? 0.42 : 0.54,
               fontWeight: 400,
             }}
           >
@@ -707,7 +721,8 @@ function MobileCardMeta({
       <div
         style={{
           textAlign: "right",
-          minWidth: 120,
+          maxWidth: 150,
+          minWidth: 96,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
@@ -715,13 +730,13 @@ function MobileCardMeta({
       >
         <div
           style={{
-            fontSize: 12,
-            letterSpacing: "0.13em",
+            fontSize: 10.5,
+            letterSpacing: "0.105em",
             textTransform: "uppercase",
-            lineHeight: 1.45,
-            opacity: 0.72,
+            lineHeight: 1.35,
+            opacity: 0.6,
             fontWeight: 400,
-            marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 8 : 0,
+            marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 6 : 0,
           }}
         >
           {!project.rightMetaLogo && project.rightMetaLink ? (
@@ -734,26 +749,27 @@ function MobileCardMeta({
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 6,
+                justifyContent: "flex-end",
+                gap: 5,
               }}
             >
-              <span>{project.rightMetaText || project.status}</span>
+              <span>{mobileRightMetaText}</span>
               <ExternalArrowIcon />
             </a>
           ) : (
-            project.rightMetaText || project.status
+            mobileRightMetaText
           )}
         </div>
 
         {project.rightMetaExtra ? (
           <div
             style={{
-              marginBottom: project.rightMetaLogo ? 8 : 0,
-              fontSize: 10,
-              letterSpacing: "0.11em",
+              marginBottom: project.rightMetaLogo ? 6 : 0,
+              fontSize: 9.5,
+              letterSpacing: "0.095em",
               textTransform: "uppercase",
-              lineHeight: 1.35,
-              opacity: 0.46,
+              lineHeight: 1.25,
+              opacity: 0.4,
               fontWeight: 400,
               whiteSpace: "nowrap",
             }}
@@ -773,10 +789,10 @@ function MobileCardMeta({
                   color: "inherit",
                   textDecoration: "none",
                   display: "inline-block",
-                  fontSize: 12,
-                  letterSpacing: "0.14em",
+                  fontSize: 10.5,
+                  letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  opacity: 0.9,
+                  opacity: 0.68,
                   fontWeight: 400,
                 }}
               >
@@ -785,10 +801,10 @@ function MobileCardMeta({
             ) : (
               <div
                 style={{
-                  fontSize: 12,
-                  letterSpacing: "0.14em",
+                  fontSize: 10.5,
+                  letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  opacity: 0.9,
+                  opacity: 0.68,
                   fontWeight: 400,
                 }}
               >
@@ -1781,11 +1797,11 @@ useEffect(() => {
         onClick={returnHome}
         style={{
           position: "fixed",
-          top: isMobileLandscape ? 28 : 48,
+          top: isMobileLandscape ? 28 : 46,
           left: isMobileLandscape ? 28 : 20,
           zIndex: 90,
           userSelect: "none",
-          opacity: 0.88,
+          opacity: 0.9,
           transition: "opacity 320ms ease",
           textAlign: "left",
           pointerEvents: mobileActiveProject ? "none" : "auto",
@@ -1800,10 +1816,11 @@ useEffect(() => {
       >
         <div
           style={{
-            fontSize: 13.5,
-            letterSpacing: "0.18em",
+            fontSize: 13.25,
+            letterSpacing: "0.17em",
             textTransform: "uppercase",
             fontWeight: 500,
+            lineHeight: 1.15,
           }}
         >
           Oliver McGarvey
@@ -1812,11 +1829,12 @@ useEffect(() => {
         <div
           style={{
             marginTop: 8,
-            fontSize: 11.5,
-            letterSpacing: "0.14em",
+            fontSize: 11.25,
+            letterSpacing: "0.135em",
             textTransform: "uppercase",
-            opacity: roleVisible ? (hasEntered ? 0.76 : 0.66) : 0,
-            fontWeight: 500,
+            opacity: roleVisible ? (hasEntered ? 0.7 : 0.62) : 0,
+            fontWeight: 450,
+            lineHeight: 1.15,
             transform: roleVisible ? "translateY(0)" : "translateY(8px)",
             transition: "opacity 320ms ease, transform 1400ms ease",
           }}
@@ -1828,7 +1846,7 @@ useEffect(() => {
       <div
         style={{
           position: "fixed",
-          top: isMobileLandscape ? 28 : 48,
+          top: isMobileLandscape ? 28 : 46,
           right: isMobileLandscape ? 28 : 20,
           zIndex: 90,
           userSelect: "none",
@@ -1847,17 +1865,17 @@ useEffect(() => {
           style={{
             border: "none",
             background: "transparent",
-            color: "rgba(255,255,255,0.9)",
-            padding: "8px 0",
+            color: "rgba(255,255,255,0.94)",
+            padding: 0,
             margin: 0,
             fontSize: mobileMenuOpen ? 30 : 14,
             fontWeight: mobileMenuOpen ? 300 : 500,
             fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-            lineHeight: mobileMenuOpen ? 0.8 : 1,
+            lineHeight: mobileMenuOpen ? 0.8 : 1.15,
             cursor: "pointer",
             letterSpacing: mobileMenuOpen ? "0" : "0.16em",
             textTransform: mobileMenuOpen ? "none" : "uppercase",
-            opacity: mobileMenuOpen ? 0.82 : 0.98,
+            opacity: mobileMenuOpen ? 0.82 : 0.96,
           }}
         >
           {mobileMenuOpen ? "×" : "Menu"}
@@ -2623,12 +2641,12 @@ useEffect(() => {
                 fontSize: isMobile ? 15 : 16,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                fontWeight: isMobile ? 500 : 300,
+                fontWeight: isMobile ? 450 : 300,
                 opacity:
                   landingHover === null
-                    ? isMobile ? 0.84 : 0.68
+                    ? isMobile ? 0.82 : 0.68
                     : landingHover === "narrative"
-                      ? 0.96
+                      ? 0.94
                       : 0.5,
                 transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
                 transition: "opacity 520ms ease, transform 520ms ease",
@@ -2652,12 +2670,12 @@ useEffect(() => {
                 fontSize: isMobile ? 15 : 16,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                fontWeight: isMobile ? 500 : 300,
+                fontWeight: isMobile ? 450 : 300,
                 opacity:
                   landingHover === null
-                    ? isMobile ? 0.84 : 0.68
+                    ? isMobile ? 0.82 : 0.68
                     : landingHover === "commercial"
-                      ? 0.96
+                      ? 0.94
                       : 0.5,
                 transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
                 transition: "opacity 520ms ease, transform 520ms ease",
@@ -2680,7 +2698,7 @@ useEffect(() => {
               overflowY: "auto",
               overflowX: "hidden",
               WebkitOverflowScrolling: "touch",
-              paddingBottom: isMobileLandscape ? 64 : 120,
+              paddingBottom: isMobileLandscape ? 64 : 96,
               zIndex: 10,
             }}
           >
@@ -2689,7 +2707,7 @@ useEffect(() => {
                 width: isMobileLandscape ? "78vw" : "100%",
                 maxWidth: isMobileLandscape ? 720 : 980,
                 margin: "0 auto",
-                padding: isMobileLandscape ? "96px 0 0 0" : "108px 20px 0 20px",
+                padding: isMobileLandscape ? "96px 0 0 0" : "132px 20px 0 20px",
                 boxSizing: "border-box",
               }}
             >
@@ -2697,12 +2715,16 @@ useEffect(() => {
                 const cardPoster = getMobileListPoster(project, section);
                 const cardHasPlayback = !!project.mobileVimeoId || !!project.video;
                 const cardAspect = getMobileCardAspect(project, section);
+                const isTallCommercialCard =
+                  !isMobileLandscape &&
+                  section === "commercial" &&
+                  project.aspect === "vertical";
 
                 return (
                   <div
                     key={`${section}-${project.title}-${i}`}
                     style={{
-                      marginBottom: isMobileLandscape ? 38 : 54,
+                      marginBottom: isMobileLandscape ? 38 : 44,
                     }}
                   >
                     <div
@@ -2713,7 +2735,10 @@ useEffect(() => {
                       style={{
                         position: "relative",
                         width: "100%",
-                        aspectRatio: cardAspect,
+                        aspectRatio: isTallCommercialCard ? undefined : cardAspect,
+                        height: isTallCommercialCard ? "62vh" : undefined,
+                        maxHeight: isTallCommercialCard ? 560 : undefined,
+                        minHeight: isTallCommercialCard ? 430 : undefined,
                         overflow: "hidden",
                         background: "black",
                         cursor: cardHasPlayback ? "pointer" : "default",
