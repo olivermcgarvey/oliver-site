@@ -3170,13 +3170,12 @@ style={{
                                 style={platformLogoStyle(project.rightMetaLogo)}
                               />
                             )
-                          ) : null}
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+      ) : null}
+    </div>
+  </div>
+</div>
+);
+})}
               </div>
             </div>
           ) : (
