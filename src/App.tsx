@@ -1775,286 +1775,408 @@ useEffect(() => {
   );
 
   const mobileHeader = (
-  <>
-    <button
-      type="button"
-      onClick={returnHome}
-      style={{
-        position: "fixed",
-        top: isMobileLandscape ? 28 : 48,
-        left: isMobileLandscape ? 28 : 20,
-        zIndex: 90,
-        userSelect: "none",
-        opacity: 0.88,
-        transition: "opacity 320ms ease",
-        textAlign: "left",
-        pointerEvents: mobileActiveProject ? "none" : "auto",
-        background: "transparent",
-        border: "none",
-        color: "white",
-        padding: 0,
-        margin: 0,
-        cursor: "pointer",
-        fontFamily: "inherit",
-      }}
-    >
-      <div
-        style={{
-          fontSize: 13.5,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          fontWeight: 500,
-        }}
-      >
-        Oliver McGarvey
-      </div>
-
-      <div
-        style={{
-          marginTop: 8,
-          fontSize: 11.5,
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-          opacity: roleVisible ? (hasEntered ? 0.76 : 0.66) : 0,
-          fontWeight: 500,
-          transform: roleVisible ? "translateY(0)" : "translateY(8px)",
-          transition: "opacity 320ms ease, transform 1400ms ease",
-        }}
-      >
-        {roleText}
-      </div>
-    </button>
-
-    <div
-      style={{
-        position: "fixed",
-        top: isMobileLandscape ? 28 : 48,
-        right: isMobileLandscape ? 28 : 20,
-        zIndex: 90,
-        userSelect: "none",
-        pointerEvents: mobileActiveProject ? "none" : "auto",
-        background: "transparent",
-      }}
-    >
+    <>
       <button
         type="button"
-        onClick={() => {
-          setMobileMenuOpen((prev) => !prev);
-          setMobileAboutOpen(false);
-          setMobileContactOpen(false);
-        }}
-        aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        onClick={returnHome}
         style={{
-          border: "none",
+          position: "fixed",
+          top: isMobileLandscape ? 28 : 48,
+          left: isMobileLandscape ? 28 : 20,
+          zIndex: 90,
+          userSelect: "none",
+          opacity: 0.88,
+          transition: "opacity 320ms ease",
+          textAlign: "left",
+          pointerEvents: mobileActiveProject ? "none" : "auto",
           background: "transparent",
-          color: "rgba(255,255,255,0.9)",
-          padding: "8px 0",
+          border: "none",
+          color: "white",
+          padding: 0,
           margin: 0,
-          fontSize: mobileMenuOpen ? 30 : 14,
-          fontWeight: mobileMenuOpen ? 300 : 500,
-          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-          lineHeight: mobileMenuOpen ? 0.8 : 1,
           cursor: "pointer",
-          letterSpacing: mobileMenuOpen ? "0" : "0.16em",
-          textTransform: mobileMenuOpen ? "none" : "uppercase",
-          opacity: mobileMenuOpen ? 0.82 : 0.98,
+          fontFamily: "inherit",
         }}
       >
-        {mobileMenuOpen ? "×" : "Menu"}
-      </button>
-    </div>
-
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 75,
-        opacity: mobileMenuOpen ? 1 : 0,
-        transform: mobileMenuOpen ? "translateY(0)" : "translateY(-12px)",
-        pointerEvents: mobileMenuOpen ? "auto" : "none",
-        transition: "opacity 420ms ease, transform 420ms ease",
-        background: "rgba(0,0,0,0.96)",
-        backdropFilter: "blur(4px)",
-        overflowY: "auto",
-        overflowX: "hidden",
-        WebkitOverflowScrolling: "touch",
-        padding: "156px 20px 80px 20px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div style={{ maxWidth: 520, margin: "0 auto" }}>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 22,
-            marginBottom: 48,
+            fontSize: 13.5,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            fontWeight: 500,
           }}
         >
-          <button type="button" onClick={() => enterSection("narrative")} style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: section === "narrative" && hasEntered ? 0.96 : 0.78, fontWeight: 300 }}>
-            Narrative
-          </button>
+          Oliver McGarvey
+        </div>
 
-          <button type="button" onClick={() => enterSection("commercial")} style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: section === "commercial" && hasEntered ? 0.96 : 0.78, fontWeight: 300 }}>
-            Commercial
-          </button>
+        <div
+          style={{
+            marginTop: 8,
+            fontSize: 11.5,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            opacity: roleVisible ? (hasEntered ? 0.76 : 0.66) : 0,
+            fontWeight: 500,
+            transform: roleVisible ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 320ms ease, transform 1400ms ease",
+          }}
+        >
+          {roleText}
+        </div>
+      </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              setMobileContactOpen(false);
-              setMobileAboutOpen(true);
+      <div
+        style={{
+          position: "fixed",
+          top: isMobileLandscape ? 28 : 48,
+          right: isMobileLandscape ? 28 : 20,
+          zIndex: 90,
+          userSelect: "none",
+          pointerEvents: mobileActiveProject ? "none" : "auto",
+          background: "transparent",
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => {
+            setMobileMenuOpen((prev) => !prev);
+            setMobileAboutOpen(false);
+            setMobileContactOpen(false);
+          }}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          style={{
+            border: "none",
+            background: "transparent",
+            color: "rgba(255,255,255,0.9)",
+            padding: "8px 0",
+            margin: 0,
+            fontSize: mobileMenuOpen ? 30 : 14,
+            fontWeight: mobileMenuOpen ? 300 : 500,
+            fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+            lineHeight: mobileMenuOpen ? 0.8 : 1,
+            cursor: "pointer",
+            letterSpacing: mobileMenuOpen ? "0" : "0.16em",
+            textTransform: mobileMenuOpen ? "none" : "uppercase",
+            opacity: mobileMenuOpen ? 0.82 : 0.98,
+          }}
+        >
+          {mobileMenuOpen ? "×" : "Menu"}
+        </button>
+      </div>
+
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 75,
+          opacity: mobileMenuOpen ? 1 : 0,
+          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-12px)",
+          pointerEvents: mobileMenuOpen ? "auto" : "none",
+          transition: "opacity 420ms ease, transform 420ms ease",
+          background: "rgba(0,0,0,0.96)",
+          backdropFilter: "blur(4px)",
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch",
+          padding: "156px 20px 80px 20px",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 22,
+              marginBottom: 48,
             }}
-            style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: 0.78, fontWeight: 300 }}
           >
-            About
-          </button>
+            <button
+              type="button"
+              onClick={() => enterSection("narrative")}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "white",
+                textAlign: "left",
+                fontSize: 20,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                padding: 0,
+                margin: 0,
+                opacity: section === "narrative" && hasEntered ? 1 : 0.9,
+                fontWeight: 500,
+              }}
+            >
+              Narrative
+            </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              setMobileAboutOpen(false);
-              setMobileContactOpen(true);
-            }}
-            style={{ background: "transparent", border: "none", color: "white", textAlign: "left", fontSize: 19, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: 0, margin: 0, opacity: 0.78, fontWeight: 300 }}
-          >
-            Contact
-          </button>
-        </div>
-      </div>
-    </div>
+            <button
+              type="button"
+              onClick={() => enterSection("commercial")}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "white",
+                textAlign: "left",
+                fontSize: 20,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                padding: 0,
+                margin: 0,
+                opacity: section === "commercial" && hasEntered ? 1 : 0.9,
+                fontWeight: 500,
+              }}
+            >
+              Commercial
+            </button>
 
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 78,
-        opacity: mobileAboutOpen ? 1 : 0,
-        pointerEvents: mobileAboutOpen ? "auto" : "none",
-        transition: "opacity 420ms ease",
-        background: "rgba(0,0,0,0.98)",
-        overflowY: "auto",
-        overflowX: "hidden",
-        WebkitOverflowScrolling: "touch",
-        padding: "118px 20px 80px 20px",
-        boxSizing: "border-box",
-      }}
-    >
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setMobileContactOpen(false);
+                setMobileAboutOpen(true);
+              }}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "white",
+                textAlign: "left",
+                fontSize: 20,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                padding: 0,
+                margin: 0,
+                opacity: 0.9,
+                fontWeight: 500,
+              }}
+            >
+              About
+            </button>
 
-      <div style={{ maxWidth: 520, margin: "0 auto" }}>
-        <div style={{ marginBottom: 42 }}>
-          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
-            Bio
-          </div>
-
-<div
-  style={{
-    fontSize: 13.5,
-    lineHeight: 1.78,
-    letterSpacing: "0.01em",
-    opacity: 0.86,
-  }}
->
-  Oliver McGarvey is a Canadian film director working between Edmonton and Berlin, spanning documentary, narrative and commissioned films.
-  <br />
-  <br />
-  His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and poetic realism.
-  <br />
-  <br />
-  Alongside being a regular Canada Council jury member, he is currently in post-production on a hybrid documentary and developing his debut feature screenplay with support from Telefilm Canada.
-</div>
-  </div>
-
-  <div>
-    <div
-      style={{
-      fontSize: 10.5,
-      letterSpacing: "0.14em",
-      textTransform: "uppercase",
-      opacity: 0.38,
-      lineHeight: 1.45,
-      marginBottom: 14,
-    }}
-  >
-    Selected Clients & Features
-  </div>
-
-  <div
-    style={{
-      fontSize: 13.5,
-      lineHeight: 1.82,
-      letterSpacing: "0.01em",
-      opacity: 0.86,
-    }}
-  >
-    Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
-    <br />
-    Leica · Miu Miu · MYKITA · Netflix · Nowness · Schinkel Pavillon · Sia Arnika · Slam Jam
-    <br />
-    The Guardian · Vanity Fair · Vogue
-  </div>
-</div> 
-      </div>
-    </div>
-
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 78,
-        opacity: mobileContactOpen ? 1 : 0,
-        pointerEvents: mobileContactOpen ? "auto" : "none",
-        transition: "opacity 420ms ease",
-        background: "rgba(0,0,0,0.98)",
-        overflowY: "auto",
-        overflowX: "hidden",
-        WebkitOverflowScrolling: "touch",
-        padding: "118px 20px 80px 20px",
-        boxSizing: "border-box",
-      }}
-    >
-
-      <div style={{ maxWidth: 520, margin: "0 auto" }}>
-        <div style={{ marginBottom: 42 }}>
-          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 18 }}>
-            Contact
-          </div>
-
-          <a href="mailto:contact@olivermcgarvey.com" style={{ fontSize: 13.5, lineHeight: 1.72, letterSpacing: "0.01em", color: "rgba(255,255,255,0.76)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
-            <span>contact@olivermcgarvey.com</span>
-            <ExternalArrowIcon />
-          </a>
-
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10, marginTop: 24, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.58 }}>
-            <a href={instagramUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-              Instagram
-            </a>
-            <a href={linkedinUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-              LinkedIn
-            </a>
-            <a href={imdbUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-              IMDb
-            </a>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setMobileAboutOpen(false);
+                setMobileContactOpen(true);
+              }}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "white",
+                textAlign: "left",
+                fontSize: 20,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                padding: 0,
+                margin: 0,
+                opacity: 0.9,
+                fontWeight: 500,
+              }}
+            >
+              Contact
+            </button>
           </div>
         </div>
+      </div>
 
-        <div>
-          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.38, lineHeight: 1.45, marginBottom: 14 }}>
-            Founder & Executive Producer
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 78,
+          opacity: mobileAboutOpen ? 1 : 0,
+          pointerEvents: mobileAboutOpen ? "auto" : "none",
+          transition: "opacity 420ms ease",
+          background: "rgba(0,0,0,0.98)",
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch",
+          padding: "118px 20px 80px 20px",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+          <div style={{ marginBottom: 42 }}>
+            <div
+              style={{
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.38,
+                lineHeight: 1.45,
+                marginBottom: 14,
+              }}
+            >
+              Bio
+            </div>
+
+            <div
+              style={{
+                fontSize: 13.5,
+                lineHeight: 1.78,
+                letterSpacing: "0.01em",
+                opacity: 0.86,
+              }}
+            >
+              Oliver McGarvey is a Canadian film director working between Edmonton and Berlin across documentary, narrative and commissioned films.
+              <br />
+              <br />
+              His work is driven by an earnest search beneath the surface of social and inner life. Open in form, he allows each project to find its own shape while returning to visual restraint, emotional realism and poetic atmosphere.
+              <br />
+              <br />
+              A regular Canada Council jury member, he is currently in post-production on a hybrid documentary supported by the Canada Council for the Arts and developing his debut feature screenplay with support from Telefilm Canada and the Alberta Media Fund.
+            </div>
           </div>
 
-          <div style={{ fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", opacity: 0.5, lineHeight: 1.45, marginBottom: 18 }}>
-            Unknown Pictures Ltd.
-          </div>
+          <div>
+            <div
+              style={{
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.38,
+                lineHeight: 1.45,
+                marginBottom: 14,
+              }}
+            >
+              Selected Clients & Features
+            </div>
 
-          <img src={unknownPicturesLogo} alt="Unknown Pictures" style={{ width: 34, height: "auto", opacity: 0.58, display: "block" }} />
+            <div
+              style={{
+                fontSize: 13.5,
+                lineHeight: 1.82,
+                letterSpacing: "0.01em",
+                opacity: 0.86,
+              }}
+            >
+              Acne Studios · Adidas · ARTE · Asics · Berlin Commercial Awards · Gruppe Magazine · Highsnobiety · i-D
+              <br />
+              Leica · Miu Miu · MYKITA · Netflix · Nowness · Schinkel Pavillon · Sia Arnika · Slam Jam
+              <br />
+              The Guardian · Vanity Fair · Vogue
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </>
-);
+
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 78,
+          opacity: mobileContactOpen ? 1 : 0,
+          pointerEvents: mobileContactOpen ? "auto" : "none",
+          transition: "opacity 420ms ease",
+          background: "rgba(0,0,0,0.98)",
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch",
+          padding: "118px 20px 80px 20px",
+          boxSizing: "border-box",
+        }}
+      >
+        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+          <div style={{ marginBottom: 42 }}>
+            <div
+              style={{
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.38,
+                lineHeight: 1.45,
+                marginBottom: 18,
+              }}
+            >
+              Contact
+            </div>
+
+            <a
+              href="mailto:contact@olivermcgarvey.com"
+              style={{
+                fontSize: 13.5,
+                lineHeight: 1.72,
+                letterSpacing: "0.01em",
+                color: "rgba(255,255,255,0.76)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <span>contact@olivermcgarvey.com</span>
+              <ExternalArrowIcon />
+            </a>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                gap: 10,
+                marginTop: 24,
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.58,
+              }}
+            >
+              <a href={instagramUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                Instagram
+              </a>
+              <a href={linkedinUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                LinkedIn
+              </a>
+              <a href={imdbUrl} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                IMDb
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.38,
+                lineHeight: 1.45,
+                marginBottom: 14,
+              }}
+            >
+              Founder & Executive Producer
+            </div>
+
+            <div
+              style={{
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                opacity: 0.5,
+                lineHeight: 1.45,
+                marginBottom: 18,
+              }}
+            >
+              Unknown Pictures Ltd.
+            </div>
+
+            <img
+              src={unknownPicturesLogo}
+              alt="Unknown Pictures"
+              style={{ width: 34, height: "auto", opacity: 0.58, display: "block" }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <div
