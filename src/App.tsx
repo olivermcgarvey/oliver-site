@@ -57,8 +57,8 @@ const narrativeProjects: Project[] = [
     mobileVimeoId: "1078472394",
     leftMeta: "Executive Producer · Lemohang Mosese",
     leftMetaLink: "https://iffr.com/en/person/lemohang-jeremiah-mosese",
-    rightMetaText: "Festival Distribution · Gargantua Films",
-    rightMetaLink: "https://gargantuafilms.com",
+    rightMetaText: "Festival Distribution · Gargantua",
+    rightMetaLink: "https://www.gargantuafilm.it/",
     overlays: [],
   },
   {
@@ -1800,10 +1800,10 @@ useEffect(() => {
     >
       <div
         style={{
-          fontSize: 12.5,
+          fontSize: 13.5,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          fontWeight: 400,
+          fontWeight: 500,
         }}
       >
         Oliver McGarvey
@@ -1812,16 +1812,17 @@ useEffect(() => {
       <div
         style={{
           marginTop: 8,
-          fontSize: 11,
+          fontSize: 11.5,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
-          opacity: roleVisible ? (hasEntered ? 0.62 : 0.52) : 0,
-          fontWeight: 400,
+          opacity: roleVisible ? (hasEntered ? 0.76 : 0.66) : 0,
+          fontWeight: 500,
           transform: roleVisible ? "translateY(0)" : "translateY(8px)",
           transition: "opacity 320ms ease, transform 1400ms ease",
         }}
       >
         {roleText}
+      </div>
       </div>
     </button>
 
@@ -1850,14 +1851,14 @@ useEffect(() => {
           color: "rgba(255,255,255,0.9)",
           padding: "8px 0",
           margin: 0,
-          fontSize: mobileMenuOpen ? 30 : 13,
-          fontWeight: mobileMenuOpen ? 200 : 400,
+          fontSize: mobileMenuOpen ? 30 : 14,
+          fontWeight: mobileMenuOpen ? 300 : 500,
           fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
           lineHeight: mobileMenuOpen ? 0.8 : 1,
           cursor: "pointer",
           letterSpacing: mobileMenuOpen ? "0" : "0.16em",
           textTransform: mobileMenuOpen ? "none" : "uppercase",
-          opacity: mobileMenuOpen ? 0.72 : 0.9,
+          opacity: mobileMenuOpen ? 0.82 : 0.98,
         }}
       >
         {mobileMenuOpen ? "×" : "Menu"}
@@ -2498,16 +2499,16 @@ useEffect(() => {
                 cursor: "pointer",
                 padding: 0,
                 margin: 0,
-                fontSize: isMobile ? 14 : 16,
+                fontSize: isMobile ? 15 : 16,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                fontWeight: 200,
+                fontWeight: isMobile ? 500 : 300,
                 opacity:
                   landingHover === null
-                    ? 0.68
+                    ? isMobile ? 0.84 : 0.68
                     : landingHover === "narrative"
-                      ? 0.9
-                      : 0.42,
+                      ? 0.96
+                      : 0.5,
                 transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
                 transition: "opacity 520ms ease, transform 520ms ease",
               }}
@@ -2527,16 +2528,16 @@ useEffect(() => {
                 cursor: "pointer",
                 padding: 0,
                 margin: 0,
-                fontSize: isMobile ? 14 : 16,
+                fontSize: isMobile ? 15 : 16,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                fontWeight: 200,
+                fontWeight: isMobile ? 500 : 300,
                 opacity:
                   landingHover === null
-                    ? 0.68
+                    ? isMobile ? 0.84 : 0.68
                     : landingHover === "commercial"
-                      ? 0.9
-                      : 0.42,
+                      ? 0.96
+                      : 0.5,
                 transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
                 transition: "opacity 520ms ease, transform 520ms ease",
               }}
