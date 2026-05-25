@@ -1823,7 +1823,6 @@ useEffect(() => {
       >
         {roleText}
       </div>
-      </div>
     </button>
 
     <div
