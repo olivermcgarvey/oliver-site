@@ -64,7 +64,7 @@ const narrativeProjects: Project[] = [
   {
     title: "Portrait of The Living Sky",
     status: "In Post Production",
-    role: "Hybrid Documentary · 35MM & Digital",
+    role: "Documentary · 35MM & Digital",
     year: "2026",
     image: bunny("/narrative/happy-citizens/poster.webp"),
     video: bunny("/narrative/happy-citizens/trailer.mp4"),
@@ -76,7 +76,7 @@ const narrativeProjects: Project[] = [
   {
     title: "Cosmic Loneliness",
     status: "In Development",
-    role: "Debut Feature Film",
+    role: "Feature Film",
     year: "2027",
     image: bunny("/narrative/cosmic-loneliness/poster.webp"),
     leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
@@ -458,7 +458,7 @@ function CenterCue({
   );
 }
 
-function platformLogoStyle(logo?: string): React.CSSProperties {
+function mobilePlatformLogoStyle(logo?: string): React.CSSProperties {
   if (logo === highsnobietyLogo) {
     return {
       height: 11,
@@ -488,6 +488,41 @@ function platformLogoStyle(logo?: string): React.CSSProperties {
     width: "auto",
     display: "block",
     opacity: isEditorial ? 0.82 : 0.92,
+    filter: isEditorial ? "brightness(0) invert(1)" : "none",
+    transform: isEditorial ? "translateY(1px)" : "translateY(0)",
+  };
+}
+
+function platformLogoStyle(logo?: string): React.CSSProperties {
+  if (logo === highsnobietyLogo) {
+    return {
+      height: 13,
+      width: "auto",
+      display: "block",
+      opacity: 0.76,
+      filter: "none",
+      transform: "translateY(1px)",
+    };
+  }
+
+  const isEditorial = logo === nownessLogo || logo === idLogo;
+
+  if (logo === netflixLogo) {
+    return {
+      height: 14,
+      width: "auto",
+      display: "block",
+      opacity: 0.92,
+      filter: "none",
+      transform: "translateY(0)",
+    };
+  }
+
+  return {
+    height: isEditorial ? 10 : 11,
+    width: "auto",
+    display: "block",
+    opacity: isEditorial ? 0.88 : 0.92,
     filter: isEditorial ? "brightness(0) invert(1)" : "none",
     transform: isEditorial ? "translateY(1px)" : "translateY(0)",
   };
@@ -615,14 +650,15 @@ function MobileCardMeta({
 }: {
   project: Project;
 }) {
-  const mobileLeftMeta =
-    project.leftMeta?.replace(/^Executive Producer · /i, "EP · ");
+  const mobileLeftMeta = project.leftMeta
+    ?.replace(/^Executive Producer · /i, "EP · ")
+    .replace("Supported by Canada Council for the Arts", "Supported by Canada Council");
 
   const mobileLeftMetaExtra = project.leftMetaExtra;
 
   const mobileRightMetaText =
     project.rightMetaText?.toUpperCase().includes("GARGANTUA")
-      ? "Gargantua Films"
+      ? "Gargantua Distr"
       : project.rightMetaText || project.status;
 
   const hasLeftMeta =
@@ -736,7 +772,7 @@ function MobileCardMeta({
             lineHeight: 1.35,
             opacity: 0.6,
             fontWeight: 400,
-            marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 6 : 0,
+            marginBottom: project.rightMetaExtra ? 11 : project.rightMetaLogo ? 6 : 0,
           }}
         >
           {!project.rightMetaLogo && project.rightMetaLink ? (
@@ -764,12 +800,12 @@ function MobileCardMeta({
         {project.rightMetaExtra ? (
           <div
             style={{
-              marginBottom: project.rightMetaLogo ? 6 : 0,
-              fontSize: 9.5,
-              letterSpacing: "0.095em",
+              marginBottom: project.rightMetaLogo ? 4 : 0,
+              fontSize: 10.5,
+              letterSpacing: "0.105em",
               textTransform: "uppercase",
-              lineHeight: 1.25,
-              opacity: 0.4,
+              lineHeight: 1.42,
+              opacity: 0.42,
               fontWeight: 400,
               whiteSpace: "nowrap",
             }}
@@ -821,14 +857,14 @@ function MobileCardMeta({
               <img
                 src={project.rightMetaLogo}
                 alt="Platform"
-                style={platformLogoStyle(project.rightMetaLogo)}
+                style={mobilePlatformLogoStyle(project.rightMetaLogo)}
               />
             </a>
           ) : (
             <img
               src={project.rightMetaLogo}
               alt="Platform"
-              style={platformLogoStyle(project.rightMetaLogo)}
+              style={mobilePlatformLogoStyle(project.rightMetaLogo)}
             />
           )
         ) : null}
