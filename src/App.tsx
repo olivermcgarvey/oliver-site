@@ -721,7 +721,7 @@ function MobileCardMeta({
             lineHeight: 1.45,
             opacity: 0.72,
             fontWeight: 400,
-            marginBottom: project.rightMetaLogo ? 8 : 0,
+            marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 8 : 0,
           }}
         >
           {!project.rightMetaLogo && project.rightMetaLink ? (
@@ -744,6 +744,23 @@ function MobileCardMeta({
             project.rightMetaText || project.status
           )}
         </div>
+
+        {project.rightMetaExtra ? (
+          <div
+            style={{
+              marginBottom: project.rightMetaLogo ? 8 : 0,
+              fontSize: 10,
+              letterSpacing: "0.11em",
+              textTransform: "uppercase",
+              lineHeight: 1.35,
+              opacity: 0.46,
+              fontWeight: 400,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.rightMetaExtra}
+          </div>
+        ) : null}
 
         {project.rightMetaLogo ? (
           project.rightMetaLogo === instagramLabel ? (
@@ -798,23 +815,6 @@ function MobileCardMeta({
               style={platformLogoStyle(project.rightMetaLogo)}
             />
           )
-        ) : null}
-        
-                {project.rightMetaExtra ? (
-          <div
-            style={{
-              marginTop: 8,
-              fontSize: 10,
-              letterSpacing: "0.11em",
-              textTransform: "uppercase",
-              lineHeight: 1.35,
-              opacity: 0.46,
-              fontWeight: 400,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {project.rightMetaExtra}
-          </div>
         ) : null}
       </div>
     </div>
@@ -1674,7 +1674,7 @@ useEffect(() => {
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           opacity: 0.58,
-          marginBottom: current.rightMetaLogo ? 4 : 0,
+          marginBottom: current.rightMetaExtra || current.rightMetaLogo ? 4 : 0,
         }}
       >
         {!current.rightMetaLogo && current.rightMetaLink ? (
@@ -1697,6 +1697,21 @@ useEffect(() => {
           current.rightMetaText || current.status
         )}
       </div>
+
+      {current.rightMetaExtra ? (
+        <div
+          style={{
+            marginBottom: current.rightMetaLogo ? 4 : 0,
+            fontSize: 9.5,
+            letterSpacing: "0.11em",
+            textTransform: "uppercase",
+            opacity: 0.36,
+            whiteSpace: "nowrap",
+          }}
+        >
+          {current.rightMetaExtra}
+        </div>
+      ) : null}
 
       {current.rightMetaLogo ? (
         current.rightMetaLogo === instagramLabel ? (
@@ -1755,20 +1770,6 @@ useEffect(() => {
             style={platformLogoStyle(current.rightMetaLogo)}
           />
         )
-      ) : null}
-            {current.rightMetaExtra ? (
-        <div
-          style={{
-            marginTop: 7,
-            fontSize: 9.5,
-            letterSpacing: "0.11em",
-            textTransform: "uppercase",
-            opacity: 0.36,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {current.rightMetaExtra}
-        </div>
       ) : null}
     </div>
   );
@@ -2915,7 +2916,10 @@ style={{
                                 marginBottom: project.leftMetaThird ? 4 : 0,
                               }}
                             >
-                              <LinkedMeta text={project.leftMetaExtra} link={project.leftMetaExtraLink} />
+                              <LinkedMeta
+                                text={project.leftMetaExtra}
+                                link={project.leftMetaExtraLink}
+                              />
                             </div>
                           ) : null}
 
@@ -2948,7 +2952,7 @@ style={{
                               letterSpacing: "0.12em",
                               textTransform: "uppercase",
                               opacity: 0.58,
-                              marginBottom: project.rightMetaLogo ? 4 : 0,
+                              marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 4 : 0,
                             }}
                           >
                             {!project.rightMetaLogo && project.rightMetaLink ? (
@@ -2971,6 +2975,21 @@ style={{
                               project.rightMetaText || project.status
                             )}
                           </div>
+
+                          {project.rightMetaExtra ? (
+                            <div
+                              style={{
+                                marginBottom: project.rightMetaLogo ? 4 : 0,
+                                fontSize: 9.5,
+                                letterSpacing: "0.11em",
+                                textTransform: "uppercase",
+                                opacity: 0.36,
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {project.rightMetaExtra}
+                            </div>
+                          ) : null}
 
                           {project.rightMetaLogo ? (
                             project.rightMetaLogo === instagramLabel ? (
@@ -3030,20 +3049,7 @@ style={{
                               />
                             )
                           ) : null}
-                                                    {project.rightMetaExtra ? (
-                            <div
-                              style={{
-                                marginTop: 7,
-                                fontSize: 9.5,
-                                letterSpacing: "0.11em",
-                                textTransform: "uppercase",
-                                opacity: 0.36,
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {project.rightMetaExtra}
-                            </div>
-                          ) : null}
+                        </div>
                         </div>
                       </div>
                     </div>
