@@ -2082,7 +2082,7 @@ useEffect(() => {
               Oliver McGarvey is a Canadian film director working between Edmonton and Berlin across documentary, narrative and commissioned films.
               <br />
               <br />
-              His work is driven by an earnest search beneath the surface of social and inner life. Open in form, he allows each project to find its own shape while returning to visual restraint, emotional realism and poetic atmosphere.
+              His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and emotional realism.
               <br />
               <br />
               A regular Canada Council jury member, he is currently in post-production on an experimental documentary supported by the Canada Council for the Arts and developing his debut feature screenplay with support from Telefilm Canada and the Alberta Media Fund.
