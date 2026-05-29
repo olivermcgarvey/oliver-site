@@ -113,7 +113,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "868033223",
     aspect: "vertical",
     leftMeta: "Director / Co-DOP",
-    leftMetaExtra: "Zack Spiger · Co-DOP",
+    leftMetaExtra: "Zack Spiger · DOP",
     rightMetaText: "PUBLISHED",
     rightMetaExtra: "1M+ Organic Views",
     rightMetaLogo: instagramLabel,
@@ -195,7 +195,7 @@ const commercialProjects: Project[] = [
     imageVertical: bunny("/commercial/krista-papista/poster.webp"),
     video: bunny("/commercial/krista-papista/trailer.mp4"),
     mobileVimeoId: "726938602",
-    leftMeta: "Director",
+    leftMeta: "Writer · Director",
     leftMetaExtra: "Berlin Music Video Awards · Silver Screening Selection",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: nownessLogo,
@@ -263,7 +263,7 @@ const commercialProjects: Project[] = [
     mobileVimeoId: "1185077699",
     aspect: "vertical",
     leftMeta: "Director / Co-DOP",
-    leftMetaExtra: "Zack Spiger · Co-DOP",
+    leftMetaExtra: "Zack Spiger · DOP",
     rightMetaText: "PUBLISHED",
     rightMetaExtra: "1.6M+ Organic Views",
     rightMetaLogo: instagramLabel,
@@ -2085,7 +2085,7 @@ useEffect(() => {
               His work is driven by an earnest search beneath the surface of social and inner life. Open in form, he allows each project to find its own shape while returning to visual restraint, emotional realism and poetic atmosphere.
               <br />
               <br />
-              A regular Canada Council jury member, he is currently in post-production on a hybrid documentary supported by the Canada Council for the Arts and developing his debut feature screenplay with support from Telefilm Canada and the Alberta Media Fund.
+              A regular Canada Council jury member, he is currently in post-production on an experimental documentary supported by the Canada Council for the Arts and developing his debut feature screenplay with support from Telefilm Canada and the Alberta Media Fund.
             </div>
           </div>
 
@@ -2472,7 +2472,7 @@ useEffect(() => {
       </div>
 
       <div>
-        Alongside being a regular Canada Council jury member, he is currently in post-production on a hybrid documentary and developing his debut feature screenplay with support from Telefilm Canada.
+        Alongside being a regular Canada Council jury member, he is currently in post-production on an experimental documentary and developing his debut feature screenplay with support from Telefilm Canada.
       </div>
     </div>
   </div>
