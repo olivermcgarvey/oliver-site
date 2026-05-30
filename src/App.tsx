@@ -78,7 +78,7 @@ const narrativeProjects: Project[] = [
   status: "In Development",
   role: "Feature Film",
   year: "2027",
-  image: bunny("/narrative/cosmic-loneliness/project-cl.webp"),
+  image: bunny("/narrative/cosmic-loneliness/project-cl-2.webp"),
   leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
   rightMetaText: "IN DEVELOPMENT",
   overlays: [],
