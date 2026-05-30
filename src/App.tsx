@@ -79,7 +79,7 @@ const narrativeProjects: Project[] = [
   role: "Feature Film",
   year: "2027",
   image: bunny("/narrative/cosmic-loneliness/project-cl.webp"),
-  imageLandscape: bunny("/narrative/cosmic-loneliness/project-cl.webp"),
+  imageLandscape: bunny("/narrative/cosmic-loneliness/project-cl-2.webp"),
   imageVertical: bunny("/narrative/cosmic-loneliness/project-cl-2.webp"),
   leftMeta: "Supported by Telefilm Canada · Alberta Media Fund",
   rightMetaText: "IN DEVELOPMENT",
