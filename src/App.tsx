@@ -77,7 +77,7 @@ const narrativeProjects: Project[] = [
   title: "Cosmic Loneliness",
   status: "In Development",
   role: "Feature Film",
-  year: "",
+  year: "2028",
   image: bunny("/narrative/cosmic-loneliness/project-cl.webp"),
   imageLandscape: bunny("/narrative/cosmic-loneliness/project-cl-2.webp"),
   imageVertical: bunny("/narrative/cosmic-loneliness/project-cl-2.webp"),
