@@ -152,7 +152,6 @@ const commercialProjects: Project[] = [
   overlays: [],
 },
   {
-{
   id: "adidas-1",
   title: "Adidas",
   status: "Released",
@@ -241,7 +240,6 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
-{
   id: "adidas-2",
   title: "Adidas",
   status: "Released",
@@ -261,7 +259,6 @@ const commercialProjects: Project[] = [
   overlays: [],
 },
   {
-{
   id: "miu-miu-2",
   title: "MIU MIU",
   status: "Released",
@@ -2954,7 +2951,6 @@ style={{
                       >
                         {cardHasPlayback && isDesktopCardActive ? (
 <video
-  <video
   key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
   src={activeVideo}
   autoPlay={desktopGalleryPlaying}
