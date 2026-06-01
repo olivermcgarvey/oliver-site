@@ -7,7 +7,13 @@ type OverlayItem = {
   url?: string;
 };
 
+type EpisodeItem = {
+  label: string;
+  video: string;
+};
+
 type Project = {
+  id?: string;
   title: string;
   status: string;
   role: string;
@@ -30,6 +36,7 @@ type Project = {
   leftMetaExtraLink?: string;
   blurb?: string;
   overlays?: OverlayItem[];
+  episodes?: EpisodeItem[];
   flashWarning?: boolean;
 };
 
@@ -122,37 +129,48 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "MIU MIU",
-    status: "Released",
-    role: "Campaign · Digital",
-    year: "2022",
-    image: bunny("/commercial/miu-miu-1/poster.webp"),
-    imageLandscape: bunny("/commercial/miu-miu-1/poster.webp"),
-    imageVertical: bunny("/commercial/miu-miu-1/poster.webp"),
-    video: bunny("/commercial/miu-miu-1/trailer.mp4"),
-    mobileVimeoId: "1185057987",
-    aspect: "vertical",
-    leftMeta: "Cinematography & Model Direction",
-    leftMetaExtra: "Fritz Schiffers · Artist",
-    leftMetaThird: "Paris Fashion Week · SS23",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
+  id: "miu-miu-1",
+  title: "MIU MIU",
+  status: "Released",
+  role: "Campaign · Digital",
+  year: "2022",
+  image: bunny("/commercial/miu-miu-1/poster.webp"),
+  imageLandscape: bunny("/commercial/miu-miu-1/poster.webp"),
+  imageVertical: bunny("/commercial/miu-miu-1/poster.webp"),
+  video: bunny("/commercial/miu-miu-1/trailer-ep-1.mp4"),
+  mobileVimeoId: "1185057987",
+  aspect: "vertical",
+  leftMeta: "Cinematography & Model Direction",
+  leftMetaExtra: "Fritz Schiffers · Artist",
+  leftMetaThird: "Paris Fashion Week · SS23",
+  rightMetaText: "PUBLISHED",
+  rightMetaLogo: instagramLabel,
+  episodes: [
+    { label: "EP 01", video: bunny("/commercial/miu-miu-1/trailer-ep-1.mp4") },
+    { label: "EP 02", video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4") },
+  ],
+  overlays: [],
+},
   {
-    title: "Adidas",
-    status: "Released",
-    role: "Campaign",
-    year: "2025",
-    image: bunny("/commercial/adidas/poster.webp"),
-    imageLandscape: bunny("/commercial/adidas/poster.webp"),
-    video: bunny("/commercial/adidas/trailer.mp4"),
-    mobileVimeoId: "1185056415",
-    leftMeta: "Director",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
+{
+  id: "adidas-1",
+  title: "Adidas",
+  status: "Released",
+  role: "Campaign",
+  year: "2025",
+  image: bunny("/commercial/adidas/poster.webp"),
+  imageLandscape: bunny("/commercial/adidas/poster.webp"),
+  video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+  mobileVimeoId: "1185056415",
+  leftMeta: "Director",
+  rightMetaText: "PUBLISHED",
+  rightMetaLogo: instagramLabel,
+  episodes: [
+    { label: "EP 01", video: bunny("/commercial/adidas/trailer-ep-1.mp4") },
+    { label: "EP 02", video: bunny("/commercial/adidas/trailer-ep-2.mp4") },
+  ],
+  overlays: [],
+},
   {
     title: "MYKITA · LEICA",
     status: "Released",
@@ -223,36 +241,48 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
   {
-    title: "Adidas",
-    status: "Released",
-    role: "Campaign",
-    year: "2025",
-    image: bunny("/commercial/adidas-2/poster.webp"),
-    imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
-    video: bunny("/commercial/adidas-2/trailer.mp4"),
-    mobileVimeoId: "1185056841",
-    leftMeta: "Director",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
+{
+  id: "adidas-2",
+  title: "Adidas",
+  status: "Released",
+  role: "Campaign",
+  year: "2025",
+  image: bunny("/commercial/adidas-2/poster.webp"),
+  imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
+  video: bunny("/commercial/adidas-2/trailer-ep-1.mp4"),
+  mobileVimeoId: "1185056841",
+  leftMeta: "Director",
+  rightMetaText: "PUBLISHED",
+  rightMetaLogo: instagramLabel,
+  episodes: [
+    { label: "EP 01", video: bunny("/commercial/adidas-2/trailer-ep-1.mp4") },
+    { label: "EP 02", video: bunny("/commercial/adidas-2/trailer-ep-2.mp4") },
+  ],
+  overlays: [],
+},
   {
-    title: "MIU MIU",
-    status: "Released",
-    role: "Campaign · Digital",
-    year: "2022",
-    image: bunny("/commercial/miu-miu-2/poster.webp"),
-    imageLandscape: bunny("/commercial/miu-miu-2/poster.webp"),
-    imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
-    video: bunny("/commercial/miu-miu-2/trailer.mp4"),
-    aspect: "vertical",
-    leftMeta: "Cinematography & Model Direction",
-    leftMetaExtra: "Fritz Schiffers · Artist",
-    leftMetaThird: "Paris Fashion Week · SS23",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
+{
+  id: "miu-miu-2",
+  title: "MIU MIU",
+  status: "Released",
+  role: "Campaign · Digital",
+  year: "2022",
+  image: bunny("/commercial/miu-miu-2/poster.webp"),
+  imageLandscape: bunny("/commercial/miu-miu-2/poster.webp"),
+  imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
+  video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4"),
+  aspect: "vertical",
+  leftMeta: "Cinematography & Model Direction",
+  leftMetaExtra: "Fritz Schiffers · Artist",
+  leftMetaThird: "Paris Fashion Week · SS23",
+  rightMetaText: "PUBLISHED",
+  rightMetaLogo: instagramLabel,
+  episodes: [
+    { label: "EP 01", video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4") },
+    { label: "EP 02", video: bunny("/commercial/miu-miu-2/trailer-ep-2.mp4") },
+  ],
+  overlays: [],
+},
   {
     title: "MYKITA · KAT",
     status: "Released",
@@ -529,7 +559,9 @@ function platformLogoStyle(logo?: string): React.CSSProperties {
     transform: isEditorial ? "translateY(1px)" : "translateY(0)",
   };
 }
-
+function getEpisodeVideo(project: Project, episodeIndex = 0) {
+  return project.episodes?.[episodeIndex]?.video || project.video;
+}
 function getLandscapeImage(project: Project) {
   return project.imageLandscape || project.image;
 }
@@ -1035,6 +1067,32 @@ const isMobileLandscape =
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
+  const [episodeByProjectId, setEpisodeByProjectId] = useState<Record<string, number>>({});
+
+const getProjectId = (project: Project, index: number) =>
+  project.id || `${section}-${project.title}-${index}`;
+
+const getActiveEpisodeIndex = (project: Project, index: number) => {
+  const id = getProjectId(project, index);
+  const max = project.episodes?.length || 1;
+  return Math.min(episodeByProjectId[id] ?? 0, max - 1);
+};
+
+const setProjectEpisode = (project: Project, index: number, episodeIndex: number) => {
+  const id = getProjectId(project, index);
+
+  setEpisodeByProjectId((prev) => ({
+    ...prev,
+    [id]: episodeIndex,
+  }));
+
+  setVideoReady(false);
+  pendingFullscreenTimeRef.current = null;
+
+  if (desktopActiveProjectIndex === index) {
+    setDesktopGalleryPlaying(true);
+  }
+};
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
@@ -1043,8 +1101,10 @@ const isMobileLandscape =
 
   const safeDisplayIndex =
     displayIndex >= 0 && displayIndex < projects.length ? displayIndex : 0;
-  const current = projects[safeDisplayIndex];
-  const hasVideo = !!current?.video;
+const current = projects[safeDisplayIndex];
+const currentEpisodeIndex = getActiveEpisodeIndex(current, safeDisplayIndex);
+const currentVideo = getEpisodeVideo(current, currentEpisodeIndex);
+const hasVideo = !!currentVideo;
   const isVertical = current?.aspect === "vertical";
   const galleryObjectFit = isVertical ? "contain" : "cover";
   const fullscreenObjectFit = "contain";
@@ -2852,7 +2912,9 @@ useEffect(() => {
                 }}
               >
                 {projects.map((project, i) => {
-                  const cardHasPlayback = !!project.video;
+const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
+const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
+const cardHasPlayback = !!activeVideo;
                   const cardIsVertical = project.aspect === "vertical";
                   const cardObjectFit = cardIsVertical ? "contain" : "cover";
                   const isDesktopCardActive = desktopActiveProjectIndex === i;
@@ -2892,7 +2954,9 @@ style={{
                       >
                         {cardHasPlayback && isDesktopCardActive ? (
 <video
-  src={project.video}
+  <video
+  key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+  src={activeVideo}
   autoPlay={desktopGalleryPlaying}
   muted={false}
   loop
@@ -3060,6 +3124,43 @@ style={{
                           >
                             {project.title}
                           </div>
+                          {project.episodes?.length ? (
+  <div
+    style={{
+      display: "flex",
+      gap: 14,
+      marginBottom: 7,
+      pointerEvents: "auto",
+    }}
+  >
+    {project.episodes.map((episode, episodeIndex) => (
+      <button
+        key={episode.label}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setProjectEpisode(project, i, episodeIndex);
+        }}
+        style={{
+          border: "none",
+          background: "transparent",
+          color: "inherit",
+          padding: 0,
+          margin: 0,
+          cursor: "pointer",
+          fontSize: 10,
+          letterSpacing: "0.13em",
+          textTransform: "uppercase",
+          opacity: activeEpisodeIndex === episodeIndex ? 0.72 : 0.32,
+          transition: "opacity 240ms ease",
+          fontFamily: "inherit",
+        }}
+      >
+        {episode.label}
+      </button>
+    ))}
+  </div>
+) : null}
 
                           <div
                             style={{
@@ -3308,9 +3409,9 @@ style={{
 
                 {hasVideo ? (
 <video
-  key={`${current.title}-${displayIndex}`}
+  key={`${current.id || current.title}-${displayIndex}-${currentEpisodeIndex}`}
   ref={videoRef}
-  src={current.video}
+  src={currentVideo}
   muted={isMuted}
   loop
   playsInline
@@ -3597,7 +3698,52 @@ style={{
     </div>
   </div>
 ) : null}
-
+{current.episodes?.length ? (
+  <div
+    style={{
+      position: "absolute",
+      left: "50%",
+      bottom: 54,
+      transform: "translateX(-50%)",
+      zIndex: 132,
+      display: "flex",
+      gap: 16,
+      opacity: hasVideo ? (showControls ? 0.8 : 0) : 0.8,
+      transition: "opacity 420ms ease",
+      pointerEvents: hasVideo ? (showControls ? "auto" : "none") : "auto",
+    }}
+  >
+    {current.episodes.map((episode, episodeIndex) => (
+      <button
+        key={episode.label}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setProjectEpisode(current, safeDisplayIndex, episodeIndex);
+          setIsActive(true);
+          setIsPlaying(true);
+          setShowControls(true);
+        }}
+        style={{
+          border: "none",
+          background: "transparent",
+          color: "rgba(255,255,255,0.86)",
+          padding: 0,
+          margin: 0,
+          cursor: "pointer",
+          fontSize: 10.5,
+          letterSpacing: "0.13em",
+          textTransform: "uppercase",
+          opacity: currentEpisodeIndex === episodeIndex ? 0.86 : 0.34,
+          transition: "opacity 240ms ease",
+          fontFamily: "inherit",
+        }}
+      >
+        {episode.label}
+      </button>
+    ))}
+  </div>
+) : null}
                 <div
                   style={{
                     position: "absolute",
