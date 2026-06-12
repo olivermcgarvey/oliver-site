@@ -353,7 +353,7 @@ const reelProject: Project = {
   imageLandscape: bunny("/reel/poster.webp"),
   imageVertical: bunny("/reel/poster-vertical.webp"),
   video: bunny("/reel/trailer.mp4"),
-  leftMeta: "50 SEC REEL",
+  leftMeta: "",
   rightMetaText: "",
   overlays: [],
 };
