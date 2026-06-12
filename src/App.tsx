@@ -147,7 +147,6 @@ video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4"),
   leftMetaThird: "Paris Fashion Week · SS23",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
-  episodes: [
 episodes: [
   {
     label: "EP 01",
