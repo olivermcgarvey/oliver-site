@@ -3864,19 +3864,19 @@ ref={(node) => {
   : `${current.role} · ${current.year}`}
 </div>
 
-      {current.leftMeta ? (
-        <div
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            opacity: 0.42,
-            marginBottom: current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
-          }}
-        >
-          <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
-        </div>
-      ) : null}
+{current.leftMeta ? (
+  <div
+    style={{
+      fontSize: 11,
+      letterSpacing: "0.12em",
+      textTransform: "uppercase",
+      opacity: 0.42,
+      marginBottom: current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
+    }}
+  >
+    <LinkedMeta text={current.leftMeta} link={current.leftMetaLink} />
+  </div>
+) : null}
 
       {current.leftMetaExtra ? (
         <div
@@ -3966,25 +3966,25 @@ ref={(node) => {
     ))}
   </div>
 ) : null}
-<div
-  style={{
-    position: "absolute",
-    bottom: 28,
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 130,
-    fontSize: 11,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-    opacity: showControls ? 0.34 : 0,
-    transition: "opacity 520ms ease",
-    pointerEvents: "none",
-  }}
->
-  {fullscreenProjectOverride
-    ? "REEL"
-    : `${currentIndex + 1} / ${projects.length}`}
-</div>
+{!fullscreenProjectOverride ? (
+  <div
+    style={{
+      position: "absolute",
+      bottom: 28,
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 130,
+      fontSize: 11,
+      letterSpacing: "0.12em",
+      textTransform: "uppercase",
+      opacity: showControls ? 0.34 : 0,
+      transition: "opacity 520ms ease",
+      pointerEvents: "none",
+    }}
+  >
+    {currentIndex + 1} / {projects.length}
+  </div>
+) : null}
               </div>
             </div>
           )}
