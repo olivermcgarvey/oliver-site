@@ -10,6 +10,8 @@ type OverlayItem = {
 type EpisodeItem = {
   label: string;
   video: string;
+  image: string;
+  imageVertical?: string;
 };
 
 type Project = {
@@ -128,15 +130,15 @@ const commercialProjects: Project[] = [
     rightMetaLogo: instagramLabel,
     overlays: [],
   },
-  {
+{
   id: "miu-miu-1",
   title: "MIU MIU",
   status: "Released",
   role: "Campaign · Digital",
   year: "2022",
-  image: bunny("/commercial/miu-miu-1/poster.webp"),
-  imageLandscape: bunny("/commercial/miu-miu-1/poster.webp"),
-  imageVertical: bunny("/commercial/miu-miu-1/poster.webp"),
+  image: bunny("/commercial/miu-miu-1/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/miu-miu-1/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep1.webp"),
   video: bunny("/commercial/miu-miu-1/trailer-ep-1.mp4"),
   mobileVimeoId: "1185057987",
   aspect: "vertical",
@@ -146,27 +148,48 @@ const commercialProjects: Project[] = [
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
-    { label: "EP 01", video: bunny("/commercial/miu-miu-1/trailer-ep-1.mp4") },
-    { label: "EP 02", video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4") },
+    {
+      label: "EP 01",
+      image: bunny("/commercial/miu-miu-1/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/miu-miu-1/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
+    },
   ],
   overlays: [],
 },
-  {
+{
   id: "adidas-1",
   title: "Adidas",
   status: "Released",
   role: "Campaign",
   year: "2025",
-  image: bunny("/commercial/adidas/poster.webp"),
-  imageLandscape: bunny("/commercial/adidas/poster.webp"),
+  image: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
   video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
   mobileVimeoId: "1185056415",
   leftMeta: "Director",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
-    { label: "EP 01", video: bunny("/commercial/adidas/trailer-ep-1.mp4") },
-    { label: "EP 02", video: bunny("/commercial/adidas/trailer-ep-2.mp4") },
+    {
+      label: "EP 01",
+      image: bunny("/commercial/adidas/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/adidas/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-2.mp4"),
+    },
   ],
   overlays: [],
 },
@@ -239,34 +262,45 @@ const commercialProjects: Project[] = [
     rightMetaLink: "https://i-d.co/article/watch-homeshakes-dreamy-new-music-video-just-like-my/",
     overlays: [],
   },
-  {
+{
   id: "adidas-2",
   title: "Adidas",
   status: "Released",
   role: "Campaign",
   year: "2025",
-  image: bunny("/commercial/adidas-2/poster.webp"),
-  imageLandscape: bunny("/commercial/adidas-2/poster.webp"),
+  image: bunny("/commercial/adidas-2/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/adidas-2/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/adidas-2/poster-vertical-ep1.webp"),
   video: bunny("/commercial/adidas-2/trailer-ep-1.mp4"),
   mobileVimeoId: "1185056841",
   leftMeta: "Director",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
-    { label: "EP 01", video: bunny("/commercial/adidas-2/trailer-ep-1.mp4") },
-    { label: "EP 02", video: bunny("/commercial/adidas-2/trailer-ep-2.mp4") },
+    {
+      label: "EP 01",
+      image: bunny("/commercial/adidas-2/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/adidas-2/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/adidas-2/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/adidas-2/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/adidas-2/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/adidas-2/trailer-ep-2.mp4"),
+    },
   ],
   overlays: [],
 },
-  {
+{
   id: "miu-miu-2",
   title: "MIU MIU",
   status: "Released",
   role: "Campaign · Digital",
   year: "2022",
-  image: bunny("/commercial/miu-miu-2/poster.webp"),
-  imageLandscape: bunny("/commercial/miu-miu-2/poster.webp"),
-  imageVertical: bunny("/commercial/miu-miu-2/poster.webp"),
+  image: bunny("/commercial/miu-miu-2/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/miu-miu-2/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep1.webp"),
   video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4"),
   aspect: "vertical",
   leftMeta: "Cinematography & Model Direction",
@@ -275,8 +309,18 @@ const commercialProjects: Project[] = [
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
-    { label: "EP 01", video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4") },
-    { label: "EP 02", video: bunny("/commercial/miu-miu-2/trailer-ep-2.mp4") },
+    {
+      label: "EP 01",
+      image: bunny("/commercial/miu-miu-2/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/miu-miu-2/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/miu-miu-2/trailer-ep-2.mp4"),
+    },
   ],
   overlays: [],
 },
@@ -299,7 +343,19 @@ const commercialProjects: Project[] = [
     overlays: [],
   },
 ];
-
+const reelProject: Project = {
+  id: "director-reel",
+  title: "REEL",
+  status: "Selected Work",
+  role: "Director Reel",
+  year: "2026",
+  image: bunny("/reel/poster.webp"),
+  imageLandscape: bunny("/reel/poster.webp"),
+  imageVertical: bunny("/reel/poster-vertical.webp"),
+  video: bunny("/reel/trailer.mp4"),
+  rightMetaText: "REEL",
+  overlays: [],
+};
 function useIsMobile(breakpoint = 900) {
   const getValue = () =>
     typeof window !== "undefined" ? window.innerWidth <= breakpoint : false;
@@ -556,30 +612,95 @@ function platformLogoStyle(logo?: string): React.CSSProperties {
     transform: isEditorial ? "translateY(1px)" : "translateY(0)",
   };
 }
+function getEpisode(project: Project, episodeIndex = 0) {
+  return project.episodes?.[episodeIndex];
+}
+
 function getEpisodeVideo(project: Project, episodeIndex = 0) {
-  return project.episodes?.[episodeIndex]?.video || project.video;
-}
-function getLandscapeImage(project: Project) {
-  return project.imageLandscape || project.image;
+  return getEpisode(project, episodeIndex)?.video || project.video;
 }
 
-function getPortraitImage(project: Project) {
-  return project.imageVertical || project.image;
+function getLandscapeImage(project: Project, episodeIndex = 0) {
+  return getEpisode(project, episodeIndex)?.image || project.imageLandscape || project.image;
 }
 
-function getDesktopImage(project: Project) {
-  return project.image;
+function getPortraitImage(project: Project, episodeIndex = 0) {
+  return getEpisode(project, episodeIndex)?.imageVertical || project.imageVertical || project.image;
 }
 
-function getMobileListPoster(project: Project, section: "narrative" | "commercial") {
+function getDesktopImage(project: Project, episodeIndex = 0) {
+  return getEpisode(project, episodeIndex)?.image || project.image;
+}
+
+function getMobileListPoster(
+  project: Project,
+  section: "narrative" | "commercial",
+  episodeIndex = 0,
+) {
   if (project.title === "MYKITA · LEICA") return project.image;
-  if (project.image.includes("/mykita-kat/")) return getLandscapeImage(project);
+  if (project.image.includes("/mykita-kat/")) return getLandscapeImage(project, episodeIndex);
 
   if (section === "commercial" && project.aspect === "vertical") {
-    return getPortraitImage(project);
+    return getPortraitImage(project, episodeIndex);
   }
 
-  return getLandscapeImage(project);
+  return getLandscapeImage(project, episodeIndex);
+}
+
+function EpisodeButtons({
+  project,
+  activeEpisodeIndex,
+  onSelect,
+}: {
+  project: Project;
+  activeEpisodeIndex: number;
+  onSelect: (episodeIndex: number) => void;
+}) {
+  if (!project.episodes?.length) return null;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 14,
+        left: 14,
+        zIndex: 8,
+        display: "flex",
+        gap: 6,
+        padding: "7px 8px 6px 8px",
+        background: "rgba(0,0,0,0.42)",
+        backdropFilter: "blur(7px)",
+        pointerEvents: "auto",
+      }}
+    >
+      {project.episodes.map((episode, episodeIndex) => (
+        <button
+          key={episode.label}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect(episodeIndex);
+          }}
+          style={{
+            border: "none",
+            background: "transparent",
+            color: "white",
+            padding: "0 3px",
+            margin: 0,
+            cursor: "pointer",
+            fontSize: 10,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: activeEpisodeIndex === episodeIndex ? 0.92 : 0.42,
+            transition: "opacity 240ms ease",
+            fontFamily: "inherit",
+          }}
+        >
+          {episode.label}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 function getMobileCardAspect(project: Project, section: "narrative" | "commercial") {
@@ -906,12 +1027,17 @@ function MobileCardMeta({
 
 function MobileVimeoOverlay({
   project,
+  episodeIndex = 0,
   onClose,
 }: {
   project: Project;
+  episodeIndex?: number;
   onClose: () => void;
 }) {
-  const hasVimeo = !!project.mobileVimeoId;
+  const directVideo = getEpisodeVideo(project, episodeIndex);
+  const hasDirectVideo = !!directVideo;
+  const hasVimeo = !!project.mobileVimeoId && !hasDirectVideo;
+
   const vimeoSrc = useMemo(
     () => (project.mobileVimeoId ? getMobileVimeoSrc(project.mobileVimeoId) : ""),
     [project.mobileVimeoId],
@@ -982,9 +1108,26 @@ function MobileVimeoOverlay({
               background: "black",
             }}
           />
+        ) : hasDirectVideo ? (
+          <video
+            key={`${project.id || project.title}-${episodeIndex}`}
+            src={directVideo}
+            poster={getPortraitImage(project, episodeIndex)}
+            autoPlay
+            controls
+            playsInline
+            preload="metadata"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              display: "block",
+              background: "black",
+            }}
+          />
         ) : (
           <img
-            src={getLandscapeImage(project)}
+            src={getLandscapeImage(project, episodeIndex)}
             alt={project.title}
             style={{
               width: "100%",
@@ -1025,7 +1168,7 @@ const isMobileLandscape =
   const switchTimerRef = useRef<number | null>(null);
   const desktopGalleryVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const pendingFullscreenTimeRef = useRef<number | null>(null);
-  const galleryProgressRef = useRef<HTMLDivElement | null>(null);
+  const galleryProgressRefs = useRef<(HTMLDivElement | null)[]>([]);
   const fullscreenProgressRef = useRef<HTMLDivElement | null>(null);
   const progressAnimationRef = useRef<number | null>(null);
 
@@ -1035,7 +1178,7 @@ const isMobileLandscape =
   const [landingHover, setLandingHover] = useState<"narrative" | "commercial" | null>(null);
 
   const [section, setSection] = useState<"narrative" | "commercial">("narrative");
-  const [navHover, setNavHover] = useState<"narrative" | "commercial" | "about" | null>(null);
+const [navHover, setNavHover] = useState<"narrative" | "commercial" | "about" | "reel" | null>(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
 
   const projects = section === "narrative" ? narrativeProjects : commercialProjects;
@@ -1047,7 +1190,8 @@ const isMobileLandscape =
   const [isActive, setIsActive] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+const [isFullscreen, setIsFullscreen] = useState(false);
+const [fullscreenProjectOverride, setFullscreenProjectOverride] = useState<Project | null>(null);
   const [showControls, setShowControls] = useState(false);
   const [cursorHidden, setCursorHidden] = useState(false);
   const [isBioOpen, setIsBioOpen] = useState(false);
@@ -1094,11 +1238,12 @@ const setProjectEpisode = (project: Project, index: number, episodeIndex: number
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
-  const [mobileActiveProject, setMobileActiveProject] = useState<Project | null>(null);
+const [mobileActiveProject, setMobileActiveProject] = useState<Project | null>(null);
+const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
 
   const safeDisplayIndex =
     displayIndex >= 0 && displayIndex < projects.length ? displayIndex : 0;
-const current = projects[safeDisplayIndex];
+const current = fullscreenProjectOverride || projects[safeDisplayIndex];
 const currentEpisodeIndex = getActiveEpisodeIndex(current, safeDisplayIndex);
 const currentVideo = getEpisodeVideo(current, currentEpisodeIndex);
 const hasVideo = !!currentVideo;
@@ -1174,6 +1319,9 @@ if (mobileActiveProject) {
   }, [mobileActiveProject]);
 
   useEffect(() => {
+    desktopGalleryVideoRefs.current = [];
+    galleryProgressRefs.current = [];
+
     setCurrentIndex(0);
     setDisplayIndex(0);
     setIsSwitching(false);
@@ -1182,7 +1330,8 @@ if (mobileActiveProject) {
     setShowControls(false);
     setCursorHidden(false);
     setCenterCue(null);
-    setMobileActiveProject(null);
+setMobileActiveProject(null);
+setMobileActiveEpisodeIndex(0);
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
     setDesktopGalleryPlaying(true);
@@ -1304,16 +1453,21 @@ useEffect(() => {
         ? desktopGalleryVideoRefs.current[desktopActiveProjectIndex]
         : null;
 
-    if (galleryVideo && galleryProgressRef.current && galleryVideo.duration) {
-      const progress = (galleryVideo.currentTime / galleryVideo.duration) * 100;
-      galleryProgressRef.current.style.transform = `scaleX(${progress / 100})`;
+    const galleryProgress =
+      desktopActiveProjectIndex !== null
+        ? galleryProgressRefs.current[desktopActiveProjectIndex]
+        : null;
+
+    if (galleryVideo && galleryProgress && galleryVideo.duration) {
+      const progress = galleryVideo.currentTime / galleryVideo.duration;
+      galleryProgress.style.transform = `scaleX(${progress})`;
     }
 
     const fullscreenVideo = videoRef.current;
 
     if (fullscreenVideo && fullscreenProgressRef.current && fullscreenVideo.duration) {
-      const progress = (fullscreenVideo.currentTime / fullscreenVideo.duration) * 100;
-      fullscreenProgressRef.current.style.transform = `scaleX(${progress / 100})`;
+      const progress = fullscreenVideo.currentTime / fullscreenVideo.duration;
+      fullscreenProgressRef.current.style.transform = `scaleX(${progress})`;
     }
 
     progressAnimationRef.current = window.requestAnimationFrame(updateProgress);
@@ -1326,7 +1480,7 @@ useEffect(() => {
       window.cancelAnimationFrame(progressAnimationRef.current);
     }
   };
-}, [desktopActiveProjectIndex, isFullscreen, displayIndex]);
+}, [desktopActiveProjectIndex, isFullscreen, displayIndex, currentEpisodeIndex]);
   useEffect(() => {
     if (isMobile) return;
 
@@ -1335,6 +1489,7 @@ useEffect(() => {
 
       if (!active) {
         setIsFullscreen(false);
+        setFullscreenProjectOverride(null);
         setShowControls(false);
         setCursorHidden(false);
         return;
@@ -2004,98 +2159,125 @@ useEffect(() => {
               marginBottom: 48,
             }}
           >
-            <button
-              type="button"
-              onClick={() => enterSection("narrative")}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "white",
-                textAlign: "left",
-                fontSize: 20,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                padding: 0,
-                margin: 0,
-                opacity: section === "narrative" && hasEntered ? 1 : 0.9,
-                fontWeight: 500,
-              }}
-            >
-              Narrative
-            </button>
+  <button
+    type="button"
+    onClick={() => enterSection("narrative")}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 20,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: section === "narrative" && hasEntered ? 1 : 0.9,
+      fontWeight: 500,
+    }}
+  >
+    Narrative
+  </button>
 
-            <button
-              type="button"
-              onClick={() => enterSection("commercial")}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "white",
-                textAlign: "left",
-                fontSize: 20,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                padding: 0,
-                margin: 0,
-                opacity: section === "commercial" && hasEntered ? 1 : 0.9,
-                fontWeight: 500,
-              }}
-            >
-              Commercial
-            </button>
+  <button
+    type="button"
+    onClick={() => enterSection("commercial")}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 20,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: section === "commercial" && hasEntered ? 1 : 0.9,
+      fontWeight: 500,
+    }}
+  >
+    Commercial
+  </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setMobileContactOpen(false);
-                setMobileAboutOpen(true);
-              }}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "white",
-                textAlign: "left",
-                fontSize: 20,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                padding: 0,
-                margin: 0,
-                opacity: 0.9,
-                fontWeight: 500,
-              }}
-            >
-              About
-            </button>
+  <button
+    type="button"
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileAboutOpen(false);
+      setMobileContactOpen(false);
+      setMobileActiveEpisodeIndex(0);
+      setMobileActiveProject(reelProject);
+    }}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 20,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: 0.9,
+      fontWeight: 500,
+    }}
+  >
+    Reel
+  </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setMobileAboutOpen(false);
-                setMobileContactOpen(true);
-              }}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "white",
-                textAlign: "left",
-                fontSize: 20,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                padding: 0,
-                margin: 0,
-                opacity: 0.9,
-                fontWeight: 500,
-              }}
-            >
-              Contact
-            </button>
-          </div>
+  <button
+    type="button"
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileContactOpen(false);
+      setMobileAboutOpen(true);
+    }}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 20,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: 0.9,
+      fontWeight: 500,
+    }}
+  >
+    About
+  </button>
+
+  <button
+    type="button"
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileAboutOpen(false);
+      setMobileContactOpen(true);
+    }}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "white",
+      textAlign: "left",
+      fontSize: 20,
+      letterSpacing: "0.18em",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      padding: 0,
+      margin: 0,
+      opacity: 0.9,
+      fontWeight: 500,
+    }}
+  >
+    Contact
+  </button>
+</div>
         </div>
       </div>
 
@@ -2418,11 +2600,28 @@ useEffect(() => {
       transition: "opacity 320ms ease, transform 320ms ease",
     }}
   >
-    {[
-      { label: "Narrative", action: () => enterSection("narrative"), key: "narrative" },
-      { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
-      { label: "About", action: openAbout, key: "about" },
-    ].map((item) => (
+{[
+  { label: "Narrative", action: () => enterSection("narrative"), key: "narrative" },
+  { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
+{
+  label: "Reel",
+  action: () => {
+    setDesktopMenuOpen(false);
+    setFullscreenProjectOverride(reelProject);
+    setCurrentIndex(0);
+    setDisplayIndex(0);
+    setIsActive(true);
+    setIsPlaying(true);
+    setIsMuted(false);
+    setVideoReady(false);
+    setShowControls(true);
+    setCursorHidden(false);
+    setIsFullscreen(true);
+  },
+  key: "reel",
+},
+  { label: "About", action: openAbout, key: "about" },
+].map((item) => (
       <button
         key={item.key}
         type="button"
@@ -2430,7 +2629,7 @@ useEffect(() => {
           e.stopPropagation();
           item.action();
         }}
-        onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about")}
+onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about" | "reel")}
         onMouseLeave={() => setNavHover(null)}
         style={{
           border: "none",
@@ -2806,84 +3005,96 @@ useEffect(() => {
                 boxSizing: "border-box",
               }}
             >
-              {projects.map((project, i) => {
-                const cardPoster = getMobileListPoster(project, section);
-                const cardHasPlayback = !!project.mobileVimeoId || !!project.video;
-                const cardAspect = getMobileCardAspect(project, section);
-                const isTallCommercialCard =
-                  !isMobileLandscape &&
-                  section === "commercial" &&
-                  project.aspect === "vertical";
+{projects.map((project, i) => {
+  const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
+  const cardPoster = getMobileListPoster(project, section, activeEpisodeIndex);
+  const cardHasPlayback = !!project.mobileVimeoId || !!project.video;
+  const cardAspect = getMobileCardAspect(project, section);
+  const isTallCommercialCard =
+    !isMobileLandscape &&
+    section === "commercial" &&
+    project.aspect === "vertical";
 
-                return (
-                  <div
-                    key={`${section}-${project.title}-${i}`}
-                    style={{
-                      marginBottom: isMobileLandscape ? 38 : 44,
-                    }}
-                  >
-                    <div
-                      onClick={() => {
-                        if (!cardHasPlayback) return;
-                        setMobileActiveProject(project);
-                      }}
-                      style={{
-                        position: "relative",
-                        width: "100%",
-                        aspectRatio: isTallCommercialCard ? undefined : cardAspect,
-                        height: isTallCommercialCard ? "62vh" : undefined,
-                        maxHeight: isTallCommercialCard ? 560 : undefined,
-                        minHeight: isTallCommercialCard ? 430 : undefined,
-                        overflow: "hidden",
-                        background: "black",
-                        cursor: cardHasPlayback ? "pointer" : "default",
-                      }}
-                    >
-                      <img
-                        src={cardPoster}
-                        alt={project.title}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          display: "block",
-                        }}
-                      />
+  return (
+    <div
+      key={`${section}-${project.title}-${i}`}
+      style={{
+        marginBottom: isMobileLandscape ? 38 : 44,
+      }}
+    >
+      <div
+        onClick={() => {
+          if (!cardHasPlayback) return;
+          setMobileActiveProject(project);
+          setMobileActiveEpisodeIndex(activeEpisodeIndex);
+        }}
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: isTallCommercialCard ? undefined : cardAspect,
+          height: isTallCommercialCard ? "62vh" : undefined,
+          maxHeight: isTallCommercialCard ? 560 : undefined,
+          minHeight: isTallCommercialCard ? 430 : undefined,
+          overflow: "hidden",
+          background: "black",
+          cursor: cardHasPlayback ? "pointer" : "default",
+        }}
+      >
+        <img
+          src={cardPoster}
+          alt={project.title}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
 
-                      {cardHasPlayback ? (
-                        <div
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            pointerEvents: "none",
-                            color: "rgba(255,255,255,0.92)",
-                          }}
-                        >
-                          <PlayIcon size={24} />
-                        </div>
-                      ) : null}
+        <EpisodeButtons
+          project={project}
+          activeEpisodeIndex={activeEpisodeIndex}
+          onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
+        />
 
-                      {project.flashWarning ? <WarningBadge /> : null}
-                    </div>
+        {cardHasPlayback ? (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+              color: "rgba(255,255,255,0.92)",
+            }}
+          >
+            <PlayIcon size={24} />
+          </div>
+        ) : null}
 
-                    <MobileCardMeta project={project} />
-                  </div>
-                );
-              })}
+        {project.flashWarning ? <WarningBadge /> : null}
+      </div>
+
+      <MobileCardMeta project={project} />
+    </div>
+  );
+})}
             </div>
           </div>
 
-          {mobileActiveProject ? (
-            <MobileVimeoOverlay
-              project={mobileActiveProject}
-              onClose={() => setMobileActiveProject(null)}
-            />
-          ) : null}
+{mobileActiveProject ? (
+  <MobileVimeoOverlay
+    project={mobileActiveProject}
+    episodeIndex={mobileActiveEpisodeIndex}
+    onClose={() => {
+      setMobileActiveProject(null);
+      setMobileActiveEpisodeIndex(0);
+    }}
+  />
+) : null}
         </>
             ) : (
         <>
@@ -2949,50 +3160,56 @@ style={{
                           cursor: cardHasPlayback ? "pointer" : "default",
                         }}
                       >
-                        {cardHasPlayback && isDesktopCardActive ? (
-<video
-  key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
-  src={activeVideo}
-  autoPlay={desktopGalleryPlaying}
-  muted={false}
-  loop
-  playsInline
-  preload="metadata"
-  ref={(node) => {
-    desktopGalleryVideoRefs.current[i] = node;
-    if (!node) return;
+{cardHasPlayback && isDesktopCardActive ? (
+  <video
+    key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+    src={activeVideo}
+    autoPlay={desktopGalleryPlaying}
+    muted={false}
+    loop
+    playsInline
+    preload="metadata"
+    ref={(node) => {
+      desktopGalleryVideoRefs.current[i] = node;
+      if (!node) return;
 
-    if (desktopGalleryPlaying) {
-      node.play().catch(() => {});
-    } else {
-      node.pause();
-    }
-  }}
-  style={{
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: cardObjectFit,
-    display: "block",
-    background: "black",
-  }}
+      if (desktopGalleryPlaying) {
+        node.play().catch(() => {});
+      } else {
+        node.pause();
+      }
+    }}
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: cardObjectFit,
+      display: "block",
+      background: "black",
+    }}
+  />
+) : (
+  <img
+    src={getDesktopImage(project, activeEpisodeIndex)}
+    alt={project.title}
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: cardObjectFit,
+      display: "block",
+      background: "black",
+    }}
+  />
+)}
+
+<EpisodeButtons
+  project={project}
+  activeEpisodeIndex={activeEpisodeIndex}
+  onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
 />
-                        ) : (
-                          <img
-                            src={getDesktopImage(project)}
-                            alt={project.title}
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              width: "100%",
-                              height: "100%",
-                              objectFit: cardObjectFit,
-                              display: "block",
-                              background: "black",
-                            }}
-                          />
-                        )}
 
                         {cardHasPlayback ? (
                           <div
@@ -3076,7 +3293,9 @@ style={{
     }}
   >
 <div
-  ref={galleryProgressRef}
+ref={(node) => {
+  galleryProgressRefs.current[i] = node;
+}}
   style={{
     width: "100%",
     height: "100%",
@@ -3120,43 +3339,6 @@ style={{
                           >
                             {project.title}
                           </div>
-                          {project.episodes?.length ? (
-  <div
-    style={{
-      display: "flex",
-      gap: 14,
-      marginBottom: 7,
-      pointerEvents: "auto",
-    }}
-  >
-    {project.episodes.map((episode, episodeIndex) => (
-      <button
-        key={episode.label}
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setProjectEpisode(project, i, episodeIndex);
-        }}
-        style={{
-          border: "none",
-          background: "transparent",
-          color: "inherit",
-          padding: 0,
-          margin: 0,
-          cursor: "pointer",
-          fontSize: 10,
-          letterSpacing: "0.13em",
-          textTransform: "uppercase",
-          opacity: activeEpisodeIndex === episodeIndex ? 0.72 : 0.32,
-          transition: "opacity 240ms ease",
-          fontFamily: "inherit",
-        }}
-      >
-        {episode.label}
-      </button>
-    ))}
-  </div>
-) : null}
 
                           <div
                             style={{
@@ -3369,10 +3551,10 @@ style={{
                   zIndex: 10,
                 }}
               >
-                {hasVideo ? (
-                  <img
-                    src={getDesktopImage(current)}
-                    alt={current.title}
+{hasVideo ? (
+  <img
+    src={getDesktopImage(current, currentEpisodeIndex)}
+    alt={current.title}
                     style={{
                       position: "absolute",
                       inset: 0,
@@ -3385,10 +3567,10 @@ style={{
                       background: "black",
                     }}
                   />
-                ) : (
-                  <img
-                    src={getDesktopImage(current)}
-                    alt={current.title}
+            ) : (
+  <img
+    src={getDesktopImage(current, currentEpisodeIndex)}
+    alt={current.title}
                     style={{
                       position: "absolute",
                       inset: 0,
@@ -3454,56 +3636,63 @@ style={{
 
                 {!isActive && current.flashWarning ? <WarningBadge /> : null}
 
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  aria-label="Previous project"
-                  style={{
-                    position: "absolute",
-                    left: 18,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    background: "transparent",
-                    color: showControls ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.12)",
-                    cursor: "pointer",
-                    transition: "color 220ms ease",
-                    zIndex: 125,
-                    padding: 18,
-                  }}
-                >
-                  <ArrowIcon direction="left" />
-                </button>
 
-                <button
-                  type="button"
-                  onClick={goNext}
-                  aria-label="Next project"
-                  style={{
-                    position: "absolute",
-                    right: 18,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    background: "transparent",
-                    color: showControls ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.12)",
-                    cursor: "pointer",
-                    transition: "color 220ms ease",
-                    zIndex: 125,
-                    padding: 18,
-                  }}
-                >
-                  <ArrowIcon direction="right" />
-                </button>
+                {!fullscreenProjectOverride ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      aria-label="Previous project"
+                      style={{
+                        position: "absolute",
+                        left: 18,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        border: "none",
+                        background: "transparent",
+                        color: showControls ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.12)",
+                        cursor: "pointer",
+                        transition: "color 220ms ease",
+                        zIndex: 125,
+                        padding: 18,
+                      }}
+                    >
+                      <ArrowIcon direction="left" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      aria-label="Next project"
+                      style={{
+                        position: "absolute",
+                        right: 18,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        border: "none",
+                        background: "transparent",
+                        color: showControls ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.12)",
+                        cursor: "pointer",
+                        transition: "color 220ms ease",
+                        zIndex: 125,
+                        padding: 18,
+                      }}
+                    >
+                      <ArrowIcon direction="right" />
+                    </button>
+                  </>
+                ) : null}
 
                 <button
                   type="button"
                   aria-label="Exit fullscreen"
                   onClick={(e) => {
-                  e.stopPropagation();
+                    e.stopPropagation();
+                    setFullscreenProjectOverride(null);
+                    pendingFullscreenTimeRef.current = null;
 
-                  if (document.fullscreenElement) {
-                  document.exitFullscreen().catch(() => {});
+                    if (document.fullscreenElement) {
+                      document.exitFullscreen().catch(() => {});
                     }
                   }}
                   style={{
@@ -3740,23 +3929,25 @@ style={{
     ))}
   </div>
 ) : null}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 28,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    zIndex: 130,
-                    fontSize: 11,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    opacity: showControls ? 0.34 : 0,
-                    transition: "opacity 520ms ease",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {currentIndex + 1} / {projects.length}
-                </div>
+<div
+  style={{
+    position: "absolute",
+    bottom: 28,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 130,
+    fontSize: 11,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    opacity: showControls ? 0.34 : 0,
+    transition: "opacity 520ms ease",
+    pointerEvents: "none",
+  }}
+>
+  {fullscreenProjectOverride
+    ? "REEL"
+    : `${currentIndex + 1} / ${projects.length}`}
+</div>
               </div>
             </div>
           )}
