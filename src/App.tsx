@@ -1173,8 +1173,16 @@ const isMobileLandscape =
   const desktopGalleryVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const pendingFullscreenTimeRef = useRef<number | null>(null);
   const galleryProgressRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const fullscreenProgressRef = useRef<HTMLDivElement | null>(null);
-  const progressAnimationRef = useRef<number | null>(null);
+const fullscreenProgressRef = useRef<HTMLDivElement | null>(null);
+const progressAnimationRef = useRef<number | null>(null);
+
+const reelReturnRef = useRef<{
+  hasEntered: boolean;
+  section: "narrative" | "commercial";
+  currentIndex: number;
+  displayIndex: number;
+  desktopScrollIndex: number;
+} | null>(null);
 
   const [hasEntered, setHasEntered] = useState(false);
   const [landingVisible, setLandingVisible] = useState(false);
@@ -1507,13 +1515,18 @@ useEffect(() => {
     const handleFullscreenChange = () => {
       const active = !!document.fullscreenElement;
 
-      if (!active) {
-        setIsFullscreen(false);
-        setFullscreenProjectOverride(null);
-        setShowControls(false);
-        setCursorHidden(false);
-        return;
-      }
+if (!active) {
+  if (fullscreenProjectOverride?.id === "director-reel") {
+    closeReel();
+    return;
+  }
+
+  setIsFullscreen(false);
+  setFullscreenProjectOverride(null);
+  setShowControls(false);
+  setCursorHidden(false);
+  return;
+}
 
       setIsFullscreen(true);
       setShowControls(true);
@@ -1868,9 +1881,41 @@ const closeMenus = () => {
   setMobileMenuOpen(false);
 };
 
+const closeReel = () => {
+  const returnState = reelReturnRef.current;
+
+  setFullscreenProjectOverride(null);
+  pendingFullscreenTimeRef.current = null;
+
+  if (returnState) {
+    setHasEntered(returnState.hasEntered);
+    setSection(returnState.section);
+    setCurrentIndex(returnState.currentIndex);
+    setDisplayIndex(returnState.displayIndex);
+    setDesktopScrollIndex(returnState.desktopScrollIndex);
+  }
+
+  setIsFullscreen(false);
+  setIsActive(false);
+  setIsPlaying(true);
+  setIsMuted(true);
+  setShowControls(false);
+  setCursorHidden(false);
+  setVideoReady(false);
+
+  reelReturnRef.current = null;
+};
+
 const openReel = () => {
+  reelReturnRef.current = {
+    hasEntered,
+    section,
+    currentIndex,
+    displayIndex,
+    desktopScrollIndex,
+  };
+
   setHasEntered(true);
-  setSection("commercial");
   setDesktopMenuOpen(false);
   setMobileMenuOpen(false);
   setMobileAboutOpen(false);
@@ -1878,8 +1923,6 @@ const openReel = () => {
   setIsBioOpen(false);
 
   setFullscreenProjectOverride(reelProject);
-  setCurrentIndex(0);
-  setDisplayIndex(0);
   setDesktopActiveProjectIndex(null);
   setDesktopHoveredProjectIndex(null);
   setDesktopGalleryPlaying(true);
@@ -3763,15 +3806,22 @@ ref={(node) => {
                 <button
                   type="button"
                   aria-label="Exit fullscreen"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFullscreenProjectOverride(null);
-                    pendingFullscreenTimeRef.current = null;
+onClick={(e) => {
+  e.stopPropagation();
 
-                    if (document.fullscreenElement) {
-                      document.exitFullscreen().catch(() => {});
-                    }
-                  }}
+  if (fullscreenProjectOverride?.id === "director-reel") {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    closeReel();
+    return;
+  }
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  }
+}}
                   style={{
                     position: "absolute",
                     top: 34,
