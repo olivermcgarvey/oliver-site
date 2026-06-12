@@ -1210,7 +1210,7 @@ const [fullscreenProjectOverride, setFullscreenProjectOverride] = useState<Proje
   const [bioLinkHover, setBioLinkHover] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
-  const [roleText, setRoleText] = useState("Film Director");
+  const [roleText, setRoleText] = useState("");
   const [roleVisible, setRoleVisible] = useState(true);
 
   const [centerCue, setCenterCue] = useState<"play" | "pause" | null>(null);
@@ -1371,11 +1371,11 @@ setMobileActiveEpisodeIndex(0);
       setMobileContactOpen(false);
     }
 
-    const nextRole = hasEntered
-    ? section === "narrative"
-      ? "Writer · Director"
-      : "Director"
-   : "Film Director";
+const nextRole = hasEntered
+  ? section === "narrative"
+    ? "Writer · Director"
+    : "Director"
+  : "";
 
     setRoleVisible(false);
 
@@ -2192,21 +2192,23 @@ useEffect(() => {
           Oliver McGarvey
         </div>
 
-        <div
-          style={{
-            marginTop: 8,
-            fontSize: 11.25,
-            letterSpacing: "0.135em",
-            textTransform: "uppercase",
-            opacity: roleVisible ? (hasEntered ? 0.7 : 0.62) : 0,
-            fontWeight: 450,
-            lineHeight: 1.15,
-            transform: roleVisible ? "translateY(0)" : "translateY(8px)",
-            transition: "opacity 320ms ease, transform 1400ms ease",
-          }}
-        >
-          {roleText}
-        </div>
+{roleText ? (
+  <div
+    style={{
+      marginTop: 8,
+      fontSize: 11.25,
+      letterSpacing: "0.135em",
+      textTransform: "uppercase",
+      opacity: roleVisible ? 0.7 : 0,
+      fontWeight: 450,
+      lineHeight: 1.15,
+      transform: roleVisible ? "translateY(0)" : "translateY(8px)",
+      transition: "opacity 320ms ease, transform 1400ms ease",
+    }}
+  >
+    {roleText}
+  </div>
+) : null}
       </button>
 
       <div
@@ -2657,19 +2659,21 @@ onClick={openReel}
               Oliver McGarvey
             </div>
 
-            <div
-              style={{
-                marginTop: 5,
-                fontSize: 12,
-                letterSpacing: "0.13em",
-                textTransform: "uppercase",
-                opacity: roleVisible ? (bioLinkHover ? 0.58 : hasEntered ? 0.46 : 0.38) : 0,
-                transform: roleVisible ? "translateY(0)" : "translateY(8px)",
-                transition: "opacity 320ms ease, transform 1400ms ease",
-              }}
-            >
-              {roleText}
-            </div>
+{roleText ? (
+  <div
+    style={{
+      marginTop: 5,
+      fontSize: 12,
+      letterSpacing: "0.13em",
+      textTransform: "uppercase",
+      opacity: roleVisible ? (bioLinkHover ? 0.58 : 0.46) : 0,
+      transform: roleVisible ? "translateY(0)" : "translateY(8px)",
+      transition: "opacity 320ms ease, transform 1400ms ease",
+    }}
+  >
+    {roleText}
+  </div>
+) : null}
           </button>
 
 <div
@@ -3706,19 +3710,22 @@ ref={(node) => {
   ref={videoRef}
   src={currentVideo}
   muted={isMuted}
+  controls={fullscreenProjectOverride?.id === "director-reel"}
   playsInline
   preload="metadata"
-onEnded={(e) => {
-  if (fullscreenProjectOverride?.id === "director-reel") {
-    closeReel();
-    return;
-  }
+  onEnded={(e) => {
+    if (fullscreenProjectOverride?.id === "director-reel") {
+      setIsPlaying(false);
+      setShowControls(true);
+      setCursorHidden(false);
+      return;
+    }
 
-  if (!playNextEpisode(current, safeDisplayIndex)) {
-    e.currentTarget.currentTime = 0;
-    e.currentTarget.play().catch(() => {});
-  }
-}}
+    if (!playNextEpisode(current, safeDisplayIndex)) {
+      e.currentTarget.currentTime = 0;
+      e.currentTarget.play().catch(() => {});
+    }
+  }}
   onLoadedMetadata={(e) => {
     const pendingTime = pendingFullscreenTimeRef.current;
 
