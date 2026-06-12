@@ -346,14 +346,14 @@ const commercialProjects: Project[] = [
 const reelProject: Project = {
   id: "director-reel",
   title: "REEL",
-  status: "Selected Work",
-  role: "Director Reel",
-  year: "2026",
+  status: "50 SEC REEL",
+  role: "2026",
+  year: "",
   image: bunny("/reel/poster.webp"),
   imageLandscape: bunny("/reel/poster.webp"),
   imageVertical: bunny("/reel/poster-vertical.webp"),
   video: bunny("/reel/trailer.mp4"),
-  rightMetaText: "REEL",
+  rightMetaText: "50 SEC REEL",
   overlays: [],
 };
 function useIsMobile(breakpoint = 900) {
@@ -1712,15 +1712,17 @@ flashCenterCue(nextPlaying ? "pause" : "play", 800);
     }
   };
 
-  const goPrev = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
-  };
+const goPrev = (e?: React.MouseEvent) => {
+  e?.stopPropagation();
+  if (fullscreenProjectOverride) return;
+  setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+};
 
-  const goNext = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
-  };
+const goNext = (e?: React.MouseEvent) => {
+  e?.stopPropagation();
+  if (fullscreenProjectOverride) return;
+  setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+};
 
       const handleWheelSwipe = (e: React.WheelEvent<HTMLDivElement>) => {
     if (isMobile || isBioOpen || !hasEntered || isSwitching || !isFullscreen) return;
@@ -1845,36 +1847,86 @@ const closeMenus = () => {
   setMobileMenuOpen(false);
 };
 
-    const enterSection = (nextSection: "narrative" | "commercial") => {
-    setSection(nextSection);
-    setHasEntered(true);
-    setCurrentIndex(0);
-    setDisplayIndex(0);
-    setDesktopMenuOpen(false);
-    setIsBioOpen(false);
-    setMobileAboutOpen(false);
-    setMobileContactOpen(false);
+const openReel = () => {
+  setHasEntered(true);
+  setSection("commercial");
+  setDesktopMenuOpen(false);
+  setMobileMenuOpen(false);
+  setMobileAboutOpen(false);
+  setMobileContactOpen(false);
+  setIsBioOpen(false);
 
-    if (isMobile) {
-      setMobileMenuOpen(false);
-      setMobileAboutOpen(false);
-      setMobileContactOpen(false);
+  setFullscreenProjectOverride(reelProject);
+  setCurrentIndex(0);
+  setDisplayIndex(0);
+  setDesktopActiveProjectIndex(null);
+  setDesktopHoveredProjectIndex(null);
+  setDesktopGalleryPlaying(true);
 
-      window.requestAnimationFrame(() => {
-        mobileScrollRef.current?.scrollTo({
-          top: 0,
-          behavior: "auto",
-        });
+  setIsActive(true);
+  setIsPlaying(true);
+  setIsMuted(false);
+  setVideoReady(false);
+  setShowControls(true);
+  setCursorHidden(false);
+  pendingFullscreenTimeRef.current = null;
+
+  if (isMobile) {
+    setMobileActiveEpisodeIndex(0);
+    setMobileActiveProject(reelProject);
+  } else {
+    setIsFullscreen(true);
+  }
+};
+
+const enterSection = (nextSection: "narrative" | "commercial") => {
+  setFullscreenProjectOverride(null);
+  pendingFullscreenTimeRef.current = null;
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  }
+
+  setSection(nextSection);
+  setHasEntered(true);
+  setCurrentIndex(0);
+  setDisplayIndex(0);
+  setIsFullscreen(false);
+  setIsActive(false);
+  setIsPlaying(true);
+  setIsMuted(true);
+  setVideoReady(false);
+  setShowControls(false);
+  setCursorHidden(false);
+
+  setDesktopMenuOpen(false);
+  setIsBioOpen(false);
+  setDesktopActiveProjectIndex(null);
+  setDesktopHoveredProjectIndex(null);
+  setDesktopGalleryPlaying(true);
+
+  setMobileMenuOpen(false);
+  setMobileAboutOpen(false);
+  setMobileContactOpen(false);
+  setMobileActiveProject(null);
+  setMobileActiveEpisodeIndex(0);
+
+  if (isMobile) {
+    window.requestAnimationFrame(() => {
+      mobileScrollRef.current?.scrollTo({
+        top: 0,
+        behavior: "auto",
       });
-    } else {
-      window.requestAnimationFrame(() => {
-        desktopScrollRef.current?.scrollTo({
-          top: 0,
-          behavior: "auto",
-        });
+    });
+  } else {
+    window.requestAnimationFrame(() => {
+      desktopScrollRef.current?.scrollTo({
+        top: 0,
+        behavior: "auto",
       });
-    }
-  };
+    });
+  }
+};
 useEffect(() => {
   if (isMobile || isFullscreen || !hasEntered) return;
 
@@ -2203,13 +2255,7 @@ useEffect(() => {
 
   <button
     type="button"
-    onClick={() => {
-      setMobileMenuOpen(false);
-      setMobileAboutOpen(false);
-      setMobileContactOpen(false);
-      setMobileActiveEpisodeIndex(0);
-      setMobileActiveProject(reelProject);
-    }}
+onClick={openReel}
     style={{
       background: "transparent",
       border: "none",
@@ -2604,20 +2650,9 @@ useEffect(() => {
   { label: "Narrative", action: () => enterSection("narrative"), key: "narrative" },
   { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
 {
+{
   label: "Reel",
-  action: () => {
-    setDesktopMenuOpen(false);
-    setFullscreenProjectOverride(reelProject);
-    setCurrentIndex(0);
-    setDisplayIndex(0);
-    setIsActive(true);
-    setIsPlaying(true);
-    setIsMuted(false);
-    setVideoReady(false);
-    setShowControls(true);
-    setCursorHidden(false);
-    setIsFullscreen(true);
-  },
+  action: openReel,
   key: "reel",
 },
   { label: "About", action: openAbout, key: "about" },
@@ -3258,6 +3293,7 @@ style={{
       const sourceVideo = desktopGalleryVideoRefs.current[i];
       pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
 
+      setFullscreenProjectOverride(null);
       setCurrentIndex(i);
       setDisplayIndex(i);
       setIsActive(cardHasPlayback);
@@ -3801,18 +3837,20 @@ ref={(node) => {
     }}
   >
     <div>
-      <div
-        style={{
-          fontSize: 13,
-          letterSpacing: "0.13em",
-          textTransform: "uppercase",
-          marginBottom: 5,
-          opacity: 0.74,
-          fontWeight: 300,
-        }}
-      >
-        {current.title}
-      </div>
+      {!fullscreenProjectOverride ? (
+        <div
+          style={{
+            fontSize: 13,
+            letterSpacing: "0.13em",
+            textTransform: "uppercase",
+            marginBottom: 5,
+            opacity: 0.74,
+            fontWeight: 300,
+          }}
+        >
+          {current.title}
+        </div>
+      ) : null}
 
       <div
         style={{
@@ -3824,7 +3862,7 @@ ref={(node) => {
             current.leftMeta || current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
         }}
       >
-        {current.role} · {current.year}
+        {fullscreenProjectOverride ? "2026" : `${current.role} · ${current.year}`}
       </div>
 
       {current.leftMeta ? (
