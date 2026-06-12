@@ -3908,7 +3908,7 @@ ref={(node) => {
   : `${current.role} · ${current.year}`}
 </div>
 
-{current.leftMeta ? (
+{current.leftMeta && fullscreenProjectOverride?.id !== "director-reel" ? (
   <div
     style={{
       fontSize: 11,
