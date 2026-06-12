@@ -1815,6 +1815,7 @@ const goNext = (e?: React.MouseEvent) => {
     setCurrentIndex(0);
     setDisplayIndex(0);
     setIsFullscreen(false);
+    setFullscreenProjectOverride(null);
     setIsActive(false);
     setIsPlaying(true);
     setIsMuted(true);
@@ -2649,14 +2650,9 @@ onClick={openReel}
 {[
   { label: "Narrative", action: () => enterSection("narrative"), key: "narrative" },
   { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
-{
-{
-  label: "Reel",
-  action: openReel,
-  key: "reel",
-},
+  { label: "Reel", action: openReel, key: "reel" },
   { label: "About", action: openAbout, key: "about" },
-].map((item) => (
+].map((item) => ((
       <button
         key={item.key}
         type="button"
