@@ -3708,12 +3708,17 @@ ref={(node) => {
   muted={isMuted}
   playsInline
   preload="metadata"
-  onEnded={(e) => {
-    if (!playNextEpisode(current, safeDisplayIndex)) {
-      e.currentTarget.currentTime = 0;
-      e.currentTarget.play().catch(() => {});
-    }
-  }}
+onEnded={(e) => {
+  if (fullscreenProjectOverride?.id === "director-reel") {
+    closeReel();
+    return;
+  }
+
+  if (!playNextEpisode(current, safeDisplayIndex)) {
+    e.currentTarget.currentTime = 0;
+    e.currentTarget.play().catch(() => {});
+  }
+}}
   onLoadedMetadata={(e) => {
     const pendingTime = pendingFullscreenTimeRef.current;
 
