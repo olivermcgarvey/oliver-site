@@ -353,7 +353,7 @@ const reelProject: Project = {
   imageLandscape: bunny("/reel/poster.webp"),
   imageVertical: bunny("/reel/poster-vertical.webp"),
   video: bunny("/reel/trailer.mp4"),
-  leftMeta: "",
+  leftMeta: "50 SEC REEL",
   rightMetaText: "",
   overlays: [],
 };
@@ -3859,9 +3859,9 @@ ref={(node) => {
       current.leftMeta || current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
   }}
 >
-  {fullscreenProjectOverride?.id === "director-reel"
-    ? "50 SEC REEL"
-    : `${current.role} · ${current.year}`}
+{fullscreenProjectOverride?.id === "director-reel"
+  ? current.leftMeta
+  : `${current.role} · ${current.year}`}
 </div>
 
       {current.leftMeta ? (
