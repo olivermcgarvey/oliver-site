@@ -2652,7 +2652,7 @@ onClick={openReel}
   { label: "Commercial", action: () => enterSection("commercial"), key: "commercial" },
   { label: "Reel", action: openReel, key: "reel" },
   { label: "About", action: openAbout, key: "about" },
-].map((item) => ((
+].map((item) => (
       <button
         key={item.key}
         type="button"
