@@ -661,6 +661,7 @@ function EpisodeButtons({
 
   return (
     <div
+      className="episode-control-capsule"
       style={{
         position: "absolute",
         top: 14,
@@ -669,7 +670,7 @@ function EpisodeButtons({
         display: "flex",
         gap: 6,
         padding: "7px 8px 6px 8px",
-        background: "rgba(0,0,0,0.42)",
+        background: "rgba(0,0,0,0.48)",
         backdropFilter: "blur(7px)",
         pointerEvents: "auto",
       }}
@@ -678,6 +679,7 @@ function EpisodeButtons({
         <button
           key={episode.label}
           type="button"
+          className="episode-control-button"
           onClick={(e) => {
             e.stopPropagation();
             onSelect(episodeIndex);
@@ -692,8 +694,9 @@ function EpisodeButtons({
             fontSize: 10,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            opacity: activeEpisodeIndex === episodeIndex ? 0.92 : 0.42,
-            transition: "opacity 240ms ease",
+            opacity: activeEpisodeIndex === episodeIndex ? 0.94 : 0.52,
+            transform: "scale(1)",
+            transition: "opacity 240ms ease, transform 240ms ease",
             fontFamily: "inherit",
           }}
         >
@@ -1234,6 +1237,22 @@ const setProjectEpisode = (project: Project, index: number, episodeIndex: number
   if (desktopActiveProjectIndex === index) {
     setDesktopGalleryPlaying(true);
   }
+};
+
+const playNextEpisode = (project: Project, index: number) => {
+  if (!project.episodes?.length) return false;
+
+  const currentEpisode = getActiveEpisodeIndex(project, index);
+  const nextEpisode = currentEpisode >= project.episodes.length - 1 ? 0 : currentEpisode + 1;
+
+  setProjectEpisode(project, index, nextEpisode);
+  setIsActive(true);
+  setIsPlaying(true);
+  setDesktopGalleryPlaying(true);
+  setShowControls(true);
+  pendingFullscreenTimeRef.current = null;
+
+  return true;
 };
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -2535,12 +2554,27 @@ onClick={openReel}
         fontFamily: '"Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif',
       }}
     >
-      <style>{`
-        @keyframes warningFadeIn {
-          from { opacity: 0; transform: translateY(4px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+<style>{`
+  @keyframes warningFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes episodeHint {
+    0% { background: rgba(0,0,0,0.48); }
+    38% { background: rgba(0,0,0,0.68); }
+    100% { background: rgba(0,0,0,0.48); }
+  }
+
+  .episode-control-capsule {
+    animation: episodeHint 1400ms ease 600ms 1;
+  }
+
+  .episode-control-button:hover {
+    opacity: 0.86 !important;
+    transform: scale(1.04) !important;
+  }
+`}</style>
 
       {isMobile ? (
         mobileHeader
@@ -3193,48 +3227,39 @@ style={{
                         }}
                       >
 {cardHasPlayback && isDesktopCardActive ? (
-  <video
-    key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
-    src={activeVideo}
-    autoPlay={desktopGalleryPlaying}
-    muted={false}
-    loop
-    playsInline
-    preload="metadata"
-    ref={(node) => {
-      desktopGalleryVideoRefs.current[i] = node;
-      if (!node) return;
+<video
+  key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+  src={activeVideo}
+  autoPlay={desktopGalleryPlaying}
+  muted={false}
+  playsInline
+  preload="metadata"
+  onEnded={(e) => {
+    if (!playNextEpisode(project, i)) {
+      e.currentTarget.currentTime = 0;
+      e.currentTarget.play().catch(() => {});
+    }
+  }}
+  ref={(node) => {
+    desktopGalleryVideoRefs.current[i] = node;
+    if (!node) return;
 
-      if (desktopGalleryPlaying) {
-        node.play().catch(() => {});
-      } else {
-        node.pause();
-      }
-    }}
-    style={{
-      position: "absolute",
-      inset: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: cardObjectFit,
-      display: "block",
-      background: "black",
-    }}
-  />
-) : (
-  <img
-    src={getDesktopImage(project, activeEpisodeIndex)}
-    alt={project.title}
-    style={{
-      position: "absolute",
-      inset: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: cardObjectFit,
-      display: "block",
-      background: "black",
-    }}
-  />
+    if (desktopGalleryPlaying) {
+      node.play().catch(() => {});
+    } else {
+      node.pause();
+    }
+  }}
+  style={{
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: cardObjectFit,
+    display: "block",
+    background: "black",
+  }}
+/>
 )}
 
 <EpisodeButtons
