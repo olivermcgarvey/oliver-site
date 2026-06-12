@@ -345,15 +345,16 @@ episodes: [
 ];
 const reelProject: Project = {
   id: "director-reel",
-  title: "REEL",
+  title: "",
   status: "",
-  role: "50 SEC REEL",
+  role: "",
   year: "",
   image: bunny("/reel/poster.webp"),
   imageLandscape: bunny("/reel/poster.webp"),
   imageVertical: bunny("/reel/poster-vertical.webp"),
   video: bunny("/reel/trailer.mp4"),
-  rightMetaText: "2026",
+  leftMeta: "50 SEC REEL",
+  rightMetaText: "",
   overlays: [],
 };
 function useIsMobile(breakpoint = 900) {
@@ -3848,18 +3849,20 @@ ref={(node) => {
         </div>
       ) : null}
 
-      <div
-        style={{
-          fontSize: 11,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          opacity: 0.52,
-          marginBottom:
-            current.leftMeta || current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
-        }}
-      >
-        {fullscreenProjectOverride ? "2026" : `${current.role} · ${current.year}`}
-      </div>
+<div
+  style={{
+    fontSize: 11,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    opacity: 0.52,
+    marginBottom:
+      current.leftMeta || current.leftMetaExtra || current.leftMetaThird ? 4 : 0,
+  }}
+>
+  {fullscreenProjectOverride?.id === "director-reel"
+    ? "50 SEC REEL"
+    : `${current.role} · ${current.year}`}
+</div>
 
       {current.leftMeta ? (
         <div
