@@ -3227,39 +3227,53 @@ style={{
                         }}
                       >
 {cardHasPlayback && isDesktopCardActive ? (
-<video
-  key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
-  src={activeVideo}
-  autoPlay={desktopGalleryPlaying}
-  muted={false}
-  playsInline
-  preload="metadata"
-  onEnded={(e) => {
-    if (!playNextEpisode(project, i)) {
-      e.currentTarget.currentTime = 0;
-      e.currentTarget.play().catch(() => {});
-    }
-  }}
-  ref={(node) => {
-    desktopGalleryVideoRefs.current[i] = node;
-    if (!node) return;
+  <video
+    key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+    src={activeVideo}
+    autoPlay={desktopGalleryPlaying}
+    muted={false}
+    playsInline
+    preload="metadata"
+    onEnded={(e) => {
+      if (!playNextEpisode(project, i)) {
+        e.currentTarget.currentTime = 0;
+        e.currentTarget.play().catch(() => {});
+      }
+    }}
+    ref={(node) => {
+      desktopGalleryVideoRefs.current[i] = node;
+      if (!node) return;
 
-    if (desktopGalleryPlaying) {
-      node.play().catch(() => {});
-    } else {
-      node.pause();
-    }
-  }}
-  style={{
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: cardObjectFit,
-    display: "block",
-    background: "black",
-  }}
-/>
+      if (desktopGalleryPlaying) {
+        node.play().catch(() => {});
+      } else {
+        node.pause();
+      }
+    }}
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: cardObjectFit,
+      display: "block",
+      background: "black",
+    }}
+  />
+) : (
+  <img
+    src={getDesktopImage(project, activeEpisodeIndex)}
+    alt={project.title}
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: cardObjectFit,
+      display: "block",
+      background: "black",
+    }}
+  />
 )}
 
 <EpisodeButtons
@@ -3649,9 +3663,14 @@ ref={(node) => {
   ref={videoRef}
   src={currentVideo}
   muted={isMuted}
-  loop
   playsInline
   preload="metadata"
+  onEnded={(e) => {
+    if (!playNextEpisode(current, safeDisplayIndex)) {
+      e.currentTarget.currentTime = 0;
+      e.currentTarget.play().catch(() => {});
+    }
+  }}
   onLoadedMetadata={(e) => {
     const pendingTime = pendingFullscreenTimeRef.current;
 
