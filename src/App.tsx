@@ -112,23 +112,28 @@ const narrativeProjects: Project[] = [
 ];
 
 const commercialProjects: Project[] = [
-  {
-    title: "MYKITA",
-    status: "Released",
-    role: "Campaign · 16MM & 8MM",
-    year: "2024",
-    image: bunny("/commercial/mykita-hero/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-hero/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-hero/poster.webp"),
-    video: bunny("/commercial/mykita-hero/trailer.mp4"),
-    mobileVimeoId: "868033223",
-    aspect: "vertical",
-    leftMeta: "Director / Co-DOP",
-    leftMetaExtra: "Zack Spiger · DOP",
-    rightMetaText: "PUBLISHED",
-    rightMetaExtra: "1M+ Organic Views",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
+{
+  title: "MYKITA",
+  status: "Released",
+  role: "Campaign · 16MM & 8MM",
+  year: "2024",
+
+  image: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageLandscape: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageVertical: bunny("/commercial/mykita-hero/poster-vertical-1.webp"),
+
+  video: bunny("/commercial/mykita-hero/trailer.mp4"),
+  mobileVimeoId: "868033223",
+  aspect: "vertical",
+
+  leftMeta: "Director / Co-DOP",
+  leftMetaExtra: "Zack Spiger · DOP",
+
+  rightMetaText: "PUBLISHED",
+  rightMetaExtra: "1M+ Organic Views",
+  rightMetaLogo: instagramLabel,
+
+  overlays: [],
   },
 {
   id: "miu-miu-1",
