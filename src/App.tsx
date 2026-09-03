@@ -2234,32 +2234,38 @@ useEffect(() => {
           background: "transparent",
         }}
       >
-        <button
-          type="button"
-          onClick={() => {
-            setMobileMenuOpen((prev) => !prev);
-            setMobileAboutOpen(false);
-            setMobileContactOpen(false);
-          }}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          style={{
-            border: "none",
-            background: "transparent",
-            color: "rgba(255,255,255,0.94)",
-            padding: 0,
-            margin: 0,
-fontSize: mobileMenuOpen ? 30 : 13.25,
-fontWeight: mobileMenuOpen ? 300 : 500,
-fontFamily: "inherit",
-lineHeight: mobileMenuOpen ? 0.8 : 1.15,
-cursor: "pointer",
-letterSpacing: mobileMenuOpen ? "0" : "0.17em",
-textTransform: mobileMenuOpen ? "none" : "uppercase",
-opacity: mobileMenuOpen ? 0.82 : 0.9,
-          }}
-        >
-          {mobileMenuOpen ? "×" : "Menu"}
-        </button>
+<button
+  type="button"
+  onClick={() => {
+    setMobileMenuOpen((prev) => !prev);
+    setMobileAboutOpen(false);
+    setMobileContactOpen(false);
+  }}
+  aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+  style={{
+    border: "none",
+    background: "transparent",
+    color: "white",
+    padding: 0,
+    margin: 0,
+    cursor: "pointer",
+    fontFamily: "inherit",
+    display: "block",
+    opacity: mobileMenuOpen ? 0.82 : 0.9,
+  }}
+>
+  <div
+    style={{
+      fontSize: mobileMenuOpen ? 30 : 13.25,
+      letterSpacing: mobileMenuOpen ? "0" : "0.17em",
+      textTransform: mobileMenuOpen ? "none" : "uppercase",
+      fontWeight: mobileMenuOpen ? 300 : 500,
+      lineHeight: mobileMenuOpen ? 0.8 : 1.15,
+    }}
+  >
+    {mobileMenuOpen ? "×" : "Menu"}
+  </div>
+</button>
       </div>
 
       <div
