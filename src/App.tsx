@@ -126,7 +126,7 @@ const commercialProjects: Project[] = [
   mobileVimeoId: "868033223",
   aspect: "vertical",
 
-  leftMeta: "Director / Co-DOP",
+  leftMeta: "Director / Co-DOP / Editor",
   leftMetaExtra: "Zack Spiger · DOP",
 
   rightMetaText: "PUBLISHED",
@@ -147,7 +147,7 @@ imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep1.webp"),
 video: bunny("/commercial/miu-miu-2/trailer-ep-1.mp4"),
   mobileVimeoId: "1185057987",
   aspect: "vertical",
-  leftMeta: "Cinematography & Model Direction",
+  leftMeta: "Cinematography / Model Direction",
   leftMetaExtra: "Fritz Schiffers · Artist",
   leftMetaThird: "Paris Fashion Week · SS23",
   rightMetaText: "PUBLISHED",
@@ -179,7 +179,7 @@ episodes: [
   imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
   video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
   mobileVimeoId: "1185056415",
-  leftMeta: "Director",
+  leftMeta: "Director / Editor",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
@@ -226,7 +226,7 @@ episodes: [
     video: bunny("/commercial/mykita-tumi/trailer.mp4"),
     mobileVimeoId: "961115198",
     aspect: "vertical",
-    leftMeta: "Director / Co-DOP",
+    leftMeta: "Director / Co-DOP / Editor",
     leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: instagramLabel,
@@ -260,7 +260,7 @@ episodes: [
     imageVertical: bunny("/commercial/homeshake/poster.webp"),
     video: bunny("/commercial/homeshake/trailer.mp4"),
     mobileVimeoId: "310845245",
-    leftMeta: "Director",
+    leftMeta: "Director / Editor",
     leftMetaExtra: "Prism Prize Nomination · Best Director",
     rightMetaText: "PUBLISHED",
     rightMetaLogo: idLogo,
@@ -278,7 +278,7 @@ episodes: [
   imageVertical: bunny("/commercial/adidas-2/poster-vertical-ep1.webp"),
   video: bunny("/commercial/adidas-2/trailer-ep-1.mp4"),
   mobileVimeoId: "1185056841",
-  leftMeta: "Director",
+  leftMeta: "Director / Editor",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
   episodes: [
@@ -308,7 +308,7 @@ imageLandscape: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
 imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
 video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
   aspect: "vertical",
-  leftMeta: "Cinematography & Model Direction",
+  leftMeta: "Cinematography / Model Direction",
   leftMetaExtra: "Fritz Schiffers · Artist",
   leftMetaThird: "Paris Fashion Week · SS23",
   rightMetaText: "PUBLISHED",
@@ -340,7 +340,7 @@ episodes: [
     video: bunny("/commercial/mykita-kat/trailer.mp4"),
     mobileVimeoId: "1185077699",
     aspect: "vertical",
-    leftMeta: "Director / Co-DOP",
+    leftMeta: "Director / Co-DOP / Editor",
     leftMetaExtra: "Zack Spiger · DOP",
     rightMetaText: "PUBLISHED",
     rightMetaExtra: "1.6M+ Organic Views",
@@ -2444,7 +2444,7 @@ onClick={openReel}
                 opacity: 0.86,
               }}
             >
-              Oliver McGarvey is a Canadian film director working between Edmonton and Berlin across documentary, narrative and commissioned films.
+              Oliver McGarvey is a Canadian writer, director and editor working between Edmonton and Berlin across documentary, narrative and commissioned films.
               <br />
               <br />
               His work can be described as a kind of earnest searching. Travelling beneath the surface into the realm of our beautiful, but distorted inner experiences. Open in form, he allows each project to grow naturally, yet gravitates towards visual restraint and emotional realism.
@@ -2847,7 +2847,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
       }}
     >
       <div style={{ marginBottom: 20 }}>
-        Oliver McGarvey is a Canadian film director working between Edmonton and Berlin, spanning documentary, narrative and commissioned films.
+        Oliver McGarvey is a Canadian writer, director and editor working between Edmonton and Berlin across documentary, narrative and commissioned films.
       </div>
 
       <div style={{ marginBottom: 20 }}>
