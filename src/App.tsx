@@ -1379,7 +1379,7 @@ setMobileActiveEpisodeIndex(0);
 const nextRole = hasEntered
   ? section === "narrative"
     ? "Writer · Director"
-    : "Director"
+    : "Director · Editor"
   : "";
 
     setRoleVisible(false);
@@ -1522,7 +1522,8 @@ useEffect(() => {
 
 if (!active) {
   if (fullscreenProjectOverride?.id === "director-reel") {
-    closeReel();
+    setShowControls(true);
+    setCursorHidden(false);
     return;
   }
 
@@ -1556,20 +1557,26 @@ if (!active) {
     };
   }, [hasVideo, isMobile]);
 
-  useEffect(() => {
-    if (isMobile || !isFullscreen) return;
+useEffect(() => {
+  if (isMobile || !isFullscreen) return;
 
-    const frameId = window.requestAnimationFrame(() => {
-      if (!frameRef.current) return;
-      if (document.fullscreenElement) return;
+  // Reel opens inside the site's fullscreen-style viewer,
+  // but does not automatically force browser/native fullscreen.
+  if (fullscreenProjectOverride?.id === "director-reel") {
+    return;
+  }
 
-      frameRef.current.requestFullscreen?.().catch(() => {});
-    });
+  const frameId = window.requestAnimationFrame(() => {
+    if (!frameRef.current) return;
+    if (document.fullscreenElement) return;
 
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [isFullscreen, isMobile, displayIndex]);
+    frameRef.current.requestFullscreen?.().catch(() => {});
+  });
+
+  return () => {
+    window.cancelAnimationFrame(frameId);
+  };
+}, [isFullscreen, isMobile, displayIndex, fullscreenProjectOverride]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -2241,14 +2248,14 @@ useEffect(() => {
             color: "rgba(255,255,255,0.94)",
             padding: 0,
             margin: 0,
-            fontSize: mobileMenuOpen ? 30 : 14,
-            fontWeight: mobileMenuOpen ? 300 : 500,
-            fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-            lineHeight: mobileMenuOpen ? 0.8 : 1.15,
-            cursor: "pointer",
-            letterSpacing: mobileMenuOpen ? "0" : "0.16em",
-            textTransform: mobileMenuOpen ? "none" : "uppercase",
-            opacity: mobileMenuOpen ? 0.82 : 0.96,
+fontSize: mobileMenuOpen ? 30 : 13.25,
+fontWeight: mobileMenuOpen ? 300 : 500,
+fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+lineHeight: mobileMenuOpen ? 0.8 : 1.15,
+cursor: "pointer",
+letterSpacing: mobileMenuOpen ? "0" : "0.17em",
+textTransform: mobileMenuOpen ? "none" : "uppercase",
+opacity: mobileMenuOpen ? 0.82 : 0.9,
           }}
         >
           {mobileMenuOpen ? "×" : "Menu"}
