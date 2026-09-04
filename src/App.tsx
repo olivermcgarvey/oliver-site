@@ -1379,7 +1379,7 @@ setMobileActiveEpisodeIndex(0);
 const nextRole = hasEntered
   ? section === "narrative"
     ? "Writer · Director"
-    : "Director · Editor"
+    : "Director · DOP · Editor"
   : "";
 
     setRoleVisible(false);
