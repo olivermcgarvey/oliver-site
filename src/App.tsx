@@ -2605,6 +2605,7 @@ onClick={openReel}
 
   return (
     <div
+      className="light-theme-test"
       style={{
         background: "black",
         width: "100vw",
@@ -2618,6 +2619,16 @@ onClick={openReel}
       }}
     >
 <style>{`
+  .light-theme-test {
+    filter: invert(1);
+  }
+
+  .light-theme-test img,
+  .light-theme-test video,
+  .light-theme-test iframe {
+    filter: invert(1);
+  }
+
   @keyframes warningFadeIn {
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
