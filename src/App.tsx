@@ -97,7 +97,7 @@ const narrativeProjects: Project[] = [
   {
     title: "Romantic Road",
     status: "Released",
-    role: "Feature Documentary · 16MM & Digital",
+    role: "Feature Documentary · Co-Editor · 16MM & Digital",
     year: "2018",
     image: bunny("/narrative/romantic-road/poster.webp"),
     video: bunny("/narrative/romantic-road/trailer.mp4"),
