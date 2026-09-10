@@ -1241,7 +1241,9 @@ const [fullscreenProjectOverride, setFullscreenProjectOverride] = useState<Proje
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [commercialHoverKey, setCommercialHoverKey] = useState<string | null>(null);
-  const [commercialInlineVimeoKey, setCommercialInlineVimeoKey] = useState<string | null>(null);
+  const [commercialInlinePlayingKey, setCommercialInlinePlayingKey] = useState<string | null>(null);
+  const commercialInlineVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const [desktopMenuHover, setDesktopMenuHover] = useState(false);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
   const [episodeByProjectId, setEpisodeByProjectId] = useState<Record<string, number>>({});
 
@@ -1386,7 +1388,7 @@ setMobileActiveEpisodeIndex(0);
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
     setCommercialHoverKey(null);
-    setCommercialInlineVimeoKey(null);
+    setCommercialInlinePlayingKey(null);
     setDesktopGalleryPlaying(true);
     pendingFullscreenTimeRef.current = null;
 
@@ -1895,7 +1897,7 @@ const goNext = (e?: React.MouseEvent) => {
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
     setCommercialHoverKey(null);
-    setCommercialInlineVimeoKey(null);
+    setCommercialInlinePlayingKey(null);
     setDesktopGalleryPlaying(true);
     pendingFullscreenTimeRef.current = null;
   };
@@ -2741,8 +2743,14 @@ onClick={openReel}
       setDesktopMenuOpen((prev) => !prev);
       setIsBioOpen(false);
     }}
-    onMouseEnter={() => setNavHover("about")}
-    onMouseLeave={() => setNavHover(null)}
+    onMouseEnter={() => {
+      setDesktopMenuHover(true);
+      setNavHover("about");
+    }}
+    onMouseLeave={() => {
+      setDesktopMenuHover(false);
+      setNavHover(null);
+    }}
     aria-label={desktopMenuOpen ? "Close menu" : "Open menu"}
     style={{
       border: "none",
@@ -2751,11 +2759,12 @@ onClick={openReel}
       padding: 0,
       margin: 0,
       cursor: "pointer",
-      fontSize: 14,
+      fontSize: 15.5,
       letterSpacing: "0.13em",
       textTransform: "uppercase",
-      opacity: navHover === "about" || desktopMenuOpen ? 0.96 : 0.72,
-      transition: "opacity 320ms ease",
+      opacity: navHover === "about" || desktopMenuOpen ? 0.96 : 0.76,
+      filter: desktopMenuHover ? "blur(2px)" : "blur(0px)",
+      transition: "opacity 320ms ease, filter 420ms ease",
     }}
   >
     Menu
@@ -3311,7 +3320,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       episodeIndex?: number;
       hideMeta?: boolean;
       staticPreview?: boolean;
-      inlineVimeo?: boolean;
+      inlineVideo?: boolean;
       mediaScale?: number;
       cardKey?: string;
     },
@@ -3328,15 +3337,15 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     const isFeature = !!options?.feature;
     const hideMeta = !!options?.hideMeta;
     const staticPreview = !!options?.staticPreview;
-    const inlineVimeo = !!options?.inlineVimeo && !!project.mobileVimeoId;
+    const inlineVideo = !!options?.inlineVideo && !!activeVideo;
     const mediaScale = options?.mediaScale ?? 1;
     const cardKey =
       options?.cardKey ||
       `${project.id || project.title}-${index}-${activeEpisodeIndex}`;
 
     const isHovered = commercialHoverKey === cardKey;
-    const isInlineVimeoActive =
-      inlineVimeo && commercialInlineVimeoKey === cardKey;
+    const isInlineVideoPlaying =
+      inlineVideo && commercialInlinePlayingKey === cardKey;
 
     const poster =
       cardAspect === "9 / 16"
@@ -3372,7 +3381,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       setDesktopActiveProjectIndex(null);
       setDesktopHoveredProjectIndex(null);
       setCommercialHoverKey(null);
-      setCommercialInlineVimeoKey(null);
+      setCommercialInlinePlayingKey(null);
       setDesktopGalleryPlaying(true);
       setIsFullscreen(true);
     };
@@ -3380,19 +3389,31 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     const handleCommercialClick = () => {
       if (!cardHasPlayback) return;
 
-      if (inlineVimeo && project.mobileVimeoId) {
-        setCommercialInlineVimeoKey(cardKey);
+      if (inlineVideo) {
+        Object.entries(commercialInlineVideoRefs.current).forEach(([key, node]) => {
+          if (!node || key === cardKey) return;
+          node.pause();
+        });
+
+        const inlineNode = commercialInlineVideoRefs.current[cardKey];
+        if (!inlineNode) return;
+
+        if (inlineNode.paused) {
+          inlineNode.play().catch(() => {});
+          setCommercialInlinePlayingKey(cardKey);
+        } else {
+          inlineNode.pause();
+          setCommercialInlinePlayingKey(null);
+        }
+
         setDesktopActiveProjectIndex(null);
         setDesktopGalleryPlaying(true);
         return;
       }
 
-      setCommercialInlineVimeoKey(null);
+      setCommercialInlinePlayingKey(null);
 
-      if (staticPreview) {
-        openCommercialFullscreen();
-        return;
-      }
+      if (staticPreview) return;
 
       if (isDesktopCardActive) {
         setDesktopGalleryPlaying((prev) => !prev);
@@ -3438,19 +3459,37 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             cursor: cardHasPlayback ? "pointer" : "default",
           }}
         >
-          {isInlineVimeoActive && project.mobileVimeoId ? (
-            <iframe
-              src={getMobileVimeoSrc(project.mobileVimeoId)}
-              title={`${project.title} inline preview`}
-              allow="autoplay; picture-in-picture; encrypted-media"
+          {inlineVideo && activeVideo ? (
+            <video
+              key={`inline-${cardKey}`}
+              ref={(node) => {
+                commercialInlineVideoRefs.current[cardKey] = node;
+              }}
+              src={activeVideo}
+              poster={poster}
+              muted={false}
+              playsInline
+              preload="metadata"
+              onPlay={() => setCommercialInlinePlayingKey(cardKey)}
+              onPause={() =>
+                setCommercialInlinePlayingKey((currentKey) =>
+                  currentKey === cardKey ? null : currentKey
+                )
+              }
+              onEnded={(e) => {
+                e.currentTarget.currentTime = 0;
+                setCommercialInlinePlayingKey(null);
+              }}
               style={{
                 position: "absolute",
                 inset: 0,
                 width: "100%",
                 height: "100%",
-                border: "none",
+                objectFit: "cover",
                 display: "block",
                 background: "black",
+                transform: `scale(${mediaScale})`,
+                transformOrigin: "center center",
               }}
             />
           ) : !staticPreview && activeVideo && isDesktopCardActive ? (
@@ -3510,7 +3549,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             />
           )}
 
-          {cardHasPlayback && !isInlineVimeoActive ? (
+          {cardHasPlayback ? (
             <div
               style={{
                 position: "absolute",
@@ -3523,13 +3562,21 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 opacity:
                   isHovered
                     ? 0.9
-                    : isDesktopCardActive && !desktopGalleryPlaying && !staticPreview
-                      ? 0.78
-                      : 0,
+                    : inlineVideo && !isInlineVideoPlaying
+                      ? 0.16
+                      : isDesktopCardActive && !desktopGalleryPlaying && !staticPreview
+                        ? 0.78
+                        : 0,
                 transition: "opacity 220ms ease",
               }}
             >
-              {isDesktopCardActive && !desktopGalleryPlaying && !staticPreview ? (
+              {inlineVideo ? (
+                isInlineVideoPlaying ? (
+                  <PauseIcon size={21} />
+                ) : (
+                  <PlayIcon size={isFeature ? 24 : 21} />
+                )
+              ) : isDesktopCardActive && !desktopGalleryPlaying && !staticPreview ? (
                 <PlayIcon size={isFeature ? 24 : 21} />
               ) : !isDesktopCardActive || staticPreview ? (
                 <PlayIcon size={isFeature ? 24 : 21} />
@@ -3545,9 +3592,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               right: 8,
               bottom: 8,
               zIndex: 8,
-              opacity: isHovered && !isInlineVimeoActive ? 0.82 : 0,
+              opacity: isHovered ? 0.82 : 0,
               transition: "opacity 220ms ease",
-              pointerEvents: isHovered && !isInlineVimeoActive ? "auto" : "none",
+              pointerEvents: isHovered ? "auto" : "none",
             }}
           >
             <ControlButton
@@ -3786,7 +3833,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             episodeIndex: 0,
             hideMeta: true,
             staticPreview: true,
-            inlineVimeo: true,
+            inlineVideo: true,
             cardKey: "miu-01",
           })}
           {renderCommercialCard(miuOneIndex, {
@@ -3794,6 +3841,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             episodeIndex: 1,
             hideMeta: true,
             staticPreview: true,
+            inlineVideo: true,
             cardKey: "miu-02",
           })}
           {renderCommercialCard(miuTwoIndex, {
@@ -3801,6 +3849,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             episodeIndex: 0,
             hideMeta: true,
             staticPreview: true,
+            inlineVideo: true,
             cardKey: "miu-03",
           })}
           {renderCommercialCard(miuTwoIndex, {
@@ -3808,6 +3857,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             episodeIndex: 1,
             hideMeta: true,
             staticPreview: true,
+            inlineVideo: true,
             cardKey: "miu-04",
           })}
         </div>
