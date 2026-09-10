@@ -3073,8 +3073,12 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     : landingHover === "narrative"
                       ? 0.94
                       : 0.5,
-                transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
-                transition: "opacity 520ms ease, transform 520ms ease",
+transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
+filter:
+  !isMobile && landingHover === "narrative"
+    ? "blur(3px)"
+    : "blur(0px)",
+transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               }}
             >
               Narrative
@@ -3102,8 +3106,12 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     : landingHover === "commercial"
                       ? 0.94
                       : 0.5,
-                transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
-                transition: "opacity 520ms ease, transform 520ms ease",
+transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
+filter:
+  !isMobile && landingHover === "commercial"
+    ? "blur(3px)"
+    : "blur(0px)",
+transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               }}
             >
               Commercial
