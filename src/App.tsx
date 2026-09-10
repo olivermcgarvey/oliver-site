@@ -3756,8 +3756,8 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               }}
             />
           ) : null}
-
-            ) : (
+        </>
+      ) : (
         <>
           {!isFullscreen ? (
             <div
