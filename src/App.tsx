@@ -241,23 +241,6 @@ episodes: [
     overlays: [],
   },
 {
-    title: "MYKITA · LEICA",
-    status: "Released",
-    role: "Campaign · Digital",
-    year: "2020",
-    image: bunny("/commercial/mykita-leica/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
-    video: bunny("/commercial/mykita-leica/trailer.mp4"),
-    mobileVimeoId: "394936736",
-    aspect: "vertical",
-    leftMeta: "Director / DOP",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: highsnobietyLogo,
-    rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
-    overlays: [],
-  },
-{
     title: "Krista Papista",
     status: "Released",
     role: "Music Video · 16MM",
@@ -322,6 +305,23 @@ episodes: [
   ],
   overlays: [],
 },
+{
+    title: "MYKITA · LEICA",
+    status: "Released",
+    role: "Campaign · Digital",
+    year: "2020",
+    image: bunny("/commercial/mykita-leica/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
+    video: bunny("/commercial/mykita-leica/trailer.mp4"),
+    mobileVimeoId: "394936736",
+    aspect: "vertical",
+    leftMeta: "Director / DOP",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: highsnobietyLogo,
+    rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
+    overlays: [],
+  },
 {
   title: "MYKITA",
   status: "Released",
@@ -2610,15 +2610,16 @@ onClick={openReel}
   return (
     <div
       style={{
-        background: isLightCommercial ? "#F7F7F4" : "black",
+        background: isLightCommercial ? "#FFFFFF" : "black",
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
-        color: isLightCommercial ? "#181816" : "white",
+        color: isLightCommercial ? "#111111" : "white",
         position: "relative",
         overscrollBehaviorX: "none",
         overscrollBehaviorY: "none",
         fontFamily: '"Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif',
+        transition: "background 460ms ease, color 460ms ease",
       }}
     >
 <style>{`
@@ -2793,7 +2794,11 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
     inset: 0,
     zIndex: desktopMenuOpen ? 54 : -1,
     pointerEvents: desktopMenuOpen ? "auto" : "none",
-    background: desktopMenuOpen ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0)",
+    background: desktopMenuOpen
+      ? isLightCommercial
+        ? "rgba(255,255,255,0.76)"
+        : "rgba(0,0,0,0.35)"
+      : "rgba(0,0,0,0)",
     transition: "background 420ms ease",
   }}
 />
@@ -2805,7 +2810,11 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
               inset: 0,
               zIndex: isBioOpen ? 55 : -1,
               pointerEvents: isBioOpen ? "auto" : "none",
-              background: isBioOpen ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0)",
+              background: isBioOpen
+                ? isLightCommercial
+                  ? "rgba(255,255,255,0.72)"
+                  : "rgba(0,0,0,0.35)"
+                : "rgba(0,0,0,0)",
               transition: "background 600ms ease",
             }}
           />
@@ -2817,7 +2826,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
     left: 52,
     width: 1020,
     minHeight: 390,
-    background: "rgba(0,0,0,0.9)",
+    background: isLightCommercial ? "rgba(255,255,255,0.97)" : "rgba(0,0,0,0.9)",
     zIndex: 56,
     opacity: isBioOpen ? 1 : 0,
     transform: isBioOpen ? "translateY(0)" : "translateY(-20px)",
@@ -2890,7 +2899,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
         fontSize: 14,
         lineHeight: 1.7,
         letterSpacing: "0.01em",
-        color: "rgba(255,255,255,0.86)",
+        color: isLightCommercial ? "rgba(17,17,17,0.78)" : "rgba(255,255,255,0.86)",
         opacity: 0.72,
         textDecoration: "none",
         display: "inline-flex",
@@ -3004,6 +3013,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
         opacity: 0.72,
         marginTop: 8,
         display: "block",
+        filter: isLightCommercial ? "brightness(0)" : "none",
       }}
     />
   </div>
@@ -3250,23 +3260,23 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: section === "commercial" ? "118px 0 92px 0" : "132px 0 120px 0",
+                padding: section === "commercial" ? "108px 0 72px 0" : "132px 0 120px 0",
                 boxSizing: "border-box",
                 zIndex: 10,
-                background: section === "commercial" ? "#F7F7F4" : "transparent",
-                transition: "background 520ms ease",
+                background: section === "commercial" ? "#FFFFFF" : "transparent",
+                transition: "background 460ms ease",
               }}
             >
 {section === "commercial" ? (
   <div
     style={{
-      width: "88vw",
-      maxWidth: 1480,
+      width: "92vw",
+      maxWidth: 1680,
       margin: "0 auto",
       display: "grid",
       gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-      columnGap: 26,
-      rowGap: 54,
+      columnGap: 18,
+      rowGap: 42,
       alignItems: "start",
     }}
   >
@@ -3278,7 +3288,11 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
       const isMiuMiu = project.title === "MIU MIU";
       const isVertical = project.aspect === "vertical";
-      const isMiuPair = isMiuMiu && (i === 1 || i === 2);
+      const isMiuPair = i === 1 || i === 2;
+      const isMykitaLandscapePair = i === 3 || i === 4;
+      const isEditorialPair = i === 5 || i === 6;
+      const isFinalVerticalPair = i === 8 || i === 9;
+      const isFullWidth = i === 0 || i === 7;
 
       const cardAspect = isMiuMiu
         ? "9 / 16"
@@ -3290,15 +3304,21 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         ? getPortraitImage(project, activeEpisodeIndex)
         : getLandscapeImage(project, activeEpisodeIndex);
 
-      const gridPlacement = isMiuPair
-        ? i === 1
-          ? { gridColumn: "2 / span 5" }
-          : { gridColumn: "7 / span 5" }
-        : isVertical
-          ? i % 2 === 0
+      const gridPlacement = isFullWidth
+        ? { gridColumn: "1 / -1" }
+        : isMiuPair
+          ? i === 1
             ? { gridColumn: "2 / span 5" }
             : { gridColumn: "7 / span 5" }
-          : { gridColumn: "1 / -1" };
+          : isMykitaLandscapePair || isEditorialPair
+            ? i % 2 === 1
+              ? { gridColumn: "1 / span 6" }
+              : { gridColumn: "7 / span 6" }
+            : isFinalVerticalPair
+              ? i === 8
+                ? { gridColumn: "2 / span 5" }
+                : { gridColumn: "7 / span 5" }
+              : { gridColumn: "1 / -1" };
 
       return (
         <div
@@ -3330,7 +3350,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               width: "100%",
               aspectRatio: cardAspect,
               overflow: "hidden",
-              background: "#111",
+              background: "#111111",
               cursor: cardHasPlayback ? "pointer" : "default",
             }}
           >
@@ -3351,6 +3371,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 ref={(node) => {
                   desktopGalleryVideoRefs.current[i] = node;
                   if (!node) return;
+
                   if (desktopGalleryPlaying) {
                     node.play().catch(() => {});
                   } else {
@@ -3386,35 +3407,59 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             <EpisodeButtons
               project={project}
               activeEpisodeIndex={activeEpisodeIndex}
-              onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
+              onSelect={(episodeIndex) =>
+                setProjectEpisode(project, i, episodeIndex)
+              }
             />
 
             {cardHasPlayback ? (
               <div
                 style={{
-                  position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-                  pointerEvents: "none", color: "rgba(255,255,255,0.76)",
-                  opacity: !isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i ? 1 : 0,
-                  transition: "opacity 360ms ease",
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  color: "rgba(255,255,255,0.78)",
+                  opacity:
+                    !isDesktopCardActive ||
+                    !desktopGalleryPlaying ||
+                    desktopHoveredProjectIndex === i
+                      ? 1
+                      : 0,
+                  transition: "opacity 300ms ease",
                 }}
               >
-                {!isDesktopCardActive || !desktopGalleryPlaying ? <PlayIcon size={22} /> : <PauseIcon size={22} />}
+                {!isDesktopCardActive || !desktopGalleryPlaying ? (
+                  <PlayIcon size={22} />
+                ) : (
+                  <PauseIcon size={22} />
+                )}
               </div>
             ) : null}
 
             <div
               style={{
-                position: "absolute", right: 12, bottom: 12, zIndex: 6, display: "flex",
+                position: "absolute",
+                right: 10,
+                bottom: 10,
+                zIndex: 6,
+                display: "flex",
                 opacity: desktopHoveredProjectIndex === i ? 0.9 : 0,
-                transition: "opacity 360ms ease",
-                pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
+                transition: "opacity 300ms ease",
+                pointerEvents:
+                  desktopHoveredProjectIndex === i ? "auto" : "none",
               }}
             >
               <ControlButton
                 onClick={(e) => {
                   e.stopPropagation();
+
                   const sourceVideo = desktopGalleryVideoRefs.current[i];
-                  pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
+                  pendingFullscreenTimeRef.current =
+                    sourceVideo ? sourceVideo.currentTime : null;
+
                   setFullscreenProjectOverride(null);
                   setCurrentIndex(i);
                   setDisplayIndex(i);
@@ -3438,76 +3483,195 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             {cardHasPlayback && isDesktopCardActive ? (
               <div
                 style={{
-                  position: "absolute", left: 0, right: 0, bottom: 0, height: 1,
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: 1,
                   background: "rgba(255,255,255,0.14)",
                   opacity: desktopHoveredProjectIndex === i ? 1 : 0,
-                  transition: "opacity 320ms ease",
-                  pointerEvents: "none", zIndex: 7,
+                  transition: "opacity 300ms ease",
+                  pointerEvents: "none",
+                  zIndex: 7,
                 }}
               >
                 <div
-                  ref={(node) => { galleryProgressRefs.current[i] = node; }}
+                  ref={(node) => {
+                    galleryProgressRefs.current[i] = node;
+                  }}
                   style={{
-                    width: "100%", height: "100%", background: "rgba(255,255,255,0.52)",
-                    transform: "scaleX(0)", transformOrigin: "left center", willChange: "transform",
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(255,255,255,0.56)",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left center",
+                    willChange: "transform",
                   }}
                 />
               </div>
             ) : null}
 
-            {project.flashWarning && (!isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i) ? (
+            {project.flashWarning &&
+            (!isDesktopCardActive ||
+              !desktopGalleryPlaying ||
+              desktopHoveredProjectIndex === i) ? (
               <WarningBadge />
             ) : null}
           </div>
 
           <div
             style={{
-              marginTop: 11, display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto",
-              columnGap: 22, alignItems: "start", color: "#181816",
+              marginTop: 10,
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) auto",
+              columnGap: 20,
+              alignItems: "start",
+              color: "#111111",
             }}
           >
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: 13.5, letterSpacing: "0.12em", textTransform: "uppercase", lineHeight: 1.24, fontWeight: 450, marginBottom: 5, opacity: 0.94 }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  letterSpacing: "0.115em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.22,
+                  fontWeight: 500,
+                  marginBottom: 4,
+                  opacity: 0.96,
+                }}
+              >
                 {project.title}
               </div>
-              <div style={{ fontSize: 10.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, fontWeight: 400, opacity: 0.54 }}>
-                {project.leftMeta || project.role}{project.year ? ` · ${project.year}` : ""}
+
+              <div
+                style={{
+                  fontSize: 10,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.38,
+                  fontWeight: 400,
+                  opacity: 0.5,
+                }}
+              >
+                {project.leftMeta || project.role}
+                {project.year ? ` · ${project.year}` : ""}
               </div>
+
               {project.leftMetaExtra ? (
-                <div style={{ marginTop: 3, fontSize: 9.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, opacity: 0.36 }}>
+                <div
+                  style={{
+                    marginTop: 2,
+                    fontSize: 9.5,
+                    letterSpacing: "0.095em",
+                    textTransform: "uppercase",
+                    lineHeight: 1.35,
+                    opacity: 0.32,
+                  }}
+                >
                   {project.leftMetaExtra}
                 </div>
               ) : null}
+
               {project.leftMetaThird ? (
-                <div style={{ marginTop: 3, fontSize: 9.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, opacity: 0.32 }}>
+                <div
+                  style={{
+                    marginTop: 2,
+                    fontSize: 9.5,
+                    letterSpacing: "0.095em",
+                    textTransform: "uppercase",
+                    lineHeight: 1.35,
+                    opacity: 0.28,
+                  }}
+                >
                   {project.leftMetaThird}
                 </div>
               ) : null}
             </div>
 
-            <div style={{ minWidth: 100, textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", color: "#181816" }}>
+            <div
+              style={{
+                minWidth: 88,
+                textAlign: "right",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                color: "#111111",
+              }}
+            >
               {project.rightMetaText ? (
-                <div style={{ fontSize: 9.5, letterSpacing: "0.11em", textTransform: "uppercase", lineHeight: 1.3, opacity: 0.42, marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 5 : 0 }}>
+                <div
+                  style={{
+                    fontSize: 9.5,
+                    letterSpacing: "0.105em",
+                    textTransform: "uppercase",
+                    lineHeight: 1.3,
+                    opacity: 0.38,
+                    marginBottom:
+                      project.rightMetaExtra || project.rightMetaLogo ? 4 : 0,
+                  }}
+                >
                   {project.rightMetaText}
                 </div>
               ) : null}
+
               {project.rightMetaExtra ? (
-                <div style={{ fontSize: 9, letterSpacing: "0.105em", textTransform: "uppercase", opacity: 0.32, marginBottom: project.rightMetaLogo ? 5 : 0, whiteSpace: "nowrap" }}>
+                <div
+                  style={{
+                    fontSize: 9,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    opacity: 0.28,
+                    marginBottom: project.rightMetaLogo ? 4 : 0,
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {project.rightMetaExtra}
                 </div>
               ) : null}
+
               {project.rightMetaLogo ? (
                 project.rightMetaLogo === instagramLabel ? (
-                  <div style={{ fontSize: 10, letterSpacing: "0.13em", textTransform: "uppercase", opacity: 0.55 }}>IG</div>
+                  <div
+                    style={{
+                      fontSize: 9.5,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      opacity: 0.48,
+                    }}
+                  >
+                    IG
+                  </div>
                 ) : project.rightMetaLink ? (
-                  <a href={project.rightMetaLink} target="_blank" rel="noreferrer" style={{ display: "block", lineHeight: 0, textDecoration: "none" }}>
+                  <a
+                    href={project.rightMetaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: "block",
+                      lineHeight: 0,
+                      textDecoration: "none",
+                    }}
+                  >
                     <img
                       src={project.rightMetaLogo}
                       alt="Platform"
                       style={{
-                        height: project.rightMetaLogo === nownessLogo || project.rightMetaLogo === idLogo ? 10 : project.rightMetaLogo === highsnobietyLogo ? 12 : 13,
-                        width: "auto", display: "block", opacity: 0.72,
-                        filter: project.rightMetaLogo === nownessLogo || project.rightMetaLogo === idLogo ? "brightness(0)" : "none",
+                        height:
+                          project.rightMetaLogo === nownessLogo ||
+                          project.rightMetaLogo === idLogo
+                            ? 10
+                            : project.rightMetaLogo === highsnobietyLogo
+                              ? 12
+                              : 13,
+                        width: "auto",
+                        display: "block",
+                        opacity: 0.76,
+                        filter:
+                          project.rightMetaLogo === nownessLogo ||
+                          project.rightMetaLogo === idLogo
+                            ? "brightness(0)"
+                            : "none",
                       }}
                     />
                   </a>
@@ -3515,7 +3679,13 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   <img
                     src={project.rightMetaLogo}
                     alt="Platform"
-                    style={{ height: 10, width: "auto", display: "block", opacity: 0.72, filter: "brightness(0)" }}
+                    style={{
+                      height: 10,
+                      width: "auto",
+                      display: "block",
+                      opacity: 0.76,
+                      filter: "brightness(0)",
+                    }}
                   />
                 )
               ) : null}
