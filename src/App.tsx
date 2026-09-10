@@ -1241,6 +1241,7 @@ const [fullscreenProjectOverride, setFullscreenProjectOverride] = useState<Proje
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
   const [commercialHoverKey, setCommercialHoverKey] = useState<string | null>(null);
+  const [commercialInlineVimeoKey, setCommercialInlineVimeoKey] = useState<string | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
   const [episodeByProjectId, setEpisodeByProjectId] = useState<Record<string, number>>({});
 
@@ -1385,6 +1386,7 @@ setMobileActiveEpisodeIndex(0);
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
     setCommercialHoverKey(null);
+    setCommercialInlineVimeoKey(null);
     setDesktopGalleryPlaying(true);
     pendingFullscreenTimeRef.current = null;
 
@@ -1892,6 +1894,8 @@ const goNext = (e?: React.MouseEvent) => {
     setMobileActiveProject(null);
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
+    setCommercialHoverKey(null);
+    setCommercialInlineVimeoKey(null);
     setDesktopGalleryPlaying(true);
     pendingFullscreenTimeRef.current = null;
   };
@@ -3307,6 +3311,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       episodeIndex?: number;
       hideMeta?: boolean;
       staticPreview?: boolean;
+      inlineVimeo?: boolean;
       mediaScale?: number;
       cardKey?: string;
     },
@@ -3323,12 +3328,15 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     const isFeature = !!options?.feature;
     const hideMeta = !!options?.hideMeta;
     const staticPreview = !!options?.staticPreview;
+    const inlineVimeo = !!options?.inlineVimeo && !!project.mobileVimeoId;
     const mediaScale = options?.mediaScale ?? 1;
     const cardKey =
       options?.cardKey ||
       `${project.id || project.title}-${index}-${activeEpisodeIndex}`;
 
     const isHovered = commercialHoverKey === cardKey;
+    const isInlineVimeoActive =
+      inlineVimeo && commercialInlineVimeoKey === cardKey;
 
     const poster =
       cardAspect === "9 / 16"
@@ -3364,12 +3372,22 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       setDesktopActiveProjectIndex(null);
       setDesktopHoveredProjectIndex(null);
       setCommercialHoverKey(null);
+      setCommercialInlineVimeoKey(null);
       setDesktopGalleryPlaying(true);
       setIsFullscreen(true);
     };
 
     const handleCommercialClick = () => {
       if (!cardHasPlayback) return;
+
+      if (inlineVimeo && project.mobileVimeoId) {
+        setCommercialInlineVimeoKey(cardKey);
+        setDesktopActiveProjectIndex(null);
+        setDesktopGalleryPlaying(true);
+        return;
+      }
+
+      setCommercialInlineVimeoKey(null);
 
       if (staticPreview) {
         openCommercialFullscreen();
@@ -3420,7 +3438,22 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             cursor: cardHasPlayback ? "pointer" : "default",
           }}
         >
-          {!staticPreview && activeVideo && isDesktopCardActive ? (
+          {isInlineVimeoActive && project.mobileVimeoId ? (
+            <iframe
+              src={getMobileVimeoSrc(project.mobileVimeoId)}
+              title={`${project.title} inline preview`}
+              allow="autoplay; picture-in-picture; encrypted-media"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+                display: "block",
+                background: "black",
+              }}
+            />
+          ) : !staticPreview && activeVideo && isDesktopCardActive ? (
             <video
               key={`${project.id || project.title}-${index}-${activeEpisodeIndex}`}
               src={activeVideo}
@@ -3477,7 +3510,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             />
           )}
 
-          {cardHasPlayback ? (
+          {cardHasPlayback && !isInlineVimeoActive ? (
             <div
               style={{
                 position: "absolute",
@@ -3512,9 +3545,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               right: 8,
               bottom: 8,
               zIndex: 8,
-              opacity: isHovered ? 0.82 : 0,
+              opacity: isHovered && !isInlineVimeoActive ? 0.82 : 0,
               transition: "opacity 220ms ease",
-              pointerEvents: isHovered ? "auto" : "none",
+              pointerEvents: isHovered && !isInlineVimeoActive ? "auto" : "none",
             }}
           >
             <ControlButton
@@ -3736,7 +3769,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        gap: 26,
+        gap: 34,
       }}
     >
       <div style={moduleStyle}>
@@ -3753,6 +3786,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             episodeIndex: 0,
             hideMeta: true,
             staticPreview: true,
+            inlineVimeo: true,
             cardKey: "miu-01",
           })}
           {renderCommercialCard(miuOneIndex, {
@@ -3825,9 +3859,23 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         })}
       </div>
 
-      <div style={pairStyle}>
-        {renderCommercialCard(adidasOneIndex, { aspect: "16 / 9" })}
-        {renderCommercialCard(adidasTwoIndex, { aspect: "16 / 9" })}
+      <div style={moduleStyle}>
+        {renderCommercialCard(adidasOneIndex, {
+          aspect: "16 / 9",
+          feature: true,
+        })}
+      </div>
+
+      <div
+        style={{
+          ...moduleStyle,
+          width: "78%",
+          marginLeft: "auto",
+        }}
+      >
+        {renderCommercialCard(adidasTwoIndex, {
+          aspect: "16 / 9",
+        })}
       </div>
 
       <div style={pairStyle}>
