@@ -3251,419 +3251,751 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 zIndex: 10,
               }}
             >
-              <div
-                style={{
-                  width: frameWidth,
-                  maxWidth: frameMaxWidth,
-                  margin: "0 auto",
-                }}
-              >
-                {projects.map((project, i) => {
-const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
-const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
-const cardHasPlayback = !!activeVideo;
-                  const cardIsVertical = project.aspect === "vertical";
-                  const cardObjectFit = cardIsVertical ? "contain" : "cover";
-                  const isDesktopCardActive = desktopActiveProjectIndex === i;
-
-                  return (
-<div
-  key={`${section}-${project.title}-${i}`}
-  ref={(el) => {
-    desktopCardRefs.current[i] = el;
-  }}
-style={{
-  marginBottom: i === projects.length - 1 ? 24 : 148,
-}}
->
-                      <div
-                        onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
-                        onMouseMove={() => setDesktopHoveredProjectIndex(i)}
-                        onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
-                        onClick={() => {
-                          if (!cardHasPlayback) return;
-
-                          if (desktopActiveProjectIndex === i) {
-                            setDesktopGalleryPlaying((prev) => !prev);
-                          } else {
-                            setDesktopActiveProjectIndex(i);
-                            setDesktopGalleryPlaying(true);
-                          }
-                        }}
-                        style={{
-                          position: "relative",
-                          width: "100%",
-                          aspectRatio: "16 / 9",
-                          overflow: "hidden",
-                          background: "black",
-                          cursor: cardHasPlayback ? "pointer" : "default",
-                        }}
-                      >
-{cardHasPlayback && isDesktopCardActive ? (
-  <video
-    key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
-    src={activeVideo}
-    autoPlay={desktopGalleryPlaying}
-    muted={false}
-    playsInline
-    preload="metadata"
-    onEnded={(e) => {
-      if (!playNextEpisode(project, i)) {
-        e.currentTarget.currentTime = 0;
-        e.currentTarget.play().catch(() => {});
-      }
-    }}
-    ref={(node) => {
-      desktopGalleryVideoRefs.current[i] = node;
-      if (!node) return;
-
-      if (desktopGalleryPlaying) {
-        node.play().catch(() => {});
-      } else {
-        node.pause();
-      }
-    }}
-    style={{
-      position: "absolute",
-      inset: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: cardObjectFit,
-      display: "block",
-      background: "black",
-    }}
-  />
-) : (
-  <img
-    src={getDesktopImage(project, activeEpisodeIndex)}
-    alt={project.title}
-    style={{
-      position: "absolute",
-      inset: 0,
-      width: "100%",
-      height: "100%",
-      objectFit: cardObjectFit,
-      display: "block",
-      background: "black",
-    }}
-  />
-)}
-
-<EpisodeButtons
-  project={project}
-  activeEpisodeIndex={activeEpisodeIndex}
-  onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
-/>
-
-                        {cardHasPlayback ? (
-                          <div
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              pointerEvents: "none",
-                              color: "rgba(255,255,255,0.56)",
-                              opacity:
-                                !isDesktopCardActive ||
-                                !desktopGalleryPlaying ||
-                                desktopHoveredProjectIndex === i
-                                  ? 1
-                                  : 0,
-                              transition: "opacity 420ms ease",
-                            }}
-                          >
-                            {!isDesktopCardActive || !desktopGalleryPlaying ? (
-                              <PlayIcon size={24} />
-                            ) : (
-                              <PauseIcon size={24} />
-                            )}
-                          </div>
-                        ) : null}
-
-<div
-  style={{
-    position: "absolute",
-    right: 14,
-    bottom: 14,
-    zIndex: 6,
-    display: "flex",
-    gap: 8,
-    opacity: desktopHoveredProjectIndex === i ? 0.86 : 0,
-    transition: "opacity 420ms ease",
-    pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
-  }}
->
-  <ControlButton
-    onClick={(e) => {
-      e.stopPropagation();
-
-      const sourceVideo = desktopGalleryVideoRefs.current[i];
-      pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
-
-      setFullscreenProjectOverride(null);
-      setCurrentIndex(i);
-      setDisplayIndex(i);
-      setIsActive(cardHasPlayback);
-      setIsPlaying(true);
-      setIsMuted(false);
-      setVideoReady(!cardHasPlayback);
-      setShowControls(true);
-      setCursorHidden(false);
-      setDesktopActiveProjectIndex(null);
-      setDesktopHoveredProjectIndex(null);
-      setDesktopGalleryPlaying(true);
-      setIsFullscreen(true);
-    }}
-    ariaLabel="Open fullscreen"
-  >
-    <FullscreenIcon active={false} size={18} />
-  </ControlButton>
-</div>
-
-{cardHasPlayback && isDesktopCardActive ? (
+{section === "commercial" ? (
   <div
     style={{
-      position: "absolute",
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: 1,
-      background: "rgba(255,255,255,0.14)",
-      opacity: desktopHoveredProjectIndex === i ? 1 : 0,
-      transition: "opacity 320ms ease",
-      pointerEvents: "none",
-      zIndex: 7,
+      width: "82vw",
+      maxWidth: 1360,
+      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      columnGap: 34,
+      rowGap: 86,
+      alignItems: "start",
     }}
   >
-<div
-ref={(node) => {
-  galleryProgressRefs.current[i] = node;
-}}
-  style={{
-    width: "100%",
-    height: "100%",
-    background: "rgba(255,255,255,0.46)",
-    transform: "scaleX(0)",
-    transformOrigin: "left center",
-    willChange: "transform",
-  }}
-/>
+    {projects.map((project, i) => {
+      const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
+      const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
+      const cardHasPlayback = !!activeVideo;
+      const cardIsVertical = project.aspect === "vertical";
+      const isDesktopCardActive = desktopActiveProjectIndex === i;
+
+      const commercialPoster = cardIsVertical
+        ? getPortraitImage(project, activeEpisodeIndex)
+        : getDesktopImage(project, activeEpisodeIndex);
+
+      const commercialCredit =
+        project.leftMeta || project.role;
+
+      return (
+        <div
+          key={`${section}-${project.title}-${i}`}
+          ref={(el) => {
+            desktopCardRefs.current[i] = el;
+          }}
+          style={{
+            minWidth: 0,
+            marginTop: i % 2 === 1 ? 72 : 0,
+          }}
+        >
+          <div
+            onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
+            onMouseMove={() => setDesktopHoveredProjectIndex(i)}
+            onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
+            onClick={() => {
+              if (!cardHasPlayback) return;
+
+              if (desktopActiveProjectIndex === i) {
+                setDesktopGalleryPlaying((prev) => !prev);
+              } else {
+                setDesktopActiveProjectIndex(i);
+                setDesktopGalleryPlaying(true);
+              }
+            }}
+            style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: cardIsVertical ? "4 / 5" : "16 / 9",
+              overflow: "hidden",
+              background: "black",
+              cursor: cardHasPlayback ? "pointer" : "default",
+            }}
+          >
+            {cardHasPlayback && isDesktopCardActive ? (
+              <video
+                key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+                src={activeVideo}
+                autoPlay={desktopGalleryPlaying}
+                muted={false}
+                playsInline
+                preload="metadata"
+                onEnded={(e) => {
+                  if (!playNextEpisode(project, i)) {
+                    e.currentTarget.currentTime = 0;
+                    e.currentTarget.play().catch(() => {});
+                  }
+                }}
+                ref={(node) => {
+                  desktopGalleryVideoRefs.current[i] = node;
+                  if (!node) return;
+
+                  if (desktopGalleryPlaying) {
+                    node.play().catch(() => {});
+                  } else {
+                    node.pause();
+                  }
+                }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                  background: "black",
+                }}
+              />
+            ) : (
+              <img
+                src={commercialPoster}
+                alt={project.title}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                  background: "black",
+                }}
+              />
+            )}
+
+            <EpisodeButtons
+              project={project}
+              activeEpisodeIndex={activeEpisodeIndex}
+              onSelect={(episodeIndex) =>
+                setProjectEpisode(project, i, episodeIndex)
+              }
+            />
+
+            {cardHasPlayback ? (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  color: "rgba(255,255,255,0.72)",
+                  opacity:
+                    !isDesktopCardActive ||
+                    !desktopGalleryPlaying ||
+                    desktopHoveredProjectIndex === i
+                      ? 1
+                      : 0,
+                  transition: "opacity 420ms ease",
+                }}
+              >
+                {!isDesktopCardActive || !desktopGalleryPlaying ? (
+                  <PlayIcon size={22} />
+                ) : (
+                  <PauseIcon size={22} />
+                )}
+              </div>
+            ) : null}
+
+            <div
+              style={{
+                position: "absolute",
+                right: 12,
+                bottom: 12,
+                zIndex: 6,
+                display: "flex",
+                gap: 8,
+                opacity: desktopHoveredProjectIndex === i ? 0.9 : 0,
+                transition: "opacity 420ms ease",
+                pointerEvents:
+                  desktopHoveredProjectIndex === i ? "auto" : "none",
+              }}
+            >
+              <ControlButton
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  const sourceVideo =
+                    desktopGalleryVideoRefs.current[i];
+
+                  pendingFullscreenTimeRef.current =
+                    sourceVideo ? sourceVideo.currentTime : null;
+
+                  setFullscreenProjectOverride(null);
+                  setCurrentIndex(i);
+                  setDisplayIndex(i);
+                  setIsActive(cardHasPlayback);
+                  setIsPlaying(true);
+                  setIsMuted(false);
+                  setVideoReady(!cardHasPlayback);
+                  setShowControls(true);
+                  setCursorHidden(false);
+                  setDesktopActiveProjectIndex(null);
+                  setDesktopHoveredProjectIndex(null);
+                  setDesktopGalleryPlaying(true);
+                  setIsFullscreen(true);
+                }}
+                ariaLabel="Open fullscreen"
+              >
+                <FullscreenIcon active={false} size={18} />
+              </ControlButton>
+            </div>
+
+            {cardHasPlayback && isDesktopCardActive ? (
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: 1,
+                  background: "rgba(255,255,255,0.14)",
+                  opacity:
+                    desktopHoveredProjectIndex === i ? 1 : 0,
+                  transition: "opacity 320ms ease",
+                  pointerEvents: "none",
+                  zIndex: 7,
+                }}
+              >
+                <div
+                  ref={(node) => {
+                    galleryProgressRefs.current[i] = node;
+                  }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(255,255,255,0.46)",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left center",
+                    willChange: "transform",
+                  }}
+                />
+              </div>
+            ) : null}
+
+            {project.flashWarning &&
+            (!isDesktopCardActive ||
+              !desktopGalleryPlaying ||
+              desktopHoveredProjectIndex === i) ? (
+              <WarningBadge />
+            ) : null}
+          </div>
+
+          <div
+            style={{
+              marginTop: 13,
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+              columnGap: 22,
+              alignItems: "start",
+            }}
+          >
+            <div style={{ minWidth: 0 }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  letterSpacing: "0.13em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.3,
+                  opacity: 0.82,
+                  fontWeight: 400,
+                  marginBottom: 5,
+                }}
+              >
+                {project.title}
+              </div>
+
+              <div
+                style={{
+                  fontSize: 10.5,
+                  letterSpacing: "0.11em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.4,
+                  opacity: 0.46,
+                  fontWeight: 400,
+                }}
+              >
+                {commercialCredit}
+                {project.year ? ` · ${project.year}` : ""}
+              </div>
+            </div>
+
+            <div
+              style={{
+                textAlign: "right",
+                fontSize: 9.5,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                lineHeight: 1.4,
+                opacity: 0.3,
+                whiteSpace: "nowrap",
+                paddingTop: 1,
+              }}
+            >
+              {project.rightMetaText || project.status}
+            </div>
+          </div>
+        </div>
+      );
+    })}
   </div>
-) : null}
+) : (
+  <div
+    style={{
+      width: frameWidth,
+      maxWidth: frameMaxWidth,
+      margin: "0 auto",
+    }}
+  >
+    {projects.map((project, i) => {
+      const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
+      const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
+      const cardHasPlayback = !!activeVideo;
+      const cardIsVertical = project.aspect === "vertical";
+      const cardObjectFit = cardIsVertical ? "contain" : "cover";
+      const isDesktopCardActive = desktopActiveProjectIndex === i;
 
-{project.flashWarning && (!isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i) ? (
-  <WarningBadge />
-) : null}
-                      </div>
+      return (
+        <div
+          key={`${section}-${project.title}-${i}`}
+          ref={(el) => {
+            desktopCardRefs.current[i] = el;
+          }}
+          style={{
+            marginBottom:
+              i === projects.length - 1 ? 24 : 148,
+          }}
+        >
+          <div
+            onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
+            onMouseMove={() => setDesktopHoveredProjectIndex(i)}
+            onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
+            onClick={() => {
+              if (!cardHasPlayback) return;
 
+              if (desktopActiveProjectIndex === i) {
+                setDesktopGalleryPlaying((prev) => !prev);
+              } else {
+                setDesktopActiveProjectIndex(i);
+                setDesktopGalleryPlaying(true);
+              }
+            }}
+            style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: "16 / 9",
+              overflow: "hidden",
+              background: "black",
+              cursor: cardHasPlayback ? "pointer" : "default",
+            }}
+          >
+            {cardHasPlayback && isDesktopCardActive ? (
+              <video
+                key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
+                src={activeVideo}
+                autoPlay={desktopGalleryPlaying}
+                muted={false}
+                playsInline
+                preload="metadata"
+                onEnded={(e) => {
+                  if (!playNextEpisode(project, i)) {
+                    e.currentTarget.currentTime = 0;
+                    e.currentTarget.play().catch(() => {});
+                  }
+                }}
+                ref={(node) => {
+                  desktopGalleryVideoRefs.current[i] = node;
+                  if (!node) return;
+
+                  if (desktopGalleryPlaying) {
+                    node.play().catch(() => {});
+                  } else {
+                    node.pause();
+                  }
+                }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: cardObjectFit,
+                  display: "block",
+                  background: "black",
+                }}
+              />
+            ) : (
+              <img
+                src={getDesktopImage(project, activeEpisodeIndex)}
+                alt={project.title}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: cardObjectFit,
+                  display: "block",
+                  background: "black",
+                }}
+              />
+            )}
+
+            <EpisodeButtons
+              project={project}
+              activeEpisodeIndex={activeEpisodeIndex}
+              onSelect={(episodeIndex) =>
+                setProjectEpisode(project, i, episodeIndex)
+              }
+            />
+
+            {cardHasPlayback ? (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  color: "rgba(255,255,255,0.56)",
+                  opacity:
+                    !isDesktopCardActive ||
+                    !desktopGalleryPlaying ||
+                    desktopHoveredProjectIndex === i
+                      ? 1
+                      : 0,
+                  transition: "opacity 420ms ease",
+                }}
+              >
+                {!isDesktopCardActive || !desktopGalleryPlaying ? (
+                  <PlayIcon size={24} />
+                ) : (
+                  <PauseIcon size={24} />
+                )}
+              </div>
+            ) : null}
+
+            <div
+              style={{
+                position: "absolute",
+                right: 14,
+                bottom: 14,
+                zIndex: 6,
+                display: "flex",
+                gap: 8,
+                opacity:
+                  desktopHoveredProjectIndex === i ? 0.86 : 0,
+                transition: "opacity 420ms ease",
+                pointerEvents:
+                  desktopHoveredProjectIndex === i
+                    ? "auto"
+                    : "none",
+              }}
+            >
+              <ControlButton
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  const sourceVideo =
+                    desktopGalleryVideoRefs.current[i];
+
+                  pendingFullscreenTimeRef.current =
+                    sourceVideo
+                      ? sourceVideo.currentTime
+                      : null;
+
+                  setFullscreenProjectOverride(null);
+                  setCurrentIndex(i);
+                  setDisplayIndex(i);
+                  setIsActive(cardHasPlayback);
+                  setIsPlaying(true);
+                  setIsMuted(false);
+                  setVideoReady(!cardHasPlayback);
+                  setShowControls(true);
+                  setCursorHidden(false);
+                  setDesktopActiveProjectIndex(null);
+                  setDesktopHoveredProjectIndex(null);
+                  setDesktopGalleryPlaying(true);
+                  setIsFullscreen(true);
+                }}
+                ariaLabel="Open fullscreen"
+              >
+                <FullscreenIcon active={false} size={18} />
+              </ControlButton>
+            </div>
+
+            {cardHasPlayback && isDesktopCardActive ? (
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: 1,
+                  background: "rgba(255,255,255,0.14)",
+                  opacity:
+                    desktopHoveredProjectIndex === i ? 1 : 0,
+                  transition: "opacity 320ms ease",
+                  pointerEvents: "none",
+                  zIndex: 7,
+                }}
+              >
+                <div
+                  ref={(node) => {
+                    galleryProgressRefs.current[i] = node;
+                  }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(255,255,255,0.46)",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left center",
+                    willChange: "transform",
+                  }}
+                />
+              </div>
+            ) : null}
+
+            {project.flashWarning &&
+            (!isDesktopCardActive ||
+              !desktopGalleryPlaying ||
+              desktopHoveredProjectIndex === i) ? (
+              <WarningBadge />
+            ) : null}
+          </div>
+
+          <div
+            style={{
+              marginTop: 22,
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+              gap: 32,
+              alignItems: "start",
+            }}
+          >
+            <div style={{ minHeight: 64 }}>
+              <div
+                style={{
+                  fontSize: 13,
+                  letterSpacing: "0.13em",
+                  textTransform: "uppercase",
+                  marginBottom: 5,
+                  opacity: 0.72,
+                  fontWeight: 300,
+                }}
+              >
+                {project.title}
+              </div>
+
+              <div
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  opacity: 0.52,
+                  marginBottom:
+                    project.leftMeta ||
+                    project.leftMetaExtra ||
+                    project.leftMetaThird
+                      ? 4
+                      : 0,
+                }}
+              >
+                {project.role} · {project.year}
+              </div>
+
+              {project.leftMeta ? (
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    opacity: 0.5,
+                    marginBottom:
+                      project.leftMetaExtra ||
+                      project.leftMetaThird
+                        ? 4
+                        : 0,
+                  }}
+                >
+                  <LinkedMeta
+                    text={project.leftMeta}
+                    link={project.leftMetaLink}
+                  />
+                </div>
+              ) : null}
+
+              {project.leftMetaExtra ? (
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    opacity: 0.5,
+                    marginBottom:
+                      project.leftMetaThird ? 4 : 0,
+                  }}
+                >
+                  <LinkedMeta
+                    text={project.leftMetaExtra}
+                    link={project.leftMetaExtraLink}
+                  />
+                </div>
+              ) : null}
+
+              {project.leftMetaThird ? (
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    opacity: isSoftProofMeta(
+                      project.leftMetaThird,
+                    )
+                      ? 0.38
+                      : 0.5,
+                  }}
+                >
+                  {project.leftMetaThird}
+                </div>
+              ) : null}
+            </div>
+
+            <div
+              style={{
+                textAlign: "right",
+                minWidth: 140,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  opacity: 0.58,
+                  marginBottom:
+                    project.rightMetaExtra ||
+                    project.rightMetaLogo
+                      ? 4
+                      : 0,
+                }}
+              >
+                {!project.rightMetaLogo &&
+                project.rightMetaLink ? (
+                  <a
+                    href={project.rightMetaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <span>
+                      {project.rightMetaText ||
+                        project.status}
+                    </span>
+                    <ExternalArrowIcon />
+                  </a>
+                ) : (
+                  project.rightMetaText || project.status
+                )}
+              </div>
+
+              {project.rightMetaExtra ? (
+                <div
+                  style={{
+                    marginBottom:
+                      project.rightMetaLogo ? 4 : 0,
+                    fontSize: 9.5,
+                    letterSpacing: "0.11em",
+                    textTransform: "uppercase",
+                    opacity: 0.36,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {project.rightMetaExtra}
+                </div>
+              ) : null}
+
+              {project.rightMetaLogo ? (
+                project.rightMetaLogo === instagramLabel ? (
+                  project.rightMetaLink ? (
+                    <a
+                      href={project.rightMetaLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        color: "inherit",
+                        textDecoration: "none",
+                      }}
+                    >
                       <div
                         style={{
-                          marginTop: 22,
-                          display: "grid",
-                          gridTemplateColumns: "1fr auto",
-                          gap: 32,
-                          alignItems: "start",
+                          fontSize: 11,
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                          opacity: 0.8,
+                          transform: "translateY(1px)",
                         }}
                       >
-                        <div
-                          style={{
-                            minHeight: 64,
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontSize: 13,
-                              letterSpacing: "0.13em",
-                              textTransform: "uppercase",
-                              marginBottom: 5,
-                              opacity: 0.72,
-                              fontWeight: 300,
-                            }}
-                          >
-                            {project.title}
-                          </div>
-
-                          <div
-                            style={{
-                              fontSize: 11,
-                              letterSpacing: "0.12em",
-                              textTransform: "uppercase",
-                              opacity: 0.52,
-                              marginBottom:
-                                project.leftMeta || project.leftMetaExtra || project.leftMetaThird
-                                  ? 4
-                                  : 0,
-                            }}
-                          >
-                            {project.role} · {project.year}
-                          </div>
-
-                          {project.leftMeta ? (
-                            <div
-                              style={{
-                                fontSize: 11,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                opacity: 0.5,
-                                marginBottom:
-                                  project.leftMetaExtra || project.leftMetaThird ? 4 : 0,
-                              }}
-                            >
-                              <LinkedMeta text={project.leftMeta} link={project.leftMetaLink} />
-                            </div>
-                          ) : null}
-
-                          {project.leftMetaExtra ? (
-                            <div
-                              style={{
-                                fontSize: 11,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                opacity: 0.5,
-                                marginBottom: project.leftMetaThird ? 4 : 0,
-                              }}
-                            >
-                              <LinkedMeta
-                                text={project.leftMetaExtra}
-                                link={project.leftMetaExtraLink}
-                              />
-                            </div>
-                          ) : null}
-
-                          {project.leftMetaThird ? (
-                            <div
-                              style={{
-                                fontSize: 11,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                opacity: isSoftProofMeta(project.leftMetaThird) ? 0.38 : 0.5,
-                              }}
-                            >
-                              {project.leftMetaThird}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <div
-                          style={{
-                            textAlign: "right",
-                            minWidth: 140,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "flex-end",
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontSize: 11,
-                              letterSpacing: "0.12em",
-                              textTransform: "uppercase",
-                              opacity: 0.58,
-                              marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 4 : 0,
-                            }}
-                          >
-                            {!project.rightMetaLogo && project.rightMetaLink ? (
-                              <a
-                                href={project.rightMetaLink}
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{
-                                  color: "inherit",
-                                  textDecoration: "none",
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: 6,
-                                }}
-                              >
-                                <span>{project.rightMetaText || project.status}</span>
-                                <ExternalArrowIcon />
-                              </a>
-                            ) : (
-                              project.rightMetaText || project.status
-                            )}
-                          </div>
-
-                          {project.rightMetaExtra ? (
-                            <div
-                              style={{
-                                marginBottom: project.rightMetaLogo ? 4 : 0,
-                                fontSize: 9.5,
-                                letterSpacing: "0.11em",
-                                textTransform: "uppercase",
-                                opacity: 0.36,
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {project.rightMetaExtra}
-                            </div>
-                          ) : null}
-
-                          {project.rightMetaLogo ? (
-                            project.rightMetaLogo === instagramLabel ? (
-                              project.rightMetaLink ? (
-                                <a
-                                  href={project.rightMetaLink}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  style={{
-                                    color: "inherit",
-                                    textDecoration: "none",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      fontSize: 11,
-                                      letterSpacing: "0.14em",
-                                      textTransform: "uppercase",
-                                      opacity: 0.8,
-                                      transform: "translateY(1px)",
-                                    }}
-                                  >
-                                    IG
-                                  </div>
-                                </a>
-                              ) : (
-                                <div
-                                  style={{
-                                    fontSize: 11,
-                                    letterSpacing: "0.14em",
-                                    textTransform: "uppercase",
-                                    opacity: 0.8,
-                                    transform: "translateY(1px)",
-                                  }}
-                                >
-                                  IG
-                                </div>
-                              )
-                            ) : project.rightMetaLink ? (
-                              <a
-                                href={project.rightMetaLink}
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{ display: "block", lineHeight: 0, textDecoration: "none" }}
-                              >
-                                <img
-                                  src={project.rightMetaLogo}
-                                  alt="Platform"
-                                  style={platformLogoStyle(project.rightMetaLogo)}
-                                />
-                              </a>
-                            ) : (
-                              <img
-                                src={project.rightMetaLogo}
-                                alt="Platform"
-                                style={platformLogoStyle(project.rightMetaLogo)}
-                              />
-                            )
-      ) : null}
-    </div>
+                        IG
+                      </div>
+                    </a>
+                  ) : (
+                    <div
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: "0.14em",
+                        textTransform: "uppercase",
+                        opacity: 0.8,
+                        transform: "translateY(1px)",
+                      }}
+                    >
+                      IG
+                    </div>
+                  )
+                ) : project.rightMetaLink ? (
+                  <a
+                    href={project.rightMetaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: "block",
+                      lineHeight: 0,
+                      textDecoration: "none",
+                    }}
+                  >
+                    <img
+                      src={project.rightMetaLogo}
+                      alt="Platform"
+                      style={platformLogoStyle(
+                        project.rightMetaLogo,
+                      )}
+                    />
+                  </a>
+                ) : (
+                  <img
+                    src={project.rightMetaLogo}
+                    alt="Platform"
+                    style={platformLogoStyle(
+                      project.rightMetaLogo,
+                    )}
+                  />
+                )
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    })}
   </div>
-</div>
-);
-})}
-              </div>
+)}
             </div>
           ) : (
             <div
