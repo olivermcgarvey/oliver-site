@@ -1054,14 +1054,17 @@ function MobileVimeoOverlay({
   project,
   episodeIndex = 0,
   onClose,
+  preferVimeo = false,
 }: {
   project: Project;
   episodeIndex?: number;
   onClose: () => void;
+  preferVimeo?: boolean;
 }) {
   const directVideo = getEpisodeVideo(project, episodeIndex);
-  const hasDirectVideo = !!directVideo;
-  const hasVimeo = !!project.mobileVimeoId && !hasDirectVideo;
+  const hasVimeo =
+    !!project.mobileVimeoId && (preferVimeo || !directVideo);
+  const hasDirectVideo = !!directVideo && !hasVimeo;
 
   const vimeoSrc = useMemo(
     () => (project.mobileVimeoId ? getMobileVimeoSrc(project.mobileVimeoId) : ""),
@@ -2192,6 +2195,17 @@ useEffect(() => {
     </div>
   );
 
+  const mobileCommercialHeaderLight =
+    isMobile &&
+    hasEntered &&
+    section === "commercial" &&
+    !mobileMenuOpen &&
+    !mobileAboutOpen &&
+    !mobileContactOpen &&
+    !mobileActiveProject;
+
+  const mobileHeaderColor = mobileCommercialHeaderLight ? "#111111" : "white";
+
   const mobileHeader = (
     <>
       <button
@@ -2209,7 +2223,7 @@ useEffect(() => {
           pointerEvents: mobileActiveProject ? "none" : "auto",
           background: "transparent",
           border: "none",
-          color: "white",
+          color: mobileHeaderColor,
           padding: 0,
           margin: 0,
           cursor: "pointer",
@@ -2269,7 +2283,7 @@ useEffect(() => {
   style={{
     border: "none",
     background: "transparent",
-    color: "white",
+    color: mobileHeaderColor,
     padding: 0,
     margin: 0,
     cursor: "pointer",
@@ -2628,10 +2642,14 @@ onClick={openReel}
   );
 
   const isLightCommercial =
-    !isMobile &&
     hasEntered &&
     section === "commercial" &&
-    !isFullscreen;
+    !isFullscreen &&
+    (!isMobile ||
+      (!mobileMenuOpen &&
+        !mobileAboutOpen &&
+        !mobileContactOpen &&
+        !mobileActiveProject));
 
   return (
     <div
@@ -3178,110 +3196,567 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               overflowY: "auto",
               overflowX: "hidden",
               WebkitOverflowScrolling: "touch",
-              paddingBottom: isMobileLandscape ? 64 : 96,
+              paddingBottom: isMobileLandscape ? 64 : section === "commercial" ? 54 : 96,
               zIndex: 10,
+              background: section === "commercial" ? "#FFFFFF" : "black",
+              transition: "background 460ms ease",
             }}
           >
-            <div
-              style={{
-                width: isMobileLandscape ? "78vw" : "100%",
-                maxWidth: isMobileLandscape ? 720 : 980,
-                margin: "0 auto",
-                padding: isMobileLandscape ? "96px 0 0 0" : "132px 20px 0 20px",
-                boxSizing: "border-box",
+            {section === "commercial" ? (() => {
+              const kristaIndex = projects.findIndex(
+                (project) => project.title === "Krista Papista",
+              );
+              const miuOneIndex = projects.findIndex(
+                (project) => project.id === "miu-miu-1",
+              );
+              const miuTwoIndex = projects.findIndex(
+                (project) => project.id === "miu-miu-2",
+              );
+              const tumiIndex = projects.findIndex(
+                (project) => project.title === "MYKITA · TUMI",
+              );
+              const katIndex = projects.findIndex(
+                (project) => project.title === "MYKITA · KAT",
+              );
+              const leicaIndex = projects.findIndex(
+                (project) => project.title === "MYKITA · LEICA",
+              );
+              const adidasOneIndex = projects.findIndex(
+                (project) => project.id === "adidas-1",
+              );
+              const adidasTwoIndex = projects.findIndex(
+                (project) => project.id === "adidas-2",
+              );
+              const homeshakeIndex = projects.findIndex(
+                (project) => project.title === "HOMESHAKE",
+              );
+              const mykitaIndex = projects.findIndex(
+                (project) => project.title === "MYKITA",
+              );
+
+              const renderMobileCommercialLogo = (project: Project) => {
+                if (
+                  !project.rightMetaLogo ||
+                  project.rightMetaLogo === instagramLabel
+                ) {
+                  return null;
+                }
+
+                const logo = (
+                  <img
+                    src={project.rightMetaLogo}
+                    alt="Platform"
+                    style={{
+                      height:
+                        project.rightMetaLogo === nownessLogo ||
+                        project.rightMetaLogo === idLogo
+                          ? 9
+                          : project.rightMetaLogo === highsnobietyLogo
+                            ? 11
+                            : 10,
+                      width: "auto",
+                      display: "block",
+                      opacity: 0.72,
+                      filter:
+                        project.rightMetaLogo === nownessLogo ||
+                        project.rightMetaLogo === idLogo ||
+                        project.rightMetaLogo === highsnobietyLogo
+                          ? "brightness(0)"
+                          : "none",
+                    }}
+                  />
+                );
+
+                return project.rightMetaLink ? (
+                  <a
+                    href={project.rightMetaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      display: "block",
+                      lineHeight: 0,
+                      textDecoration: "none",
+                    }}
+                  >
+                    {logo}
+                  </a>
+                ) : (
+                  logo
+                );
+              };
+
+              const renderMobileCommercialMeta = (
+                project: Project,
+                options?: {
+                  feature?: boolean;
+                  proof?: string;
+                  customCredit?: string;
+                },
+              ) => {
+                const feature = !!options?.feature;
+                const proof =
+                  options?.proof ||
+                  project.rightMetaExtra ||
+                  (project.title === "MIU MIU"
+                    ? "SS23 · 4 FILMS"
+                    : undefined);
+
+                const credit =
+                  options?.customCredit ||
+                  project.leftMeta ||
+                  project.role;
+
+                return (
+                  <div
+                    style={{
+                      marginTop: 7,
+                      display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      columnGap: 14,
+                      alignItems: "start",
+                      color: "#111111",
+                    }}
+                  >
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontSize: feature ? 12.75 : 12,
+                          letterSpacing: "0.105em",
+                          textTransform: "uppercase",
+                          lineHeight: 1.16,
+                          fontWeight: 600,
+                          opacity: 0.96,
+                          marginBottom: 4,
+                        }}
+                      >
+                        {project.title}
+                      </div>
+
+                      <div
+                        style={{
+                          fontSize: 9.25,
+                          letterSpacing: "0.085em",
+                          textTransform: "uppercase",
+                          lineHeight: 1.32,
+                          fontWeight: 450,
+                          opacity: 0.46,
+                        }}
+                      >
+                        {credit}
+                        {project.year ? ` · ${project.year}` : ""}
+                      </div>
+
+                      {project.leftMetaExtra &&
+                      project.title !== "Krista Papista" ? (
+                        <div
+                          style={{
+                            marginTop: 2,
+                            fontSize: 8.5,
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            lineHeight: 1.28,
+                            opacity: 0.29,
+                          }}
+                        >
+                          {project.leftMetaExtra}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-end",
+                        textAlign: "right",
+                        paddingTop: 1,
+                        minWidth: 64,
+                      }}
+                    >
+                      {proof ? (
+                        <div
+                          style={{
+                            fontSize: 8.4,
+                            letterSpacing: "0.075em",
+                            textTransform: "uppercase",
+                            lineHeight: 1.25,
+                            opacity: 0.32,
+                            marginBottom: project.rightMetaLogo &&
+                              project.rightMetaLogo !== instagramLabel
+                              ? 5
+                              : 0,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {proof}
+                        </div>
+                      ) : null}
+
+                      {renderMobileCommercialLogo(project)}
+                    </div>
+                  </div>
+                );
+              };
+
+              const renderMobileCommercialCard = (
+                index: number,
+                options?: {
+                  aspect?: string;
+                  episodeIndex?: number;
+                  feature?: boolean;
+                  width?: string;
+                  align?: "left" | "right" | "center";
+                  hideMeta?: boolean;
+                  mediaScale?: number;
+                  proof?: string;
+                  customCredit?: string;
+                },
+              ) => {
+                if (index < 0) return null;
+
+                const project = projects[index];
+                const episodeIndex =
+                  options?.episodeIndex ??
+                  getActiveEpisodeIndex(project, index);
+                const aspect = options?.aspect || "16 / 9";
+                const isVerticalCard = aspect === "9 / 16";
+                const poster = isVerticalCard
+                  ? getPortraitImage(project, episodeIndex)
+                  : getLandscapeImage(project, episodeIndex);
+                const cardHasPlayback =
+                  !!getEpisodeVideo(project, episodeIndex) ||
+                  !!project.mobileVimeoId;
+                const width = options?.width || "100%";
+                const align = options?.align || "left";
+                const mediaScale = options?.mediaScale ?? 1;
+
+                return (
+                  <div
+                    key={`${project.id || project.title}-${index}-${episodeIndex}-${aspect}`}
+                    style={{
+                      width,
+                      marginLeft:
+                        align === "right"
+                          ? "auto"
+                          : align === "center"
+                            ? "auto"
+                            : 0,
+                      marginRight:
+                        align === "center" ? "auto" : 0,
+                    }}
+                  >
+                    <div
+                      onClick={() => {
+                        if (!cardHasPlayback) return;
+                        setMobileActiveProject(project);
+                        setMobileActiveEpisodeIndex(episodeIndex);
+                      }}
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        aspectRatio: aspect,
+                        overflow: "hidden",
+                        background: "#080808",
+                        cursor: cardHasPlayback ? "pointer" : "default",
+                      }}
+                    >
+                      <img
+                        src={poster}
+                        alt={project.title}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                          transform: `scale(${mediaScale})`,
+                          transformOrigin: "center center",
+                        }}
+                      />
+
+                      {cardHasPlayback ? (
+                        <div
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            pointerEvents: "none",
+                            color: "rgba(255,255,255,0.88)",
+                            opacity: 0.82,
+                          }}
+                        >
+                          <PlayIcon size={options?.feature ? 20 : 17} />
+                        </div>
+                      ) : null}
+
+                      {project.flashWarning ? <WarningBadge /> : null}
+                    </div>
+
+                    {!options?.hideMeta
+                      ? renderMobileCommercialMeta(project, {
+                          feature: options?.feature,
+                          proof: options?.proof,
+                          customCredit: options?.customCredit,
+                        })
+                      : null}
+                  </div>
+                );
+              };
+
+              const moduleGap = 24;
+              const seriesGap = 9;
+
+              return (
+                <div
+                  style={{
+                    width: "100%",
+                    padding: isMobileLandscape
+                      ? "88px 16px 0 16px"
+                      : "116px 12px 0 12px",
+                    boxSizing: "border-box",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: moduleGap,
+                  }}
+                >
+                  {renderMobileCommercialCard(kristaIndex, {
+                    aspect: "16 / 9",
+                    feature: true,
+                  })}
+
+                  <div>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                        gap: 7,
+                      }}
+                    >
+                      {renderMobileCommercialCard(miuOneIndex, {
+                        aspect: "9 / 16",
+                        episodeIndex: 0,
+                        hideMeta: true,
+                      })}
+                      {renderMobileCommercialCard(miuOneIndex, {
+                        aspect: "9 / 16",
+                        episodeIndex: 1,
+                        hideMeta: true,
+                      })}
+                      {renderMobileCommercialCard(miuTwoIndex, {
+                        aspect: "9 / 16",
+                        episodeIndex: 0,
+                        hideMeta: true,
+                      })}
+                      {renderMobileCommercialCard(miuTwoIndex, {
+                        aspect: "9 / 16",
+                        episodeIndex: 1,
+                        hideMeta: true,
+                      })}
+                    </div>
+
+                    <div
+                      style={{
+                        marginTop: 7,
+                        color: "#111111",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 12,
+                          letterSpacing: "0.105em",
+                          textTransform: "uppercase",
+                          lineHeight: 1.16,
+                          fontWeight: 600,
+                          opacity: 0.96,
+                          marginBottom: 4,
+                        }}
+                      >
+                        MIU MIU
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 9.25,
+                          letterSpacing: "0.085em",
+                          textTransform: "uppercase",
+                          lineHeight: 1.32,
+                          fontWeight: 450,
+                          opacity: 0.46,
+                        }}
+                      >
+                        CINEMATOGRAPHY / MODEL DIRECTION · SS23 · 4 FILMS
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: seriesGap,
+                    }}
+                  >
+                    {renderMobileCommercialCard(tumiIndex, {
+                      aspect: "16 / 9",
+                    })}
+                    {renderMobileCommercialCard(katIndex, {
+                      aspect: "16 / 9",
+                    })}
+                  </div>
+
+                  {renderMobileCommercialCard(leicaIndex, {
+                    aspect: "2.39 / 1",
+                    feature: true,
+                    mediaScale: 1.07,
+                  })}
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: seriesGap,
+                    }}
+                  >
+                    {renderMobileCommercialCard(adidasOneIndex, {
+                      aspect: "16 / 9",
+                      feature: true,
+                    })}
+                    {renderMobileCommercialCard(adidasTwoIndex, {
+                      aspect: "16 / 9",
+                      width: "84%",
+                      align: "right",
+                    })}
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: seriesGap,
+                    }}
+                  >
+                    {renderMobileCommercialCard(homeshakeIndex, {
+                      aspect: "16 / 9",
+                    })}
+                    {renderMobileCommercialCard(mykitaIndex, {
+                      aspect: "16 / 9",
+                    })}
+                  </div>
+                </div>
+              );
+            })() : (
+              <div
+                style={{
+                  width: isMobileLandscape ? "78vw" : "100%",
+                  maxWidth: isMobileLandscape ? 720 : 980,
+                  margin: "0 auto",
+                  padding: isMobileLandscape
+                    ? "96px 0 0 0"
+                    : "132px 20px 0 20px",
+                  boxSizing: "border-box",
+                }}
+              >
+                {projects.map((project, i) => {
+                  const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
+                  const cardPoster = getMobileListPoster(
+                    project,
+                    section,
+                    activeEpisodeIndex,
+                  );
+                  const cardHasPlayback =
+                    !!project.mobileVimeoId || !!project.video;
+                  const cardAspect = getMobileCardAspect(project, section);
+
+                  return (
+                    <div
+                      key={`${section}-${project.title}-${i}`}
+                      style={{
+                        marginBottom: isMobileLandscape ? 38 : 44,
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          if (!cardHasPlayback) return;
+                          setMobileActiveProject(project);
+                          setMobileActiveEpisodeIndex(activeEpisodeIndex);
+                        }}
+                        style={{
+                          position: "relative",
+                          width: "100%",
+                          aspectRatio: cardAspect,
+                          overflow: "hidden",
+                          background: "black",
+                          cursor: cardHasPlayback ? "pointer" : "default",
+                        }}
+                      >
+                        <img
+                          src={cardPoster}
+                          alt={project.title}
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                          }}
+                        />
+
+                        <EpisodeButtons
+                          project={project}
+                          activeEpisodeIndex={activeEpisodeIndex}
+                          onSelect={(episodeIndex) =>
+                            setProjectEpisode(project, i, episodeIndex)
+                          }
+                        />
+
+                        {cardHasPlayback ? (
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              pointerEvents: "none",
+                              color: "rgba(255,255,255,0.92)",
+                            }}
+                          >
+                            <PlayIcon size={24} />
+                          </div>
+                        ) : null}
+
+                        {project.flashWarning ? <WarningBadge /> : null}
+                      </div>
+
+                      <MobileCardMeta project={project} />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {mobileActiveProject ? (
+            <MobileVimeoOverlay
+              project={mobileActiveProject}
+              episodeIndex={mobileActiveEpisodeIndex}
+              preferVimeo={
+                section === "commercial" &&
+                mobileActiveEpisodeIndex === 0 &&
+                mobileActiveProject.aspect === "vertical" &&
+                mobileActiveProject.title !== "MYKITA · LEICA"
+              }
+              onClose={() => {
+                setMobileActiveProject(null);
+                setMobileActiveEpisodeIndex(0);
               }}
-            >
-{projects.map((project, i) => {
-  const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
-  const cardPoster = getMobileListPoster(project, section, activeEpisodeIndex);
-  const cardHasPlayback = !!project.mobileVimeoId || !!project.video;
-  const cardAspect = getMobileCardAspect(project, section);
-  const isTallCommercialCard =
-    !isMobileLandscape &&
-    section === "commercial" &&
-    project.aspect === "vertical";
+            />
+          ) : null}
 
-  return (
-    <div
-      key={`${section}-${project.title}-${i}`}
-      style={{
-        marginBottom: isMobileLandscape ? 38 : 44,
-      }}
-    >
-      <div
-        onClick={() => {
-          if (!cardHasPlayback) return;
-          setMobileActiveProject(project);
-          setMobileActiveEpisodeIndex(activeEpisodeIndex);
-        }}
-        style={{
-          position: "relative",
-          width: "100%",
-          aspectRatio: isTallCommercialCard ? undefined : cardAspect,
-          height: isTallCommercialCard ? "62vh" : undefined,
-          maxHeight: isTallCommercialCard ? 560 : undefined,
-          minHeight: isTallCommercialCard ? 430 : undefined,
-          overflow: "hidden",
-          background: "black",
-          cursor: cardHasPlayback ? "pointer" : "default",
-        }}
-      >
-        <img
-          src={cardPoster}
-          alt={project.title}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-
-        <EpisodeButtons
-          project={project}
-          activeEpisodeIndex={activeEpisodeIndex}
-          onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
-        />
-
-        {cardHasPlayback ? (
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              pointerEvents: "none",
-              color: "rgba(255,255,255,0.92)",
-            }}
-          >
-            <PlayIcon size={24} />
-          </div>
-        ) : null}
-
-        {project.flashWarning ? <WarningBadge /> : null}
-      </div>
-
-      <MobileCardMeta project={project} />
-    </div>
-  );
-})}
-            </div>
-          </div>
-
-{mobileActiveProject ? (
-  <MobileVimeoOverlay
-    project={mobileActiveProject}
-    episodeIndex={mobileActiveEpisodeIndex}
-    onClose={() => {
-      setMobileActiveProject(null);
-      setMobileActiveEpisodeIndex(0);
-    }}
-  />
-) : null}
-        </>
             ) : (
         <>
           {!isFullscreen ? (
