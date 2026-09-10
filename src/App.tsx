@@ -1240,6 +1240,7 @@ const [fullscreenProjectOverride, setFullscreenProjectOverride] = useState<Proje
   const [showDesktopScrollCounter, setShowDesktopScrollCounter] = useState(false);
   const desktopScrollCounterTimerRef = useRef<number | null>(null);
   const [desktopHoveredProjectIndex, setDesktopHoveredProjectIndex] = useState<number | null>(null);
+  const [commercialHoverKey, setCommercialHoverKey] = useState<string | null>(null);
   const [desktopGalleryPlaying, setDesktopGalleryPlaying] = useState(true);
   const [episodeByProjectId, setEpisodeByProjectId] = useState<Record<string, number>>({});
 
@@ -1383,6 +1384,7 @@ setMobileActiveProject(null);
 setMobileActiveEpisodeIndex(0);
     setDesktopActiveProjectIndex(null);
     setDesktopHoveredProjectIndex(null);
+    setCommercialHoverKey(null);
     setDesktopGalleryPlaying(true);
     pendingFullscreenTimeRef.current = null;
 
@@ -3301,25 +3303,37 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     index: number,
     options?: {
       aspect?: string;
-      verticalVimeo?: boolean;
       feature?: boolean;
+      episodeIndex?: number;
+      hideMeta?: boolean;
+      staticPreview?: boolean;
+      mediaScale?: number;
+      cardKey?: string;
     },
   ) => {
     if (index < 0) return null;
 
     const project = projects[index];
-    const activeEpisodeIndex = getActiveEpisodeIndex(project, index);
+    const activeEpisodeIndex =
+      options?.episodeIndex ?? getActiveEpisodeIndex(project, index);
     const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
     const isDesktopCardActive = desktopActiveProjectIndex === index;
-    const isVerticalVimeo = !!options?.verticalVimeo;
-    const canUseVerticalVimeo = isVerticalVimeo && !!project.mobileVimeoId;
-    const cardHasPlayback = !!activeVideo || canUseVerticalVimeo;
+    const cardHasPlayback = !!activeVideo;
     const cardAspect = options?.aspect || "16 / 9";
     const isFeature = !!options?.feature;
+    const hideMeta = !!options?.hideMeta;
+    const staticPreview = !!options?.staticPreview;
+    const mediaScale = options?.mediaScale ?? 1;
+    const cardKey =
+      options?.cardKey ||
+      `${project.id || project.title}-${index}-${activeEpisodeIndex}`;
 
-    const poster = isVerticalVimeo
-      ? getPortraitImage(project, activeEpisodeIndex)
-      : getLandscapeImage(project, activeEpisodeIndex);
+    const isHovered = commercialHoverKey === cardKey;
+
+    const poster =
+      cardAspect === "9 / 16"
+        ? getPortraitImage(project, activeEpisodeIndex)
+        : getLandscapeImage(project, activeEpisodeIndex);
 
     const specialMeta =
       project.title === "MIU MIU"
@@ -3330,8 +3344,13 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       project.rightMetaLogo && project.rightMetaLogo !== instagramLabel;
 
     const openCommercialFullscreen = () => {
+      if (project.episodes?.length) {
+        setProjectEpisode(project, index, activeEpisodeIndex);
+      }
+
       const sourceVideo = desktopGalleryVideoRefs.current[index];
-      pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
+      pendingFullscreenTimeRef.current =
+        !staticPreview && sourceVideo ? sourceVideo.currentTime : null;
 
       setFullscreenProjectOverride(null);
       setCurrentIndex(index);
@@ -3344,6 +3363,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       setCursorHidden(false);
       setDesktopActiveProjectIndex(null);
       setDesktopHoveredProjectIndex(null);
+      setCommercialHoverKey(null);
       setDesktopGalleryPlaying(true);
       setIsFullscreen(true);
     };
@@ -3351,7 +3371,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     const handleCommercialClick = () => {
       if (!cardHasPlayback) return;
 
-      if (isVerticalVimeo) {
+      if (staticPreview) {
         openCommercialFullscreen();
         return;
       }
@@ -3359,6 +3379,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       if (isDesktopCardActive) {
         setDesktopGalleryPlaying((prev) => !prev);
       } else {
+        if (project.episodes?.length) {
+          setProjectEpisode(project, index, activeEpisodeIndex);
+        }
         setDesktopActiveProjectIndex(index);
         setDesktopGalleryPlaying(true);
       }
@@ -3366,16 +3389,27 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
     return (
       <div
-        key={`${project.id || project.title}-${index}`}
+        key={cardKey}
         ref={(el) => {
-          desktopCardRefs.current[index] = el;
+          if (!options?.episodeIndex) {
+            desktopCardRefs.current[index] = el;
+          }
         }}
         style={{ minWidth: 0 }}
       >
         <div
-          onMouseEnter={() => setDesktopHoveredProjectIndex(index)}
-          onMouseMove={() => setDesktopHoveredProjectIndex(index)}
-          onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
+          onMouseEnter={() => {
+            setDesktopHoveredProjectIndex(index);
+            setCommercialHoverKey(cardKey);
+          }}
+          onMouseMove={() => {
+            setDesktopHoveredProjectIndex(index);
+            setCommercialHoverKey(cardKey);
+          }}
+          onMouseLeave={() => {
+            setDesktopHoveredProjectIndex(null);
+            setCommercialHoverKey(null);
+          }}
           onClick={handleCommercialClick}
           style={{
             position: "relative",
@@ -3386,24 +3420,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             cursor: cardHasPlayback ? "pointer" : "default",
           }}
         >
-          {canUseVerticalVimeo && desktopHoveredProjectIndex === index ? (
-            <iframe
-              key={`${project.id || project.title}-vertical-preview`}
-              src={getCommercialVimeoPreviewSrc(project.mobileVimeoId!)}
-              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-              title={`${project.title} preview`}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                border: "none",
-                display: "block",
-                background: "black",
-                pointerEvents: "none",
-              }}
-            />
-          ) : !isVerticalVimeo && activeVideo && isDesktopCardActive ? (
+          {!staticPreview && activeVideo && isDesktopCardActive ? (
             <video
               key={`${project.id || project.title}-${index}-${activeEpisodeIndex}`}
               src={activeVideo}
@@ -3435,6 +3452,8 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 objectFit: "cover",
                 display: "block",
                 background: "black",
+                transform: `scale(${mediaScale})`,
+                transformOrigin: "center center",
               }}
             />
           ) : (
@@ -3449,10 +3468,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 objectFit: "cover",
                 display: "block",
                 background: "black",
-                transform:
-                  desktopHoveredProjectIndex === index
-                    ? "scale(1.006)"
-                    : "scale(1)",
+                transform: isHovered
+                  ? `scale(${mediaScale * 1.006})`
+                  : `scale(${mediaScale})`,
+                transformOrigin: "center center",
                 transition: "transform 750ms cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
@@ -3469,17 +3488,17 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 pointerEvents: "none",
                 color: "rgba(255,255,255,0.9)",
                 opacity:
-                  desktopHoveredProjectIndex === index
+                  isHovered
                     ? 0.9
-                    : isDesktopCardActive && !desktopGalleryPlaying
+                    : isDesktopCardActive && !desktopGalleryPlaying && !staticPreview
                       ? 0.78
                       : 0,
                 transition: "opacity 220ms ease",
               }}
             >
-              {isDesktopCardActive && !desktopGalleryPlaying && !isVerticalVimeo ? (
+              {isDesktopCardActive && !desktopGalleryPlaying && !staticPreview ? (
                 <PlayIcon size={isFeature ? 24 : 21} />
-              ) : !isDesktopCardActive || isVerticalVimeo ? (
+              ) : !isDesktopCardActive || staticPreview ? (
                 <PlayIcon size={isFeature ? 24 : 21} />
               ) : (
                 <PauseIcon size={21} />
@@ -3493,10 +3512,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               right: 8,
               bottom: 8,
               zIndex: 8,
-              opacity: desktopHoveredProjectIndex === index ? 0.82 : 0,
+              opacity: isHovered ? 0.82 : 0,
               transition: "opacity 220ms ease",
-              pointerEvents:
-                desktopHoveredProjectIndex === index ? "auto" : "none",
+              pointerEvents: isHovered ? "auto" : "none",
             }}
           >
             <ControlButton
@@ -3510,7 +3528,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             </ControlButton>
           </div>
 
-          {activeVideo && isDesktopCardActive && !isVerticalVimeo ? (
+          {activeVideo && isDesktopCardActive && !staticPreview ? (
             <div
               style={{
                 position: "absolute",
@@ -3519,7 +3537,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 bottom: 0,
                 height: 1,
                 background: "rgba(255,255,255,0.13)",
-                opacity: desktopHoveredProjectIndex === index ? 1 : 0,
+                opacity: isHovered ? 1 : 0,
                 transition: "opacity 220ms ease",
                 pointerEvents: "none",
                 zIndex: 7,
@@ -3544,145 +3562,147 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
           {project.flashWarning &&
           (!isDesktopCardActive ||
             !desktopGalleryPlaying ||
-            desktopHoveredProjectIndex === index) ? (
+            isHovered) ? (
             <WarningBadge />
           ) : null}
         </div>
 
-        <div
-          style={{
-            marginTop: 8,
-            minHeight: specialMeta ? 43 : 30,
-            display: "grid",
-            gridTemplateColumns: "minmax(0, 1fr) auto",
-            columnGap: 18,
-            alignItems: "start",
-            color: "#101010",
-          }}
-        >
-          <div style={{ minWidth: 0 }}>
-            <div
-              style={{
-                fontSize: isFeature ? 13.5 : 12.5,
-                letterSpacing: "0.105em",
-                textTransform: "uppercase",
-                lineHeight: 1.16,
-                fontWeight: 600,
-                opacity: 0.96,
-                marginBottom: 4,
-              }}
-            >
-              {project.title}
-            </div>
-
-            <div
-              style={{
-                fontSize: 9.5,
-                letterSpacing: "0.09em",
-                textTransform: "uppercase",
-                lineHeight: 1.32,
-                fontWeight: 450,
-                opacity: 0.46,
-              }}
-            >
-              {project.leftMeta || project.role}
-              {project.year ? ` · ${project.year}` : ""}
-            </div>
-
-            {specialMeta ? (
+        {!hideMeta ? (
+          <div
+            style={{
+              marginTop: 8,
+              minHeight: specialMeta ? 43 : 30,
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) auto",
+              columnGap: 18,
+              alignItems: "start",
+              color: "#101010",
+            }}
+          >
+            <div style={{ minWidth: 0 }}>
               <div
                 style={{
-                  marginTop: 2,
-                  fontSize: 8.8,
-                  letterSpacing: "0.085em",
+                  fontSize: isFeature ? 13.5 : 12.5,
+                  letterSpacing: "0.105em",
                   textTransform: "uppercase",
-                  lineHeight: 1.3,
-                  opacity: 0.3,
+                  lineHeight: 1.16,
+                  fontWeight: 600,
+                  opacity: 0.96,
+                  marginBottom: 4,
                 }}
               >
-                {specialMeta}
+                {project.title}
               </div>
-            ) : null}
-          </div>
 
-          {(hasEditorialLogo || project.rightMetaExtra) ? (
-            <div
-              style={{
-                minWidth: 86,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-                textAlign: "right",
-                paddingTop: 1,
-              }}
-            >
-              {project.rightMetaExtra ? (
+              <div
+                style={{
+                  fontSize: 9.5,
+                  letterSpacing: "0.09em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.32,
+                  fontWeight: 450,
+                  opacity: 0.46,
+                }}
+              >
+                {project.leftMeta || project.role}
+                {project.year ? ` · ${project.year}` : ""}
+              </div>
+
+              {specialMeta ? (
                 <div
                   style={{
+                    marginTop: 2,
                     fontSize: 8.8,
                     letterSpacing: "0.085em",
                     textTransform: "uppercase",
                     lineHeight: 1.3,
-                    opacity: 0.35,
-                    marginBottom: hasEditorialLogo ? 5 : 0,
-                    whiteSpace: "nowrap",
+                    opacity: 0.3,
                   }}
                 >
-                  {project.rightMetaExtra}
+                  {specialMeta}
                 </div>
               ) : null}
+            </div>
 
-              {hasEditorialLogo ? (
-                project.rightMetaLink ? (
-                  <a
-                    href={project.rightMetaLink}
-                    target="_blank"
-                    rel="noreferrer"
+            {(hasEditorialLogo || project.rightMetaExtra) ? (
+              <div
+                style={{
+                  minWidth: 86,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  textAlign: "right",
+                  paddingTop: 1,
+                }}
+              >
+                {project.rightMetaExtra ? (
+                  <div
                     style={{
-                      display: "block",
-                      lineHeight: 0,
-                      textDecoration: "none",
+                      fontSize: 8.8,
+                      letterSpacing: "0.085em",
+                      textTransform: "uppercase",
+                      lineHeight: 1.3,
+                      opacity: 0.35,
+                      marginBottom: hasEditorialLogo ? 5 : 0,
+                      whiteSpace: "nowrap",
                     }}
                   >
+                    {project.rightMetaExtra}
+                  </div>
+                ) : null}
+
+                {hasEditorialLogo ? (
+                  project.rightMetaLink ? (
+                    <a
+                      href={project.rightMetaLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: "block",
+                        lineHeight: 0,
+                        textDecoration: "none",
+                      }}
+                    >
+                      <img
+                        src={project.rightMetaLogo}
+                        alt="Platform"
+                        style={{
+                          height:
+                            project.rightMetaLogo === nownessLogo ||
+                            project.rightMetaLogo === idLogo
+                              ? 12
+                              : project.rightMetaLogo === highsnobietyLogo
+                                ? 14
+                                : 13,
+                          width: "auto",
+                          display: "block",
+                          opacity: 0.76,
+                          filter:
+                            project.rightMetaLogo === nownessLogo ||
+                            project.rightMetaLogo === idLogo
+                              ? "brightness(0)"
+                              : "none",
+                        }}
+                      />
+                    </a>
+                  ) : (
                     <img
                       src={project.rightMetaLogo}
                       alt="Platform"
                       style={{
-                        height:
-                          project.rightMetaLogo === nownessLogo ||
-                          project.rightMetaLogo === idLogo
-                            ? 12
-                            : project.rightMetaLogo === highsnobietyLogo
-                              ? 14
-                              : 13,
+                        height: 12,
                         width: "auto",
                         display: "block",
                         opacity: 0.76,
-                        filter:
-                          project.rightMetaLogo === nownessLogo ||
-                          project.rightMetaLogo === idLogo
-                            ? "brightness(0)"
-                            : "none",
+                        filter: "brightness(0)",
                       }}
                     />
-                  </a>
-                ) : (
-                  <img
-                    src={project.rightMetaLogo}
-                    alt="Platform"
-                    style={{
-                      height: 12,
-                      width: "auto",
-                      display: "block",
-                      opacity: 0.76,
-                      filter: "brightness(0)",
-                    }}
-                  />
-                )
-              ) : null}
-            </div>
-          ) : null}
-        </div>
+                  )
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     );
   };
@@ -3699,6 +3719,14 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
     alignItems: "start",
   };
 
+  const miuStripStyle: React.CSSProperties = {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+    gap: 10,
+    alignItems: "start",
+  };
+
   return (
     <div
       style={{
@@ -3707,7 +3735,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        gap: 32,
+        gap: 30,
       }}
     >
       <div
@@ -3724,22 +3752,70 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         })}
       </div>
 
-      <div
-        style={{
-          ...pairStyle,
-          width: "64%",
-          maxWidth: 1020,
-          margin: "0 auto",
-        }}
-      >
-        {renderCommercialCard(miuOneIndex, {
-          aspect: "9 / 16",
-          verticalVimeo: true,
-        })}
-        {renderCommercialCard(miuTwoIndex, {
-          aspect: "9 / 16",
-          verticalVimeo: true,
-        })}
+      <div style={{ width: "88%", maxWidth: 1420, margin: "0 auto" }}>
+        <div style={miuStripStyle}>
+          {renderCommercialCard(miuOneIndex, {
+            aspect: "9 / 16",
+            episodeIndex: 0,
+            hideMeta: true,
+            staticPreview: true,
+            cardKey: "miu-01",
+          })}
+          {renderCommercialCard(miuOneIndex, {
+            aspect: "9 / 16",
+            episodeIndex: 1,
+            hideMeta: true,
+            staticPreview: true,
+            cardKey: "miu-02",
+          })}
+          {renderCommercialCard(miuTwoIndex, {
+            aspect: "9 / 16",
+            episodeIndex: 0,
+            hideMeta: true,
+            staticPreview: true,
+            cardKey: "miu-03",
+          })}
+          {renderCommercialCard(miuTwoIndex, {
+            aspect: "9 / 16",
+            episodeIndex: 1,
+            hideMeta: true,
+            staticPreview: true,
+            cardKey: "miu-04",
+          })}
+        </div>
+
+        <div
+          style={{
+            marginTop: 8,
+            color: "#101010",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 12.5,
+              letterSpacing: "0.105em",
+              textTransform: "uppercase",
+              lineHeight: 1.16,
+              fontWeight: 600,
+              opacity: 0.96,
+              marginBottom: 4,
+            }}
+          >
+            MIU MIU
+          </div>
+          <div
+            style={{
+              fontSize: 9.5,
+              letterSpacing: "0.09em",
+              textTransform: "uppercase",
+              lineHeight: 1.32,
+              fontWeight: 450,
+              opacity: 0.46,
+            }}
+          >
+            CINEMATOGRAPHY / MODEL DIRECTION · PARIS FASHION WEEK · SS23
+          </div>
+        </div>
       </div>
 
       <div style={pairStyle}>
@@ -3749,19 +3825,20 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
       <div style={moduleStyle}>
         {renderCommercialCard(leicaIndex, {
-          aspect: "2.35 / 1",
+          aspect: "2.39 / 1",
           feature: true,
+          mediaScale: 1.045,
         })}
-      </div>
-
-      <div style={pairStyle}>
-        {renderCommercialCard(homeshakeIndex, { aspect: "16 / 9" })}
-        {renderCommercialCard(mykitaIndex, { aspect: "16 / 9" })}
       </div>
 
       <div style={pairStyle}>
         {renderCommercialCard(adidasOneIndex, { aspect: "16 / 9" })}
         {renderCommercialCard(adidasTwoIndex, { aspect: "16 / 9" })}
+      </div>
+
+      <div style={pairStyle}>
+        {renderCommercialCard(homeshakeIndex, { aspect: "16 / 9" })}
+        {renderCommercialCard(mykitaIndex, { aspect: "16 / 9" })}
       </div>
     </div>
   );
