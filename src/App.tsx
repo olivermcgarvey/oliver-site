@@ -3076,7 +3076,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
 transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
 filter:
   !isMobile && landingHover === "narrative"
-    ? "blur(3px)"
+    ? "blur(2px)"
     : "blur(0px)",
 transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               }}
@@ -3109,7 +3109,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
 filter:
   !isMobile && landingHover === "commercial"
-    ? "blur(3px)"
+    ? "blur(2px)"
     : "blur(0px)",
 transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               }}
