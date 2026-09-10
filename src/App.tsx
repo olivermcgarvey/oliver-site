@@ -3122,6 +3122,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
               onMouseEnter={() => setLandingHover("narrative")}
               onMouseLeave={() => setLandingHover(null)}
               style={{
+                position: "relative",
                 border: "none",
                 background: "transparent",
                 color: "inherit",
@@ -3129,7 +3130,6 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                 padding: 0,
                 margin: 0,
                 fontSize: isMobile ? 15 : 16,
-                letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 fontWeight: isMobile ? 450 : 300,
                 opacity:
@@ -3138,25 +3138,81 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       ? 0.82
                       : 0.68
                     : landingHover === "narrative"
-                      ? 0.82
+                      ? 0.84
                       : 0.46,
-                transform:
-                  !isMobile && landingHover === "narrative"
-                    ? "translateY(-1px) scale(1.025)"
-                    : "translateY(0) scale(1)",
-                filter:
-                  !isMobile && landingHover === "narrative"
-                    ? "blur(3.1px)"
-                    : "blur(0px)",
-                textShadow:
-                  !isMobile && landingHover === "narrative"
-                    ? "0 -2px 5px rgba(255,255,255,0.20), 0 2px 7px rgba(255,255,255,0.20), 0 0 12px rgba(255,255,255,0.18)"
-                    : "none",
-                transition:
-                  "opacity 520ms ease, transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease, text-shadow 520ms ease",
+                transition: "opacity 520ms ease",
               }}
             >
-              Narrative
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "block",
+                  pointerEvents: "none",
+                  letterSpacing: "0.22em",
+                  opacity:
+                    !isMobile && landingHover === "narrative" ? 0.2 : 0,
+                  filter: "blur(2.8px)",
+                  transform:
+                    !isMobile && landingHover === "narrative"
+                      ? "translateY(-5px) scaleY(1.08)"
+                      : "translateY(0) scaleY(1)",
+                  transition:
+                    "opacity 520ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                Narrative
+              </span>
+
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "block",
+                  pointerEvents: "none",
+                  letterSpacing: "0.22em",
+                  opacity:
+                    !isMobile && landingHover === "narrative" ? 0.14 : 0,
+                  filter: "blur(3.8px)",
+                  transform:
+                    !isMobile && landingHover === "narrative"
+                      ? "translateY(5px) scaleY(1.1)"
+                      : "translateY(0) scaleY(1)",
+                  transition:
+                    "opacity 560ms ease, transform 720ms cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                Narrative
+              </span>
+
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  letterSpacing:
+                    !isMobile && landingHover === "narrative"
+                      ? "0.275em"
+                      : "0.22em",
+                  transform:
+                    !isMobile && landingHover === "narrative"
+                      ? "translateY(-1px) scaleY(1.045)"
+                      : "translateY(0) scaleY(1)",
+                  filter:
+                    !isMobile && landingHover === "narrative"
+                      ? "blur(2.4px)"
+                      : "blur(0px)",
+                  textShadow:
+                    !isMobile && landingHover === "narrative"
+                      ? "0 0 10px rgba(255,255,255,0.18)"
+                      : "none",
+                  transition:
+                    "letter-spacing 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease, text-shadow 520ms ease",
+                }}
+              >
+                Narrative
+              </span>
             </button>
 
             <button
@@ -3165,6 +3221,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
               onMouseEnter={() => setLandingHover("commercial")}
               onMouseLeave={() => setLandingHover(null)}
               style={{
+                position: "relative",
                 border: "none",
                 background: "transparent",
                 color: "inherit",
@@ -3172,7 +3229,6 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                 padding: 0,
                 margin: 0,
                 fontSize: isMobile ? 15 : 16,
-                letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 fontWeight: isMobile ? 450 : 300,
                 opacity:
@@ -3181,25 +3237,81 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       ? 0.82
                       : 0.68
                     : landingHover === "commercial"
-                      ? 0.9
+                      ? 0.94
                       : 0.46,
-                transform:
-                  !isMobile && landingHover === "commercial"
-                    ? "translateY(-1px) scaleX(1.045)"
-                    : "translateY(0) scaleX(1)",
-                filter:
-                  !isMobile && landingHover === "commercial"
-                    ? "blur(1.25px)"
-                    : "blur(0px)",
-                textShadow:
-                  !isMobile && landingHover === "commercial"
-                    ? "-3px 0 2px rgba(255,255,255,0.24), 3px 0 2px rgba(255,255,255,0.18), -6px 0 7px rgba(255,255,255,0.10), 6px 0 7px rgba(255,255,255,0.08)"
-                    : "none",
-                transition:
-                  "opacity 520ms ease, transform 480ms cubic-bezier(0.22, 1, 0.36, 1), filter 380ms ease, text-shadow 420ms ease",
+                transition: "opacity 420ms ease",
               }}
             >
-              Commercial
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "block",
+                  pointerEvents: "none",
+                  letterSpacing: "0.22em",
+                  opacity:
+                    !isMobile && landingHover === "commercial" ? 0.25 : 0,
+                  filter: "blur(0.8px)",
+                  transform:
+                    !isMobile && landingHover === "commercial"
+                      ? "translateX(-8px) skewX(-4deg) scaleX(1.08)"
+                      : "translateX(0) skewX(0deg) scaleX(1)",
+                  transition:
+                    "opacity 300ms ease, transform 480ms cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                Commercial
+              </span>
+
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "block",
+                  pointerEvents: "none",
+                  letterSpacing: "0.22em",
+                  opacity:
+                    !isMobile && landingHover === "commercial" ? 0.16 : 0,
+                  filter: "blur(1.6px)",
+                  transform:
+                    !isMobile && landingHover === "commercial"
+                      ? "translateX(9px) skewX(3deg) scaleX(1.11)"
+                      : "translateX(0) skewX(0deg) scaleX(1)",
+                  transition:
+                    "opacity 360ms ease, transform 560ms cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                Commercial
+              </span>
+
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  letterSpacing:
+                    !isMobile && landingHover === "commercial"
+                      ? "0.34em"
+                      : "0.22em",
+                  transform:
+                    !isMobile && landingHover === "commercial"
+                      ? "translateY(-1px) scaleX(1.1) skewX(-2.5deg)"
+                      : "translateY(0) scaleX(1) skewX(0deg)",
+                  filter:
+                    !isMobile && landingHover === "commercial"
+                      ? "blur(0.75px)"
+                      : "blur(0px)",
+                  textShadow:
+                    !isMobile && landingHover === "commercial"
+                      ? "-3px 0 1px rgba(255,255,255,0.18), 4px 0 2px rgba(255,255,255,0.12), -8px 0 7px rgba(255,255,255,0.07), 9px 0 8px rgba(255,255,255,0.05)"
+                      : "none",
+                  transition:
+                    "letter-spacing 520ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1), filter 320ms ease, text-shadow 360ms ease",
+                }}
+              >
+                Commercial
+              </span>
             </button>
           </div>
         </div>
