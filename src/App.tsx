@@ -113,35 +113,23 @@ const narrativeProjects: Project[] = [
 
 const commercialProjects: Project[] = [
 {
-  id: "adidas-1",
-  title: "Adidas",
-  status: "Released",
-  role: "Collaboration X POOL",
-  year: "2025",
-  image: bunny("/commercial/adidas/poster-ep1.webp"),
-  imageLandscape: bunny("/commercial/adidas/poster-ep1.webp"),
-  imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
-  video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
-  mobileVimeoId: "1185056415",
-  leftMeta: "Director / Editor",
-  rightMetaText: "PUBLISHED",
-  rightMetaLogo: instagramLabel,
-  episodes: [
-    {
-      label: "EP 01",
-      image: bunny("/commercial/adidas/poster-ep1.webp"),
-      imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
-      video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
-    },
-    {
-      label: "EP 02",
-      image: bunny("/commercial/adidas/poster-ep2.webp"),
-      imageVertical: bunny("/commercial/adidas/poster-vertical-ep2.webp"),
-      video: bunny("/commercial/adidas/trailer-ep-2.mp4"),
-    },
-  ],
-  overlays: [],
-},
+    title: "Krista Papista",
+    status: "Released",
+    role: "Music Video · 16MM",
+    year: "2022",
+    image: bunny("/commercial/krista-papista/poster.webp"),
+    imageLandscape: bunny("/commercial/krista-papista/poster.webp"),
+    imageVertical: bunny("/commercial/krista-papista/poster.webp"),
+    video: bunny("/commercial/krista-papista/trailer.mp4"),
+    mobileVimeoId: "726938602",
+    leftMeta: "Writer · Director",
+    leftMetaExtra: "Berlin Music Video Awards · Silver Screening Selection",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: nownessLogo,
+    rightMetaLink: "https://www.nowness.com/story/krista-papista-agreement",
+    flashWarning: true,
+    overlays: [],
+  },
 {
   id: "miu-miu-1",
   title: "MIU MIU",
@@ -258,24 +246,6 @@ episodes: [
     overlays: [],
   },
 {
-    title: "Krista Papista",
-    status: "Released",
-    role: "Music Video · 16MM",
-    year: "2022",
-    image: bunny("/commercial/krista-papista/poster.webp"),
-    imageLandscape: bunny("/commercial/krista-papista/poster.webp"),
-    imageVertical: bunny("/commercial/krista-papista/poster.webp"),
-    video: bunny("/commercial/krista-papista/trailer.mp4"),
-    mobileVimeoId: "726938602",
-    leftMeta: "Writer · Director",
-    leftMetaExtra: "Berlin Music Video Awards · Silver Screening Selection",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: nownessLogo,
-    rightMetaLink: "https://www.nowness.com/story/krista-papista-agreement",
-    flashWarning: true,
-    overlays: [],
-  },
-{
     title: "HOMESHAKE",
     status: "Released",
     role: "Music Video",
@@ -292,6 +262,59 @@ episodes: [
     rightMetaLink: "https://i-d.co/article/watch-homeshakes-dreamy-new-music-video-just-like-my/",
     overlays: [],
   },
+{
+  title: "MYKITA",
+  status: "Released",
+  role: "Campaign · 16MM & 8MM",
+  year: "2024",
+
+  image: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageLandscape: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageVertical: bunny("/commercial/mykita-hero/poster-vertical-1.webp"),
+
+  video: bunny("/commercial/mykita-hero/trailer.mp4"),
+  mobileVimeoId: "868033223",
+  aspect: "vertical",
+
+  leftMeta: "Director / Co-DOP / Editor",
+  leftMetaExtra: "Zack Spiger · DOP",
+
+  rightMetaText: "PUBLISHED",
+  rightMetaExtra: "1M+ Organic Views",
+  rightMetaLogo: instagramLabel,
+
+  overlays: [],
+  },
+{
+  id: "adidas-1",
+  title: "Adidas",
+  status: "Released",
+  role: "Collaboration X POOL",
+  year: "2025",
+  image: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
+  video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+  mobileVimeoId: "1185056415",
+  leftMeta: "Director / Editor",
+  rightMetaText: "PUBLISHED",
+  rightMetaLogo: instagramLabel,
+  episodes: [
+    {
+      label: "EP 01",
+      image: bunny("/commercial/adidas/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/adidas/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-2.mp4"),
+    },
+  ],
+  overlays: [],
+},
 {
   id: "adidas-2",
   title: "Adidas",
@@ -322,29 +345,6 @@ episodes: [
   ],
   overlays: [],
 },
-{
-  title: "MYKITA",
-  status: "Released",
-  role: "Campaign · 16MM & 8MM",
-  year: "2024",
-
-  image: bunny("/commercial/mykita-hero/poster-1.webp"),
-  imageLandscape: bunny("/commercial/mykita-hero/poster-1.webp"),
-  imageVertical: bunny("/commercial/mykita-hero/poster-vertical-1.webp"),
-
-  video: bunny("/commercial/mykita-hero/trailer.mp4"),
-  mobileVimeoId: "868033223",
-  aspect: "vertical",
-
-  leftMeta: "Director / Co-DOP / Editor",
-  leftMetaExtra: "Zack Spiger · DOP",
-
-  rightMetaText: "PUBLISHED",
-  rightMetaExtra: "1M+ Organic Views",
-  rightMetaLogo: instagramLabel,
-
-  overlays: [],
-  },
 ];
 const reelProject: Project = {
   id: "director-reel",
@@ -737,6 +737,24 @@ function getMobileVimeoSrc(id: string) {
 
   return `https://player.vimeo.com/video/${id}?${params.toString()}`;
 }
+function getCommercialVimeoPreviewSrc(id: string) {
+  const params = new URLSearchParams({
+    background: "1",
+    autoplay: "1",
+    loop: "1",
+    autopause: "0",
+    muted: "1",
+    controls: "0",
+    title: "0",
+    byline: "0",
+    portrait: "0",
+    playsinline: "1",
+    dnt: "1",
+  });
+
+  return `https://player.vimeo.com/video/${id}?${params.toString()}`;
+}
+
 function isSoftProofMeta(text?: string) {
   if (!text) return false;
 
@@ -3260,424 +3278,353 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: section === "commercial" ? "96px 0 54px 0" : "132px 0 120px 0",
+                padding: section === "commercial" ? "92px 0 64px 0" : "132px 0 120px 0",
                 boxSizing: "border-box",
                 zIndex: 10,
                 background: section === "commercial" ? "#FFFFFF" : "transparent",
                 transition: "background 460ms ease",
               }}
             >
-{section === "commercial" ? (
-  <div
-    style={{
-      width: "94vw",
-      maxWidth: 1780,
-      margin: "0 auto",
-      display: "grid",
-      gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-      columnGap: 16,
-      rowGap: 28,
-      alignItems: "start",
-    }}
-  >
-    {projects.map((project, i) => {
-      const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
-      const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
-      const isDesktopCardActive = desktopActiveProjectIndex === i;
+{section === "commercial" ? (() => {
+  const kristaIndex = projects.findIndex((project) => project.title === "Krista Papista");
+  const miuOneIndex = projects.findIndex((project) => project.id === "miu-miu-1");
+  const miuTwoIndex = projects.findIndex((project) => project.id === "miu-miu-2");
+  const tumiIndex = projects.findIndex((project) => project.title === "MYKITA · TUMI");
+  const katIndex = projects.findIndex((project) => project.title === "MYKITA · KAT");
+  const leicaIndex = projects.findIndex((project) => project.title === "MYKITA · LEICA");
+  const homeshakeIndex = projects.findIndex((project) => project.title === "HOMESHAKE");
+  const mykitaIndex = projects.findIndex((project) => project.title === "MYKITA");
+  const adidasOneIndex = projects.findIndex((project) => project.id === "adidas-1");
+  const adidasTwoIndex = projects.findIndex((project) => project.id === "adidas-2");
 
-      const isMiuMiu = project.title === "MIU MIU";
-      const isLeica = project.title === "MYKITA · LEICA";
-      const isMykitaHero = project.title === "MYKITA";
-      const useVerticalVimeo = isMiuMiu && !!project.mobileVimeoId;
-      const cardHasPlayback = useVerticalVimeo || !!activeVideo;
-      const canPlayInline = !isMiuMiu || useVerticalVimeo;
+  const renderCommercialCard = (
+    index: number,
+    options?: {
+      aspect?: string;
+      verticalVimeo?: boolean;
+      feature?: boolean;
+    },
+  ) => {
+    if (index < 0) return null;
 
-      const cardAspect = isMiuMiu
-        ? "9 / 16"
-        : isLeica
-          ? "2.35 / 1"
-          : "16 / 9";
+    const project = projects[index];
+    const activeEpisodeIndex = getActiveEpisodeIndex(project, index);
+    const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
+    const isDesktopCardActive = desktopActiveProjectIndex === index;
+    const isVerticalVimeo = !!options?.verticalVimeo;
+    const canUseVerticalVimeo = isVerticalVimeo && !!project.mobileVimeoId;
+    const cardHasPlayback = !!activeVideo || canUseVerticalVimeo;
+    const cardAspect = options?.aspect || "16 / 9";
+    const isFeature = !!options?.feature;
 
-      const commercialPoster = isMiuMiu
-        ? getPortraitImage(project, activeEpisodeIndex)
-        : getLandscapeImage(project, activeEpisodeIndex);
+    const poster = isVerticalVimeo
+      ? getPortraitImage(project, activeEpisodeIndex)
+      : getLandscapeImage(project, activeEpisodeIndex);
 
-      const gridPlacement =
-        i === 0
-          ? { gridColumn: "2 / 12" }
-          : i === 1
-            ? { gridColumn: "2 / span 4" }
-            : i === 2
-              ? { gridColumn: "8 / span 4" }
-              : i === 3
-                ? { gridColumn: "1 / span 6" }
-                : i === 4
-                  ? { gridColumn: "7 / span 6" }
-                  : i === 5
-                    ? { gridColumn: "1 / -1" }
-                    : i === 6
-                      ? { gridColumn: "1 / span 6" }
-                      : i === 7
-                        ? { gridColumn: "7 / span 6" }
-                        : i === 8
-                          ? { gridColumn: "2 / 12" }
-                          : { gridColumn: "1 / -1" };
+    const specialMeta =
+      project.title === "MIU MIU"
+        ? project.leftMetaThird
+        : project.leftMetaExtra;
 
-      const isWideFeature = i === 0 || i === 5 || i === 8 || i === 9;
+    const hasEditorialLogo =
+      project.rightMetaLogo && project.rightMetaLogo !== instagramLabel;
 
-      const openCommercialFullscreen = () => {
-        const sourceVideo = desktopGalleryVideoRefs.current[i];
-        pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
+    const openCommercialFullscreen = () => {
+      const sourceVideo = desktopGalleryVideoRefs.current[index];
+      pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
 
-        setFullscreenProjectOverride(null);
-        setCurrentIndex(i);
-        setDisplayIndex(i);
-        setIsActive(!!activeVideo);
-        setIsPlaying(true);
-        setIsMuted(false);
-        setVideoReady(!activeVideo);
-        setShowControls(true);
-        setCursorHidden(false);
-        setDesktopActiveProjectIndex(null);
-        setDesktopHoveredProjectIndex(null);
+      setFullscreenProjectOverride(null);
+      setCurrentIndex(index);
+      setDisplayIndex(index);
+      setIsActive(!!activeVideo);
+      setIsPlaying(true);
+      setIsMuted(false);
+      setVideoReady(!activeVideo);
+      setShowControls(true);
+      setCursorHidden(false);
+      setDesktopActiveProjectIndex(null);
+      setDesktopHoveredProjectIndex(null);
+      setDesktopGalleryPlaying(true);
+      setIsFullscreen(true);
+    };
+
+    const handleCommercialClick = () => {
+      if (!cardHasPlayback) return;
+
+      if (isVerticalVimeo) {
+        openCommercialFullscreen();
+        return;
+      }
+
+      if (isDesktopCardActive) {
+        setDesktopGalleryPlaying((prev) => !prev);
+      } else {
+        setDesktopActiveProjectIndex(index);
         setDesktopGalleryPlaying(true);
-        setIsFullscreen(true);
-      };
+      }
+    };
 
-      return (
+    return (
+      <div
+        key={`${project.id || project.title}-${index}`}
+        ref={(el) => {
+          desktopCardRefs.current[index] = el;
+        }}
+        style={{ minWidth: 0 }}
+      >
         <div
-          key={`${section}-${project.title}-${i}`}
-          ref={(el) => {
-            desktopCardRefs.current[i] = el;
-          }}
+          onMouseEnter={() => setDesktopHoveredProjectIndex(index)}
+          onMouseMove={() => setDesktopHoveredProjectIndex(index)}
+          onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
+          onClick={handleCommercialClick}
           style={{
-            ...gridPlacement,
-            minWidth: 0,
+            position: "relative",
+            width: "100%",
+            aspectRatio: cardAspect,
+            overflow: "hidden",
+            background: "#080808",
+            cursor: cardHasPlayback ? "pointer" : "default",
           }}
         >
-          <div
-            onMouseEnter={() => setDesktopHoveredProjectIndex(i)}
-            onMouseMove={() => setDesktopHoveredProjectIndex(i)}
-            onMouseLeave={() => setDesktopHoveredProjectIndex(null)}
-            onClick={() => {
-              if (!cardHasPlayback) return;
-
-              if (!canPlayInline) {
-                openCommercialFullscreen();
-                return;
-              }
-
-              if (desktopActiveProjectIndex === i) {
-                if (!useVerticalVimeo) {
-                  setDesktopGalleryPlaying((prev) => !prev);
+          {canUseVerticalVimeo && desktopHoveredProjectIndex === index ? (
+            <iframe
+              key={`${project.id || project.title}-vertical-preview`}
+              src={getCommercialVimeoPreviewSrc(project.mobileVimeoId!)}
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+              title={`${project.title} preview`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+                display: "block",
+                background: "black",
+                pointerEvents: "none",
+              }}
+            />
+          ) : !isVerticalVimeo && activeVideo && isDesktopCardActive ? (
+            <video
+              key={`${project.id || project.title}-${index}-${activeEpisodeIndex}`}
+              src={activeVideo}
+              autoPlay={desktopGalleryPlaying}
+              muted={false}
+              playsInline
+              preload="metadata"
+              onEnded={(e) => {
+                if (!playNextEpisode(project, index)) {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play().catch(() => {});
                 }
-              } else {
-                setDesktopActiveProjectIndex(i);
-                setDesktopGalleryPlaying(true);
-              }
-            }}
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: cardAspect,
-              overflow: "hidden",
-              background: "#0A0A0A",
-              cursor: cardHasPlayback ? "pointer" : "default",
-            }}
-          >
-            {isDesktopCardActive && useVerticalVimeo ? (
-              <iframe
-                key={`${project.id || project.title}-vimeo-${activeEpisodeIndex}`}
-                src={getMobileVimeoSrc(project.mobileVimeoId!)}
-                allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-                allowFullScreen
-                title={project.title}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                  display: "block",
-                  background: "black",
-                }}
-              />
-            ) : cardHasPlayback && isDesktopCardActive && !isMiuMiu ? (
-              <video
-                key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
-                src={activeVideo}
-                autoPlay={desktopGalleryPlaying}
-                muted={false}
-                playsInline
-                preload="metadata"
-                onEnded={(e) => {
-                  if (!playNextEpisode(project, i)) {
-                    e.currentTarget.currentTime = 0;
-                    e.currentTarget.play().catch(() => {});
-                  }
-                }}
-                ref={(node) => {
-                  desktopGalleryVideoRefs.current[i] = node;
-                  if (!node) return;
+              }}
+              ref={(node) => {
+                desktopGalleryVideoRefs.current[index] = node;
+                if (!node) return;
 
-                  if (desktopGalleryPlaying) {
-                    node.play().catch(() => {});
-                  } else {
-                    node.pause();
-                  }
-                }}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: isLeica ? "cover" : "cover",
-                  display: "block",
-                  background: "black",
-                  transform:
-                    desktopHoveredProjectIndex === i ? "scale(1.012)" : "scale(1)",
-                  transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
-              />
-            ) : (
-              <img
-                src={commercialPoster}
-                alt={project.title}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                  background: "black",
-                  transform:
-                    desktopHoveredProjectIndex === i ? "scale(1.012)" : "scale(1)",
-                  transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
-              />
-            )}
-
-            {!useVerticalVimeo ? (
-              <EpisodeButtons
-                project={project}
-                activeEpisodeIndex={activeEpisodeIndex}
-                onSelect={(episodeIndex) =>
-                  setProjectEpisode(project, i, episodeIndex)
+                if (desktopGalleryPlaying) {
+                  node.play().catch(() => {});
+                } else {
+                  node.pause();
                 }
-              />
-            ) : null}
+              }}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                background: "black",
+              }}
+            />
+          ) : (
+            <img
+              src={poster}
+              alt={project.title}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                background: "black",
+                transform:
+                  desktopHoveredProjectIndex === index
+                    ? "scale(1.006)"
+                    : "scale(1)",
+                transition: "transform 750ms cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            />
+          )}
 
-            {cardHasPlayback && !isDesktopCardActive ? (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  pointerEvents: "none",
-                  color: "rgba(255,255,255,0.88)",
-                  opacity: desktopHoveredProjectIndex === i ? 1 : 0.76,
-                  transition: "opacity 260ms ease",
-                }}
-              >
-                <PlayIcon size={isWideFeature ? 25 : 22} />
-              </div>
-            ) : null}
-
-            {cardHasPlayback && isDesktopCardActive && !useVerticalVimeo ? (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  pointerEvents: "none",
-                  color: "rgba(255,255,255,0.78)",
-                  opacity:
-                    !desktopGalleryPlaying || desktopHoveredProjectIndex === i ? 1 : 0,
-                  transition: "opacity 260ms ease",
-                }}
-              >
-                {!desktopGalleryPlaying ? (
-                  <PlayIcon size={22} />
-                ) : (
-                  <PauseIcon size={22} />
-                )}
-              </div>
-            ) : null}
-
+          {cardHasPlayback ? (
             <div
               style={{
                 position: "absolute",
-                right: 10,
-                bottom: 10,
-                zIndex: 10,
+                inset: 0,
                 display: "flex",
-                opacity: desktopHoveredProjectIndex === i ? 0.92 : 0,
-                transition: "opacity 260ms ease",
-                pointerEvents:
-                  desktopHoveredProjectIndex === i ? "auto" : "none",
+                alignItems: "center",
+                justifyContent: "center",
+                pointerEvents: "none",
+                color: "rgba(255,255,255,0.9)",
+                opacity:
+                  desktopHoveredProjectIndex === index
+                    ? 0.9
+                    : isDesktopCardActive && !desktopGalleryPlaying
+                      ? 0.78
+                      : 0,
+                transition: "opacity 220ms ease",
               }}
             >
-              <ControlButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openCommercialFullscreen();
-                }}
-                ariaLabel="Open fullscreen"
-              >
-                <FullscreenIcon active={false} size={18} />
-              </ControlButton>
+              {isDesktopCardActive && !desktopGalleryPlaying && !isVerticalVimeo ? (
+                <PlayIcon size={isFeature ? 24 : 21} />
+              ) : !isDesktopCardActive || isVerticalVimeo ? (
+                <PlayIcon size={isFeature ? 24 : 21} />
+              ) : (
+                <PauseIcon size={21} />
+              )}
             </div>
-
-            {cardHasPlayback && isDesktopCardActive && !useVerticalVimeo ? (
-              <div
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: 1,
-                  background: "rgba(255,255,255,0.14)",
-                  opacity: desktopHoveredProjectIndex === i ? 1 : 0,
-                  transition: "opacity 260ms ease",
-                  pointerEvents: "none",
-                  zIndex: 7,
-                }}
-              >
-                <div
-                  ref={(node) => {
-                    galleryProgressRefs.current[i] = node;
-                  }}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    background: "rgba(255,255,255,0.58)",
-                    transform: "scaleX(0)",
-                    transformOrigin: "left center",
-                    willChange: "transform",
-                  }}
-                />
-              </div>
-            ) : null}
-
-            {project.flashWarning &&
-            (!isDesktopCardActive ||
-              !desktopGalleryPlaying ||
-              desktopHoveredProjectIndex === i) ? (
-              <WarningBadge />
-            ) : null}
-          </div>
+          ) : null}
 
           <div
             style={{
-              marginTop: 8,
-              paddingBottom: 12,
-              borderBottom: "1px solid rgba(17,17,17,0.13)",
-              display: "grid",
-              gridTemplateColumns: "minmax(0, 1fr) auto",
-              columnGap: 20,
-              alignItems: "start",
-              color: "#111111",
+              position: "absolute",
+              right: 8,
+              bottom: 8,
+              zIndex: 8,
+              opacity: desktopHoveredProjectIndex === index ? 0.82 : 0,
+              transition: "opacity 220ms ease",
+              pointerEvents:
+                desktopHoveredProjectIndex === index ? "auto" : "none",
             }}
           >
-            <div style={{ minWidth: 0 }}>
+            <ControlButton
+              onClick={(e) => {
+                e.stopPropagation();
+                openCommercialFullscreen();
+              }}
+              ariaLabel="Open fullscreen"
+            >
+              <FullscreenIcon active={false} size={17} />
+            </ControlButton>
+          </div>
+
+          {activeVideo && isDesktopCardActive && !isVerticalVimeo ? (
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: 1,
+                background: "rgba(255,255,255,0.13)",
+                opacity: desktopHoveredProjectIndex === index ? 1 : 0,
+                transition: "opacity 220ms ease",
+                pointerEvents: "none",
+                zIndex: 7,
+              }}
+            >
               <div
-                style={{
-                  fontSize: isWideFeature ? 17 : 14.5,
-                  letterSpacing: isWideFeature ? "0.095em" : "0.105em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.15,
-                  fontWeight: 600,
-                  marginBottom: 5,
-                  opacity: 0.98,
+                ref={(node) => {
+                  galleryProgressRefs.current[index] = node;
                 }}
-              >
-                {project.title}
-              </div>
-
-              <div
                 style={{
-                  fontSize: 10.5,
-                  letterSpacing: "0.095em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.35,
-                  fontWeight: 450,
-                  opacity: 0.56,
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(255,255,255,0.54)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left center",
+                  willChange: "transform",
                 }}
-              >
-                {project.leftMeta || project.role}
-                {project.year ? ` · ${project.year}` : ""}
-              </div>
+              />
+            </div>
+          ) : null}
 
-              {project.leftMetaExtra ? (
-                <div
-                  style={{
-                    marginTop: 2,
-                    fontSize: 9.5,
-                    letterSpacing: "0.09em",
-                    textTransform: "uppercase",
-                    lineHeight: 1.35,
-                    opacity: 0.34,
-                  }}
-                >
-                  {project.leftMetaExtra}
-                </div>
-              ) : null}
+          {project.flashWarning &&
+          (!isDesktopCardActive ||
+            !desktopGalleryPlaying ||
+            desktopHoveredProjectIndex === index) ? (
+            <WarningBadge />
+          ) : null}
+        </div>
 
-              {project.leftMetaThird ? (
-                <div
-                  style={{
-                    marginTop: 2,
-                    fontSize: 9.5,
-                    letterSpacing: "0.09em",
-                    textTransform: "uppercase",
-                    lineHeight: 1.35,
-                    opacity: 0.31,
-                  }}
-                >
-                  {project.leftMetaThird}
-                </div>
-              ) : null}
+        <div
+          style={{
+            marginTop: 8,
+            minHeight: specialMeta ? 43 : 30,
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) auto",
+            columnGap: 18,
+            alignItems: "start",
+            color: "#101010",
+          }}
+        >
+          <div style={{ minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: isFeature ? 13.5 : 12.5,
+                letterSpacing: "0.105em",
+                textTransform: "uppercase",
+                lineHeight: 1.16,
+                fontWeight: 600,
+                opacity: 0.96,
+                marginBottom: 4,
+              }}
+            >
+              {project.title}
             </div>
 
             <div
               style={{
-                minWidth: 96,
-                textAlign: "right",
+                fontSize: 9.5,
+                letterSpacing: "0.09em",
+                textTransform: "uppercase",
+                lineHeight: 1.32,
+                fontWeight: 450,
+                opacity: 0.46,
+              }}
+            >
+              {project.leftMeta || project.role}
+              {project.year ? ` · ${project.year}` : ""}
+            </div>
+
+            {specialMeta ? (
+              <div
+                style={{
+                  marginTop: 2,
+                  fontSize: 8.8,
+                  letterSpacing: "0.085em",
+                  textTransform: "uppercase",
+                  lineHeight: 1.3,
+                  opacity: 0.3,
+                }}
+              >
+                {specialMeta}
+              </div>
+            ) : null}
+          </div>
+
+          {(hasEditorialLogo || project.rightMetaExtra) ? (
+            <div
+              style={{
+                minWidth: 86,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-end",
-                color: "#111111",
+                textAlign: "right",
+                paddingTop: 1,
               }}
             >
-              {project.rightMetaText ? (
-                <div
-                  style={{
-                    fontSize: 9.5,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    lineHeight: 1.3,
-                    opacity: 0.42,
-                    marginBottom:
-                      project.rightMetaExtra || project.rightMetaLogo ? 5 : 0,
-                  }}
-                >
-                  {project.rightMetaText}
-                </div>
-              ) : null}
-
               {project.rightMetaExtra ? (
                 <div
                   style={{
-                    fontSize: 9,
-                    letterSpacing: "0.095em",
+                    fontSize: 8.8,
+                    letterSpacing: "0.085em",
                     textTransform: "uppercase",
-                    opacity: 0.3,
-                    marginBottom: project.rightMetaLogo ? 5 : 0,
+                    lineHeight: 1.3,
+                    opacity: 0.35,
+                    marginBottom: hasEditorialLogo ? 5 : 0,
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -3685,20 +3632,8 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 </div>
               ) : null}
 
-              {project.rightMetaLogo ? (
-                project.rightMetaLogo === instagramLabel ? (
-                  <div
-                    style={{
-                      fontSize: 10,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      opacity: 0.55,
-                      fontWeight: 500,
-                    }}
-                  >
-                    IG
-                  </div>
-                ) : project.rightMetaLink ? (
+              {hasEditorialLogo ? (
+                project.rightMetaLink ? (
                   <a
                     href={project.rightMetaLink}
                     target="_blank"
@@ -3719,10 +3654,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                             ? 12
                             : project.rightMetaLogo === highsnobietyLogo
                               ? 14
-                              : 14,
+                              : 13,
                         width: "auto",
                         display: "block",
-                        opacity: 0.82,
+                        opacity: 0.76,
                         filter:
                           project.rightMetaLogo === nownessLogo ||
                           project.rightMetaLogo === idLogo
@@ -3739,19 +3674,98 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                       height: 12,
                       width: "auto",
                       display: "block",
-                      opacity: 0.82,
+                      opacity: 0.76,
                       filter: "brightness(0)",
                     }}
                   />
                 )
               ) : null}
             </div>
-          </div>
+          ) : null}
         </div>
-      );
-    })}
-  </div>
-) : (
+      </div>
+    );
+  };
+
+  const moduleStyle: React.CSSProperties = {
+    width: "100%",
+  };
+
+  const pairStyle: React.CSSProperties = {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    gap: 12,
+    alignItems: "start",
+  };
+
+  return (
+    <div
+      style={{
+        width: "90vw",
+        maxWidth: 1560,
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: 32,
+      }}
+    >
+      <div
+        style={{
+          ...moduleStyle,
+          width: "80%",
+          maxWidth: 1280,
+          margin: "0 auto",
+        }}
+      >
+        {renderCommercialCard(kristaIndex, {
+          aspect: "16 / 9",
+          feature: true,
+        })}
+      </div>
+
+      <div
+        style={{
+          ...pairStyle,
+          width: "64%",
+          maxWidth: 1020,
+          margin: "0 auto",
+        }}
+      >
+        {renderCommercialCard(miuOneIndex, {
+          aspect: "9 / 16",
+          verticalVimeo: true,
+        })}
+        {renderCommercialCard(miuTwoIndex, {
+          aspect: "9 / 16",
+          verticalVimeo: true,
+        })}
+      </div>
+
+      <div style={pairStyle}>
+        {renderCommercialCard(tumiIndex, { aspect: "16 / 9" })}
+        {renderCommercialCard(katIndex, { aspect: "16 / 9" })}
+      </div>
+
+      <div style={moduleStyle}>
+        {renderCommercialCard(leicaIndex, {
+          aspect: "2.35 / 1",
+          feature: true,
+        })}
+      </div>
+
+      <div style={pairStyle}>
+        {renderCommercialCard(homeshakeIndex, { aspect: "16 / 9" })}
+        {renderCommercialCard(mykitaIndex, { aspect: "16 / 9" })}
+      </div>
+
+      <div style={pairStyle}>
+        {renderCommercialCard(adidasOneIndex, { aspect: "16 / 9" })}
+        {renderCommercialCard(adidasTwoIndex, { aspect: "16 / 9" })}
+      </div>
+    </div>
+  );
+})() : (
   <div
     style={{
       width: frameWidth,
