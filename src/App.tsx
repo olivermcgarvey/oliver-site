@@ -241,6 +241,23 @@ episodes: [
     overlays: [],
   },
 {
+    title: "MYKITA · LEICA",
+    status: "Released",
+    role: "Campaign · Digital",
+    year: "2020",
+    image: bunny("/commercial/mykita-leica/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
+    video: bunny("/commercial/mykita-leica/trailer.mp4"),
+    mobileVimeoId: "394936736",
+    aspect: "vertical",
+    leftMeta: "Director / DOP",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: highsnobietyLogo,
+    rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
+    overlays: [],
+  },
+{
     title: "Krista Papista",
     status: "Released",
     role: "Music Video · 16MM",
@@ -305,23 +322,6 @@ episodes: [
   ],
   overlays: [],
 },
-{
-    title: "MYKITA · LEICA",
-    status: "Released",
-    role: "Campaign · Digital",
-    year: "2020",
-    image: bunny("/commercial/mykita-leica/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-leica/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-leica/poster.webp"),
-    video: bunny("/commercial/mykita-leica/trailer.mp4"),
-    mobileVimeoId: "394936736",
-    aspect: "vertical",
-    leftMeta: "Director / DOP",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: highsnobietyLogo,
-    rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
-    overlays: [],
-  },
 {
   title: "MYKITA",
   status: "Released",
@@ -3020,7 +3020,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
 </div>
         </>
       )}
-{!isMobile && hasEntered && !isFullscreen ? (
+{!isMobile && hasEntered && !isFullscreen && section === "narrative" ? (
   <div
     style={{
       position: "fixed",
@@ -3260,7 +3260,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: section === "commercial" ? "108px 0 72px 0" : "132px 0 120px 0",
+                padding: section === "commercial" ? "96px 0 54px 0" : "132px 0 120px 0",
                 boxSizing: "border-box",
                 zIndex: 10,
                 background: section === "commercial" ? "#FFFFFF" : "transparent",
@@ -3270,55 +3270,79 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 {section === "commercial" ? (
   <div
     style={{
-      width: "92vw",
-      maxWidth: 1680,
+      width: "94vw",
+      maxWidth: 1780,
       margin: "0 auto",
       display: "grid",
       gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-      columnGap: 18,
-      rowGap: 42,
+      columnGap: 16,
+      rowGap: 28,
       alignItems: "start",
     }}
   >
     {projects.map((project, i) => {
       const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
       const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
-      const cardHasPlayback = !!activeVideo;
       const isDesktopCardActive = desktopActiveProjectIndex === i;
 
       const isMiuMiu = project.title === "MIU MIU";
-      const isVertical = project.aspect === "vertical";
-      const isMiuPair = i === 1 || i === 2;
-      const isMykitaLandscapePair = i === 3 || i === 4;
-      const isEditorialPair = i === 5 || i === 6;
-      const isFinalVerticalPair = i === 8 || i === 9;
-      const isFullWidth = i === 0 || i === 7;
+      const isLeica = project.title === "MYKITA · LEICA";
+      const isMykitaHero = project.title === "MYKITA";
+      const useVerticalVimeo = isMiuMiu && !!project.mobileVimeoId;
+      const cardHasPlayback = useVerticalVimeo || !!activeVideo;
+      const canPlayInline = !isMiuMiu || useVerticalVimeo;
 
       const cardAspect = isMiuMiu
         ? "9 / 16"
-        : isVertical
-          ? "4 / 5"
+        : isLeica
+          ? "2.35 / 1"
           : "16 / 9";
 
-      const commercialPoster = isVertical
+      const commercialPoster = isMiuMiu
         ? getPortraitImage(project, activeEpisodeIndex)
         : getLandscapeImage(project, activeEpisodeIndex);
 
-      const gridPlacement = isFullWidth
-        ? { gridColumn: "1 / -1" }
-        : isMiuPair
-          ? i === 1
-            ? { gridColumn: "2 / span 5" }
-            : { gridColumn: "7 / span 5" }
-          : isMykitaLandscapePair || isEditorialPair
-            ? i % 2 === 1
-              ? { gridColumn: "1 / span 6" }
-              : { gridColumn: "7 / span 6" }
-            : isFinalVerticalPair
-              ? i === 8
-                ? { gridColumn: "2 / span 5" }
-                : { gridColumn: "7 / span 5" }
-              : { gridColumn: "1 / -1" };
+      const gridPlacement =
+        i === 0
+          ? { gridColumn: "2 / 12" }
+          : i === 1
+            ? { gridColumn: "2 / span 4" }
+            : i === 2
+              ? { gridColumn: "8 / span 4" }
+              : i === 3
+                ? { gridColumn: "1 / span 6" }
+                : i === 4
+                  ? { gridColumn: "7 / span 6" }
+                  : i === 5
+                    ? { gridColumn: "1 / -1" }
+                    : i === 6
+                      ? { gridColumn: "1 / span 6" }
+                      : i === 7
+                        ? { gridColumn: "7 / span 6" }
+                        : i === 8
+                          ? { gridColumn: "2 / 12" }
+                          : { gridColumn: "1 / -1" };
+
+      const isWideFeature = i === 0 || i === 5 || i === 8 || i === 9;
+
+      const openCommercialFullscreen = () => {
+        const sourceVideo = desktopGalleryVideoRefs.current[i];
+        pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
+
+        setFullscreenProjectOverride(null);
+        setCurrentIndex(i);
+        setDisplayIndex(i);
+        setIsActive(!!activeVideo);
+        setIsPlaying(true);
+        setIsMuted(false);
+        setVideoReady(!activeVideo);
+        setShowControls(true);
+        setCursorHidden(false);
+        setDesktopActiveProjectIndex(null);
+        setDesktopHoveredProjectIndex(null);
+        setDesktopGalleryPlaying(true);
+        setIsFullscreen(true);
+      };
 
       return (
         <div
@@ -3338,8 +3362,15 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             onClick={() => {
               if (!cardHasPlayback) return;
 
+              if (!canPlayInline) {
+                openCommercialFullscreen();
+                return;
+              }
+
               if (desktopActiveProjectIndex === i) {
-                setDesktopGalleryPlaying((prev) => !prev);
+                if (!useVerticalVimeo) {
+                  setDesktopGalleryPlaying((prev) => !prev);
+                }
               } else {
                 setDesktopActiveProjectIndex(i);
                 setDesktopGalleryPlaying(true);
@@ -3350,11 +3381,28 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               width: "100%",
               aspectRatio: cardAspect,
               overflow: "hidden",
-              background: "#111111",
+              background: "#0A0A0A",
               cursor: cardHasPlayback ? "pointer" : "default",
             }}
           >
-            {cardHasPlayback && isDesktopCardActive ? (
+            {isDesktopCardActive && useVerticalVimeo ? (
+              <iframe
+                key={`${project.id || project.title}-vimeo-${activeEpisodeIndex}`}
+                src={getMobileVimeoSrc(project.mobileVimeoId!)}
+                allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                allowFullScreen
+                title={project.title}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                  display: "block",
+                  background: "black",
+                }}
+              />
+            ) : cardHasPlayback && isDesktopCardActive && !isMiuMiu ? (
               <video
                 key={`${project.id || project.title}-${i}-${activeEpisodeIndex}`}
                 src={activeVideo}
@@ -3383,9 +3431,12 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   inset: 0,
                   width: "100%",
                   height: "100%",
-                  objectFit: "cover",
+                  objectFit: isLeica ? "cover" : "cover",
                   display: "block",
                   background: "black",
+                  transform:
+                    desktopHoveredProjectIndex === i ? "scale(1.012)" : "scale(1)",
+                  transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               />
             ) : (
@@ -3400,19 +3451,42 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   objectFit: "cover",
                   display: "block",
                   background: "black",
+                  transform:
+                    desktopHoveredProjectIndex === i ? "scale(1.012)" : "scale(1)",
+                  transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               />
             )}
 
-            <EpisodeButtons
-              project={project}
-              activeEpisodeIndex={activeEpisodeIndex}
-              onSelect={(episodeIndex) =>
-                setProjectEpisode(project, i, episodeIndex)
-              }
-            />
+            {!useVerticalVimeo ? (
+              <EpisodeButtons
+                project={project}
+                activeEpisodeIndex={activeEpisodeIndex}
+                onSelect={(episodeIndex) =>
+                  setProjectEpisode(project, i, episodeIndex)
+                }
+              />
+            ) : null}
 
-            {cardHasPlayback ? (
+            {cardHasPlayback && !isDesktopCardActive ? (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  color: "rgba(255,255,255,0.88)",
+                  opacity: desktopHoveredProjectIndex === i ? 1 : 0.76,
+                  transition: "opacity 260ms ease",
+                }}
+              >
+                <PlayIcon size={isWideFeature ? 25 : 22} />
+              </div>
+            ) : null}
+
+            {cardHasPlayback && isDesktopCardActive && !useVerticalVimeo ? (
               <div
                 style={{
                   position: "absolute",
@@ -3423,15 +3497,11 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   pointerEvents: "none",
                   color: "rgba(255,255,255,0.78)",
                   opacity:
-                    !isDesktopCardActive ||
-                    !desktopGalleryPlaying ||
-                    desktopHoveredProjectIndex === i
-                      ? 1
-                      : 0,
-                  transition: "opacity 300ms ease",
+                    !desktopGalleryPlaying || desktopHoveredProjectIndex === i ? 1 : 0,
+                  transition: "opacity 260ms ease",
                 }}
               >
-                {!isDesktopCardActive || !desktopGalleryPlaying ? (
+                {!desktopGalleryPlaying ? (
                   <PlayIcon size={22} />
                 ) : (
                   <PauseIcon size={22} />
@@ -3444,10 +3514,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 position: "absolute",
                 right: 10,
                 bottom: 10,
-                zIndex: 6,
+                zIndex: 10,
                 display: "flex",
-                opacity: desktopHoveredProjectIndex === i ? 0.9 : 0,
-                transition: "opacity 300ms ease",
+                opacity: desktopHoveredProjectIndex === i ? 0.92 : 0,
+                transition: "opacity 260ms ease",
                 pointerEvents:
                   desktopHoveredProjectIndex === i ? "auto" : "none",
               }}
@@ -3455,24 +3525,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               <ControlButton
                 onClick={(e) => {
                   e.stopPropagation();
-
-                  const sourceVideo = desktopGalleryVideoRefs.current[i];
-                  pendingFullscreenTimeRef.current =
-                    sourceVideo ? sourceVideo.currentTime : null;
-
-                  setFullscreenProjectOverride(null);
-                  setCurrentIndex(i);
-                  setDisplayIndex(i);
-                  setIsActive(cardHasPlayback);
-                  setIsPlaying(true);
-                  setIsMuted(false);
-                  setVideoReady(!cardHasPlayback);
-                  setShowControls(true);
-                  setCursorHidden(false);
-                  setDesktopActiveProjectIndex(null);
-                  setDesktopHoveredProjectIndex(null);
-                  setDesktopGalleryPlaying(true);
-                  setIsFullscreen(true);
+                  openCommercialFullscreen();
                 }}
                 ariaLabel="Open fullscreen"
               >
@@ -3480,7 +3533,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               </ControlButton>
             </div>
 
-            {cardHasPlayback && isDesktopCardActive ? (
+            {cardHasPlayback && isDesktopCardActive && !useVerticalVimeo ? (
               <div
                 style={{
                   position: "absolute",
@@ -3490,7 +3543,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   height: 1,
                   background: "rgba(255,255,255,0.14)",
                   opacity: desktopHoveredProjectIndex === i ? 1 : 0,
-                  transition: "opacity 300ms ease",
+                  transition: "opacity 260ms ease",
                   pointerEvents: "none",
                   zIndex: 7,
                 }}
@@ -3502,7 +3555,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   style={{
                     width: "100%",
                     height: "100%",
-                    background: "rgba(255,255,255,0.56)",
+                    background: "rgba(255,255,255,0.58)",
                     transform: "scaleX(0)",
                     transformOrigin: "left center",
                     willChange: "transform",
@@ -3521,7 +3574,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
           <div
             style={{
-              marginTop: 10,
+              marginTop: 8,
+              paddingBottom: 12,
+              borderBottom: "1px solid rgba(17,17,17,0.13)",
               display: "grid",
               gridTemplateColumns: "minmax(0, 1fr) auto",
               columnGap: 20,
@@ -3532,13 +3587,13 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             <div style={{ minWidth: 0 }}>
               <div
                 style={{
-                  fontSize: 13,
-                  letterSpacing: "0.115em",
+                  fontSize: isWideFeature ? 17 : 14.5,
+                  letterSpacing: isWideFeature ? "0.095em" : "0.105em",
                   textTransform: "uppercase",
-                  lineHeight: 1.22,
-                  fontWeight: 500,
-                  marginBottom: 4,
-                  opacity: 0.96,
+                  lineHeight: 1.15,
+                  fontWeight: 600,
+                  marginBottom: 5,
+                  opacity: 0.98,
                 }}
               >
                 {project.title}
@@ -3546,12 +3601,12 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
               <div
                 style={{
-                  fontSize: 10,
-                  letterSpacing: "0.1em",
+                  fontSize: 10.5,
+                  letterSpacing: "0.095em",
                   textTransform: "uppercase",
-                  lineHeight: 1.38,
-                  fontWeight: 400,
-                  opacity: 0.5,
+                  lineHeight: 1.35,
+                  fontWeight: 450,
+                  opacity: 0.56,
                 }}
               >
                 {project.leftMeta || project.role}
@@ -3563,10 +3618,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   style={{
                     marginTop: 2,
                     fontSize: 9.5,
-                    letterSpacing: "0.095em",
+                    letterSpacing: "0.09em",
                     textTransform: "uppercase",
                     lineHeight: 1.35,
-                    opacity: 0.32,
+                    opacity: 0.34,
                   }}
                 >
                   {project.leftMetaExtra}
@@ -3578,10 +3633,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                   style={{
                     marginTop: 2,
                     fontSize: 9.5,
-                    letterSpacing: "0.095em",
+                    letterSpacing: "0.09em",
                     textTransform: "uppercase",
                     lineHeight: 1.35,
-                    opacity: 0.28,
+                    opacity: 0.31,
                   }}
                 >
                   {project.leftMetaThird}
@@ -3591,7 +3646,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
 
             <div
               style={{
-                minWidth: 88,
+                minWidth: 96,
                 textAlign: "right",
                 display: "flex",
                 flexDirection: "column",
@@ -3603,12 +3658,12 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 <div
                   style={{
                     fontSize: 9.5,
-                    letterSpacing: "0.105em",
+                    letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     lineHeight: 1.3,
-                    opacity: 0.38,
+                    opacity: 0.42,
                     marginBottom:
-                      project.rightMetaExtra || project.rightMetaLogo ? 4 : 0,
+                      project.rightMetaExtra || project.rightMetaLogo ? 5 : 0,
                   }}
                 >
                   {project.rightMetaText}
@@ -3619,10 +3674,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 <div
                   style={{
                     fontSize: 9,
-                    letterSpacing: "0.1em",
+                    letterSpacing: "0.095em",
                     textTransform: "uppercase",
-                    opacity: 0.28,
-                    marginBottom: project.rightMetaLogo ? 4 : 0,
+                    opacity: 0.3,
+                    marginBottom: project.rightMetaLogo ? 5 : 0,
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -3634,10 +3689,11 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 project.rightMetaLogo === instagramLabel ? (
                   <div
                     style={{
-                      fontSize: 9.5,
+                      fontSize: 10,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
-                      opacity: 0.48,
+                      opacity: 0.55,
+                      fontWeight: 500,
                     }}
                   >
                     IG
@@ -3660,13 +3716,13 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                         height:
                           project.rightMetaLogo === nownessLogo ||
                           project.rightMetaLogo === idLogo
-                            ? 10
+                            ? 12
                             : project.rightMetaLogo === highsnobietyLogo
-                              ? 12
-                              : 13,
+                              ? 14
+                              : 14,
                         width: "auto",
                         display: "block",
-                        opacity: 0.76,
+                        opacity: 0.82,
                         filter:
                           project.rightMetaLogo === nownessLogo ||
                           project.rightMetaLogo === idLogo
@@ -3680,10 +3736,10 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                     src={project.rightMetaLogo}
                     alt="Platform"
                     style={{
-                      height: 10,
+                      height: 12,
                       width: "auto",
                       display: "block",
-                      opacity: 0.76,
+                      opacity: 0.82,
                       filter: "brightness(0)",
                     }}
                   />
