@@ -113,28 +113,35 @@ const narrativeProjects: Project[] = [
 
 const commercialProjects: Project[] = [
 {
-  title: "MYKITA",
+  id: "adidas-1",
+  title: "Adidas",
   status: "Released",
-  role: "Campaign · 16MM & 8MM",
-  year: "2024",
-
-  image: bunny("/commercial/mykita-hero/poster-1.webp"),
-  imageLandscape: bunny("/commercial/mykita-hero/poster-1.webp"),
-  imageVertical: bunny("/commercial/mykita-hero/poster-vertical-1.webp"),
-
-  video: bunny("/commercial/mykita-hero/trailer.mp4"),
-  mobileVimeoId: "868033223",
-  aspect: "vertical",
-
-  leftMeta: "Director / Co-DOP / Editor",
-  leftMetaExtra: "Zack Spiger · DOP",
-
+  role: "Collaboration X POOL",
+  year: "2025",
+  image: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageLandscape: bunny("/commercial/adidas/poster-ep1.webp"),
+  imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
+  video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+  mobileVimeoId: "1185056415",
+  leftMeta: "Director / Editor",
   rightMetaText: "PUBLISHED",
-  rightMetaExtra: "1M+ Organic Views",
   rightMetaLogo: instagramLabel,
-
+  episodes: [
+    {
+      label: "EP 01",
+      image: bunny("/commercial/adidas/poster-ep1.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
+    },
+    {
+      label: "EP 02",
+      image: bunny("/commercial/adidas/poster-ep2.webp"),
+      imageVertical: bunny("/commercial/adidas/poster-vertical-ep2.webp"),
+      video: bunny("/commercial/adidas/trailer-ep-2.mp4"),
+    },
+  ],
   overlays: [],
-  },
+},
 {
   id: "miu-miu-1",
   title: "MIU MIU",
@@ -169,36 +176,71 @@ episodes: [
   overlays: [],
 },
 {
-  id: "adidas-1",
-  title: "Adidas",
+  id: "miu-miu-2",
+  title: "MIU MIU",
   status: "Released",
-  role: "Collaboration X POOL",
-  year: "2025",
-  image: bunny("/commercial/adidas/poster-ep1.webp"),
-  imageLandscape: bunny("/commercial/adidas/poster-ep1.webp"),
-  imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
-  video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
-  mobileVimeoId: "1185056415",
-  leftMeta: "Director / Editor",
+  role: "Campaign · Digital",
+  year: "2022",
+image: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
+imageLandscape: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
+imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
+video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
+  aspect: "vertical",
+  leftMeta: "Cinematography / Model Direction",
+  leftMetaExtra: "Fritz Schiffers · Artist",
+  leftMetaThird: "Paris Fashion Week · SS23",
   rightMetaText: "PUBLISHED",
   rightMetaLogo: instagramLabel,
-  episodes: [
-    {
-      label: "EP 01",
-      image: bunny("/commercial/adidas/poster-ep1.webp"),
-      imageVertical: bunny("/commercial/adidas/poster-vertical-ep1.webp"),
-      video: bunny("/commercial/adidas/trailer-ep-1.mp4"),
-    },
-    {
-      label: "EP 02",
-      image: bunny("/commercial/adidas/poster-ep2.webp"),
-      imageVertical: bunny("/commercial/adidas/poster-vertical-ep2.webp"),
-      video: bunny("/commercial/adidas/trailer-ep-2.mp4"),
-    },
-  ],
+episodes: [
+  {
+    label: "EP 01",
+    image: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
+    imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
+    video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
+  },
+  {
+    label: "EP 02",
+    image: bunny("/commercial/miu-miu-2/poster-ep2.webp"),
+    imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep2.webp"),
+    video: bunny("/commercial/miu-miu-2/trailer-ep-2.mp4"),
+  },
+],
   overlays: [],
 },
-  {
+{
+    title: "MYKITA · TUMI",
+    status: "Released",
+    role: "Campaign · 16MM & 8MM",
+    year: "2024",
+    image: bunny("/commercial/mykita-tumi/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-tumi/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-tumi/poster.webp"),
+    video: bunny("/commercial/mykita-tumi/trailer.mp4"),
+    mobileVimeoId: "961115198",
+    leftMeta: "Director / Co-DOP / Editor",
+    leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
+    rightMetaText: "PUBLISHED",
+    rightMetaLogo: instagramLabel,
+    overlays: [],
+  },
+{
+    title: "MYKITA · KAT",
+    status: "Released",
+    role: "Campaign · 16MM & 8MM",
+    year: "2024",
+    image: bunny("/commercial/mykita-kat/poster.webp"),
+    imageLandscape: bunny("/commercial/mykita-kat/poster.webp"),
+    imageVertical: bunny("/commercial/mykita-kat/poster.webp"),
+    video: bunny("/commercial/mykita-kat/trailer.mp4"),
+    mobileVimeoId: "1185077699",
+    leftMeta: "Director / Co-DOP / Editor",
+    leftMetaExtra: "Zack Spiger · DOP",
+    rightMetaText: "PUBLISHED",
+    rightMetaExtra: "1.6M+ Organic Views",
+    rightMetaLogo: instagramLabel,
+    overlays: [],
+  },
+{
     title: "MYKITA · LEICA",
     status: "Released",
     role: "Campaign · Digital",
@@ -215,24 +257,7 @@ episodes: [
     rightMetaLink: "https://www.highsnobiety.com/p/mykita-leica-sunglasses/",
     overlays: [],
   },
-  {
-    title: "MYKITA · TUMI",
-    status: "Released",
-    role: "Campaign · 16MM & 8MM",
-    year: "2024",
-    image: bunny("/commercial/mykita-tumi/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-tumi/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-tumi/poster.webp"),
-    video: bunny("/commercial/mykita-tumi/trailer.mp4"),
-    mobileVimeoId: "961115198",
-    aspect: "vertical",
-    leftMeta: "Director / Co-DOP / Editor",
-    leftMetaExtra: "Berlin Commercial Awards · Cultural Impact",
-    rightMetaText: "PUBLISHED",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
-  },
-  {
+{
     title: "Krista Papista",
     status: "Released",
     role: "Music Video · 16MM",
@@ -250,7 +275,7 @@ episodes: [
     flashWarning: true,
     overlays: [],
   },
-  {
+{
     title: "HOMESHAKE",
     status: "Released",
     role: "Music Video",
@@ -298,54 +323,27 @@ episodes: [
   overlays: [],
 },
 {
-  id: "miu-miu-2",
-  title: "MIU MIU",
+  title: "MYKITA",
   status: "Released",
-  role: "Campaign · Digital",
-  year: "2022",
-image: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
-imageLandscape: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
-imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
-video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
+  role: "Campaign · 16MM & 8MM",
+  year: "2024",
+
+  image: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageLandscape: bunny("/commercial/mykita-hero/poster-1.webp"),
+  imageVertical: bunny("/commercial/mykita-hero/poster-vertical-1.webp"),
+
+  video: bunny("/commercial/mykita-hero/trailer.mp4"),
+  mobileVimeoId: "868033223",
   aspect: "vertical",
-  leftMeta: "Cinematography / Model Direction",
-  leftMetaExtra: "Fritz Schiffers · Artist",
-  leftMetaThird: "Paris Fashion Week · SS23",
+
+  leftMeta: "Director / Co-DOP / Editor",
+  leftMetaExtra: "Zack Spiger · DOP",
+
   rightMetaText: "PUBLISHED",
+  rightMetaExtra: "1M+ Organic Views",
   rightMetaLogo: instagramLabel,
-episodes: [
-  {
-    label: "EP 01",
-    image: bunny("/commercial/miu-miu-1/poster-ep2.webp"),
-    imageVertical: bunny("/commercial/miu-miu-1/poster-vertical-ep2.webp"),
-    video: bunny("/commercial/miu-miu-1/trailer-ep-2.mp4"),
-  },
-  {
-    label: "EP 02",
-    image: bunny("/commercial/miu-miu-2/poster-ep2.webp"),
-    imageVertical: bunny("/commercial/miu-miu-2/poster-vertical-ep2.webp"),
-    video: bunny("/commercial/miu-miu-2/trailer-ep-2.mp4"),
-  },
-],
+
   overlays: [],
-},
-  {
-    title: "MYKITA · KAT",
-    status: "Released",
-    role: "Campaign · 16MM & 8MM",
-    year: "2024",
-    image: bunny("/commercial/mykita-kat/poster.webp"),
-    imageLandscape: bunny("/commercial/mykita-kat/poster.webp"),
-    imageVertical: bunny("/commercial/mykita-kat/poster.webp"),
-    video: bunny("/commercial/mykita-kat/trailer.mp4"),
-    mobileVimeoId: "1185077699",
-    aspect: "vertical",
-    leftMeta: "Director / Co-DOP / Editor",
-    leftMetaExtra: "Zack Spiger · DOP",
-    rightMetaText: "PUBLISHED",
-    rightMetaExtra: "1.6M+ Organic Views",
-    rightMetaLogo: instagramLabel,
-    overlays: [],
   },
 ];
 const reelProject: Project = {
@@ -2603,14 +2601,20 @@ onClick={openReel}
     </>
   );
 
+  const isLightCommercial =
+    !isMobile &&
+    hasEntered &&
+    section === "commercial" &&
+    !isFullscreen;
+
   return (
     <div
       style={{
-        background: "black",
+        background: isLightCommercial ? "#F7F7F4" : "black",
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
-        color: "white",
+        color: isLightCommercial ? "#181816" : "white",
         position: "relative",
         overscrollBehaviorX: "none",
         overscrollBehaviorY: "none",
@@ -3246,21 +3250,23 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 overflowY: "auto",
                 overflowX: "hidden",
                 WebkitOverflowScrolling: "touch",
-                padding: "132px 0 120px 0",
+                padding: section === "commercial" ? "118px 0 92px 0" : "132px 0 120px 0",
                 boxSizing: "border-box",
                 zIndex: 10,
+                background: section === "commercial" ? "#F7F7F4" : "transparent",
+                transition: "background 520ms ease",
               }}
             >
 {section === "commercial" ? (
   <div
     style={{
-      width: "82vw",
-      maxWidth: 1360,
+      width: "88vw",
+      maxWidth: 1480,
       margin: "0 auto",
       display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      columnGap: 34,
-      rowGap: 86,
+      gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
+      columnGap: 26,
+      rowGap: 54,
       alignItems: "start",
     }}
   >
@@ -3268,15 +3274,31 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
       const activeEpisodeIndex = getActiveEpisodeIndex(project, i);
       const activeVideo = getEpisodeVideo(project, activeEpisodeIndex);
       const cardHasPlayback = !!activeVideo;
-      const cardIsVertical = project.aspect === "vertical";
       const isDesktopCardActive = desktopActiveProjectIndex === i;
 
-      const commercialPoster = cardIsVertical
-        ? getPortraitImage(project, activeEpisodeIndex)
-        : getDesktopImage(project, activeEpisodeIndex);
+      const isMiuMiu = project.title === "MIU MIU";
+      const isVertical = project.aspect === "vertical";
+      const isMiuPair = isMiuMiu && (i === 1 || i === 2);
 
-      const commercialCredit =
-        project.leftMeta || project.role;
+      const cardAspect = isMiuMiu
+        ? "9 / 16"
+        : isVertical
+          ? "4 / 5"
+          : "16 / 9";
+
+      const commercialPoster = isVertical
+        ? getPortraitImage(project, activeEpisodeIndex)
+        : getLandscapeImage(project, activeEpisodeIndex);
+
+      const gridPlacement = isMiuPair
+        ? i === 1
+          ? { gridColumn: "2 / span 5" }
+          : { gridColumn: "7 / span 5" }
+        : isVertical
+          ? i % 2 === 0
+            ? { gridColumn: "2 / span 5" }
+            : { gridColumn: "7 / span 5" }
+          : { gridColumn: "1 / -1" };
 
       return (
         <div
@@ -3285,8 +3307,8 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             desktopCardRefs.current[i] = el;
           }}
           style={{
+            ...gridPlacement,
             minWidth: 0,
-            marginTop: i % 2 === 1 ? 72 : 0,
           }}
         >
           <div
@@ -3306,9 +3328,9 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             style={{
               position: "relative",
               width: "100%",
-              aspectRatio: cardIsVertical ? "4 / 5" : "16 / 9",
+              aspectRatio: cardAspect,
               overflow: "hidden",
-              background: "black",
+              background: "#111",
               cursor: cardHasPlayback ? "pointer" : "default",
             }}
           >
@@ -3329,7 +3351,6 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 ref={(node) => {
                   desktopGalleryVideoRefs.current[i] = node;
                   if (!node) return;
-
                   if (desktopGalleryPlaying) {
                     node.play().catch(() => {});
                   } else {
@@ -3365,62 +3386,35 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             <EpisodeButtons
               project={project}
               activeEpisodeIndex={activeEpisodeIndex}
-              onSelect={(episodeIndex) =>
-                setProjectEpisode(project, i, episodeIndex)
-              }
+              onSelect={(episodeIndex) => setProjectEpisode(project, i, episodeIndex)}
             />
 
             {cardHasPlayback ? (
               <div
                 style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  pointerEvents: "none",
-                  color: "rgba(255,255,255,0.72)",
-                  opacity:
-                    !isDesktopCardActive ||
-                    !desktopGalleryPlaying ||
-                    desktopHoveredProjectIndex === i
-                      ? 1
-                      : 0,
-                  transition: "opacity 420ms ease",
+                  position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                  pointerEvents: "none", color: "rgba(255,255,255,0.76)",
+                  opacity: !isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i ? 1 : 0,
+                  transition: "opacity 360ms ease",
                 }}
               >
-                {!isDesktopCardActive || !desktopGalleryPlaying ? (
-                  <PlayIcon size={22} />
-                ) : (
-                  <PauseIcon size={22} />
-                )}
+                {!isDesktopCardActive || !desktopGalleryPlaying ? <PlayIcon size={22} /> : <PauseIcon size={22} />}
               </div>
             ) : null}
 
             <div
               style={{
-                position: "absolute",
-                right: 12,
-                bottom: 12,
-                zIndex: 6,
-                display: "flex",
-                gap: 8,
+                position: "absolute", right: 12, bottom: 12, zIndex: 6, display: "flex",
                 opacity: desktopHoveredProjectIndex === i ? 0.9 : 0,
-                transition: "opacity 420ms ease",
-                pointerEvents:
-                  desktopHoveredProjectIndex === i ? "auto" : "none",
+                transition: "opacity 360ms ease",
+                pointerEvents: desktopHoveredProjectIndex === i ? "auto" : "none",
               }}
             >
               <ControlButton
                 onClick={(e) => {
                   e.stopPropagation();
-
-                  const sourceVideo =
-                    desktopGalleryVideoRefs.current[i];
-
-                  pendingFullscreenTimeRef.current =
-                    sourceVideo ? sourceVideo.currentTime : null;
-
+                  const sourceVideo = desktopGalleryVideoRefs.current[i];
+                  pendingFullscreenTimeRef.current = sourceVideo ? sourceVideo.currentTime : null;
                   setFullscreenProjectOverride(null);
                   setCurrentIndex(i);
                   setDisplayIndex(i);
@@ -3444,95 +3438,87 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
             {cardHasPlayback && isDesktopCardActive ? (
               <div
                 style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: 1,
+                  position: "absolute", left: 0, right: 0, bottom: 0, height: 1,
                   background: "rgba(255,255,255,0.14)",
-                  opacity:
-                    desktopHoveredProjectIndex === i ? 1 : 0,
+                  opacity: desktopHoveredProjectIndex === i ? 1 : 0,
                   transition: "opacity 320ms ease",
-                  pointerEvents: "none",
-                  zIndex: 7,
+                  pointerEvents: "none", zIndex: 7,
                 }}
               >
                 <div
-                  ref={(node) => {
-                    galleryProgressRefs.current[i] = node;
-                  }}
+                  ref={(node) => { galleryProgressRefs.current[i] = node; }}
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    background: "rgba(255,255,255,0.46)",
-                    transform: "scaleX(0)",
-                    transformOrigin: "left center",
-                    willChange: "transform",
+                    width: "100%", height: "100%", background: "rgba(255,255,255,0.52)",
+                    transform: "scaleX(0)", transformOrigin: "left center", willChange: "transform",
                   }}
                 />
               </div>
             ) : null}
 
-            {project.flashWarning &&
-            (!isDesktopCardActive ||
-              !desktopGalleryPlaying ||
-              desktopHoveredProjectIndex === i) ? (
+            {project.flashWarning && (!isDesktopCardActive || !desktopGalleryPlaying || desktopHoveredProjectIndex === i) ? (
               <WarningBadge />
             ) : null}
           </div>
 
           <div
             style={{
-              marginTop: 13,
-              display: "grid",
-              gridTemplateColumns: "1fr auto",
-              columnGap: 22,
-              alignItems: "start",
+              marginTop: 11, display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto",
+              columnGap: 22, alignItems: "start", color: "#181816",
             }}
           >
             <div style={{ minWidth: 0 }}>
-              <div
-                style={{
-                  fontSize: 13,
-                  letterSpacing: "0.13em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.3,
-                  opacity: 0.82,
-                  fontWeight: 400,
-                  marginBottom: 5,
-                }}
-              >
+              <div style={{ fontSize: 13.5, letterSpacing: "0.12em", textTransform: "uppercase", lineHeight: 1.24, fontWeight: 450, marginBottom: 5, opacity: 0.94 }}>
                 {project.title}
               </div>
-
-              <div
-                style={{
-                  fontSize: 10.5,
-                  letterSpacing: "0.11em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.4,
-                  opacity: 0.46,
-                  fontWeight: 400,
-                }}
-              >
-                {commercialCredit}
-                {project.year ? ` · ${project.year}` : ""}
+              <div style={{ fontSize: 10.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, fontWeight: 400, opacity: 0.54 }}>
+                {project.leftMeta || project.role}{project.year ? ` · ${project.year}` : ""}
               </div>
+              {project.leftMetaExtra ? (
+                <div style={{ marginTop: 3, fontSize: 9.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, opacity: 0.36 }}>
+                  {project.leftMetaExtra}
+                </div>
+              ) : null}
+              {project.leftMetaThird ? (
+                <div style={{ marginTop: 3, fontSize: 9.5, letterSpacing: "0.105em", textTransform: "uppercase", lineHeight: 1.4, opacity: 0.32 }}>
+                  {project.leftMetaThird}
+                </div>
+              ) : null}
             </div>
 
-            <div
-              style={{
-                textAlign: "right",
-                fontSize: 9.5,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                lineHeight: 1.4,
-                opacity: 0.3,
-                whiteSpace: "nowrap",
-                paddingTop: 1,
-              }}
-            >
-              {project.rightMetaText || project.status}
+            <div style={{ minWidth: 100, textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", color: "#181816" }}>
+              {project.rightMetaText ? (
+                <div style={{ fontSize: 9.5, letterSpacing: "0.11em", textTransform: "uppercase", lineHeight: 1.3, opacity: 0.42, marginBottom: project.rightMetaExtra || project.rightMetaLogo ? 5 : 0 }}>
+                  {project.rightMetaText}
+                </div>
+              ) : null}
+              {project.rightMetaExtra ? (
+                <div style={{ fontSize: 9, letterSpacing: "0.105em", textTransform: "uppercase", opacity: 0.32, marginBottom: project.rightMetaLogo ? 5 : 0, whiteSpace: "nowrap" }}>
+                  {project.rightMetaExtra}
+                </div>
+              ) : null}
+              {project.rightMetaLogo ? (
+                project.rightMetaLogo === instagramLabel ? (
+                  <div style={{ fontSize: 10, letterSpacing: "0.13em", textTransform: "uppercase", opacity: 0.55 }}>IG</div>
+                ) : project.rightMetaLink ? (
+                  <a href={project.rightMetaLink} target="_blank" rel="noreferrer" style={{ display: "block", lineHeight: 0, textDecoration: "none" }}>
+                    <img
+                      src={project.rightMetaLogo}
+                      alt="Platform"
+                      style={{
+                        height: project.rightMetaLogo === nownessLogo || project.rightMetaLogo === idLogo ? 10 : project.rightMetaLogo === highsnobietyLogo ? 12 : 13,
+                        width: "auto", display: "block", opacity: 0.72,
+                        filter: project.rightMetaLogo === nownessLogo || project.rightMetaLogo === idLogo ? "brightness(0)" : "none",
+                      }}
+                    />
+                  </a>
+                ) : (
+                  <img
+                    src={project.rightMetaLogo}
+                    alt="Platform"
+                    style={{ height: 10, width: "auto", display: "block", opacity: 0.72, filter: "brightness(0)" }}
+                  />
+                )
+              ) : null}
             </div>
           </div>
         </div>
