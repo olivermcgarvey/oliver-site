@@ -3679,7 +3679,8 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                           opacity: 0.76,
                           filter:
                             project.rightMetaLogo === nownessLogo ||
-                            project.rightMetaLogo === idLogo
+                            project.rightMetaLogo === idLogo ||
+                            project.rightMetaLogo === highsnobietyLogo
                               ? "brightness(0)"
                               : "none",
                         }}
@@ -3730,29 +3731,22 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
   return (
     <div
       style={{
-        width: "90vw",
-        maxWidth: 1560,
+        width: "89vw",
+        maxWidth: 1540,
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        gap: 30,
+        gap: 26,
       }}
     >
-      <div
-        style={{
-          ...moduleStyle,
-          width: "80%",
-          maxWidth: 1280,
-          margin: "0 auto",
-        }}
-      >
+      <div style={moduleStyle}>
         {renderCommercialCard(kristaIndex, {
           aspect: "16 / 9",
           feature: true,
         })}
       </div>
 
-      <div style={{ width: "88%", maxWidth: 1420, margin: "0 auto" }}>
+      <div style={moduleStyle}>
         <div style={miuStripStyle}>
           {renderCommercialCard(miuOneIndex, {
             aspect: "9 / 16",
@@ -3813,7 +3807,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
               opacity: 0.46,
             }}
           >
-            CINEMATOGRAPHY / MODEL DIRECTION · PARIS FASHION WEEK · SS23
+            CINEMATOGRAPHY / MODEL DIRECTION · SS23 · 4 FILMS
           </div>
         </div>
       </div>
@@ -3827,7 +3821,7 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
         {renderCommercialCard(leicaIndex, {
           aspect: "2.39 / 1",
           feature: true,
-          mediaScale: 1.045,
+          mediaScale: 1.07,
         })}
       </div>
 
