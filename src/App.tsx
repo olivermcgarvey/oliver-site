@@ -3134,16 +3134,26 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                 fontWeight: isMobile ? 450 : 300,
                 opacity:
                   landingHover === null
-                    ? isMobile ? 0.82 : 0.68
+                    ? isMobile
+                      ? 0.82
+                      : 0.68
                     : landingHover === "narrative"
-                      ? 0.94
-                      : 0.5,
-transform: landingHover === "narrative" ? "translateY(-1px)" : "translateY(0)",
-filter:
-  !isMobile && landingHover === "narrative"
-    ? "blur(2px)"
-    : "blur(0px)",
-transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
+                      ? 0.82
+                      : 0.46,
+                transform:
+                  !isMobile && landingHover === "narrative"
+                    ? "translateY(-1px) scale(1.025)"
+                    : "translateY(0) scale(1)",
+                filter:
+                  !isMobile && landingHover === "narrative"
+                    ? "blur(3.1px)"
+                    : "blur(0px)",
+                textShadow:
+                  !isMobile && landingHover === "narrative"
+                    ? "0 -2px 5px rgba(255,255,255,0.20), 0 2px 7px rgba(255,255,255,0.20), 0 0 12px rgba(255,255,255,0.18)"
+                    : "none",
+                transition:
+                  "opacity 520ms ease, transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease, text-shadow 520ms ease",
               }}
             >
               Narrative
@@ -3167,16 +3177,26 @@ transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
                 fontWeight: isMobile ? 450 : 300,
                 opacity:
                   landingHover === null
-                    ? isMobile ? 0.82 : 0.68
+                    ? isMobile
+                      ? 0.82
+                      : 0.68
                     : landingHover === "commercial"
-                      ? 0.94
-                      : 0.5,
-transform: landingHover === "commercial" ? "translateY(-1px)" : "translateY(0)",
-filter:
-  !isMobile && landingHover === "commercial"
-    ? "blur(2px)"
-    : "blur(0px)",
-transition: "opacity 520ms ease, transform 520ms ease, filter 420ms ease",
+                      ? 0.9
+                      : 0.46,
+                transform:
+                  !isMobile && landingHover === "commercial"
+                    ? "translateY(-1px) scaleX(1.045)"
+                    : "translateY(0) scaleX(1)",
+                filter:
+                  !isMobile && landingHover === "commercial"
+                    ? "blur(1.25px)"
+                    : "blur(0px)",
+                textShadow:
+                  !isMobile && landingHover === "commercial"
+                    ? "-3px 0 2px rgba(255,255,255,0.24), 3px 0 2px rgba(255,255,255,0.18), -6px 0 7px rgba(255,255,255,0.10), 6px 0 7px rgba(255,255,255,0.08)"
+                    : "none",
+                transition:
+                  "opacity 520ms ease, transform 480ms cubic-bezier(0.22, 1, 0.36, 1), filter 380ms ease, text-shadow 420ms ease",
               }}
             >
               Commercial
