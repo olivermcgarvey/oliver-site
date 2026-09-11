@@ -830,16 +830,16 @@ function DesktopFlashWarning() {
         top: 14,
         left: 14,
         zIndex: 6,
-        color: "rgba(255,255,255,0.68)",
-        fontSize: 8.5,
+        color: "rgba(255,255,255,0.58)",
+        fontSize: 7.75,
         lineHeight: 1,
-        letterSpacing: "0.14em",
+        letterSpacing: "0.15em",
         textTransform: "uppercase",
         fontWeight: 450,
-        textShadow: "0 1px 8px rgba(0,0,0,0.34)",
+        textShadow: "0 1px 8px rgba(0,0,0,0.3)",
         pointerEvents: "none",
         opacity: 0,
-        animation: "desktopFlashWhisper 2400ms ease 280ms both",
+        animation: "desktopFlashWhisper 2100ms ease 360ms both",
       }}
     >
       Flashing imagery
@@ -1337,7 +1337,12 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
     const delta = nextY - previousY;
     mobileCommercialLastScrollYRef.current = nextY;
 
-    if (nextY < 26) {
+    const mastheadHoldY =
+      typeof window !== "undefined"
+        ? Math.max(520, window.innerHeight * 0.75)
+        : 520;
+
+    if (nextY < mastheadHoldY) {
       mobileCommercialScrollDistanceRef.current = 0;
       mobileCommercialScrollDirectionRef.current = null;
       setMobileCommercialCompactHeaderVisible(true);
@@ -1357,7 +1362,7 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
 
     if (
       nextDirection === "up" &&
-      mobileCommercialScrollDistanceRef.current > 26
+      mobileCommercialScrollDistanceRef.current > 24
     ) {
       setMobileCommercialCompactHeaderVisible(true);
       mobileCommercialScrollDistanceRef.current = 0;
@@ -1365,7 +1370,7 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
 
     if (
       nextDirection === "down" &&
-      mobileCommercialScrollDistanceRef.current > 52
+      mobileCommercialScrollDistanceRef.current > 58
     ) {
       setMobileCommercialCompactHeaderVisible(false);
       mobileCommercialScrollDistanceRef.current = 0;
@@ -2928,7 +2933,9 @@ onClick={openReel}
     right: 44,
     zIndex: 70,
     userSelect: "none",
-    opacity: isFullscreen ? 0 : 0.72,
+    color: section === "commercial" ? "#FFFFFF" : "inherit",
+    mixBlendMode: section === "commercial" ? "difference" : "normal",
+    opacity: isFullscreen ? 0 : 1,
     transition: "opacity 520ms ease",
   }}
 >
@@ -2951,8 +2958,7 @@ onClick={openReel}
     style={{
       border: "none",
       background: "transparent",
-      color: section === "commercial" ? "#FFFFFF" : "inherit",
-      mixBlendMode: section === "commercial" ? "difference" : "normal",
+      color: "inherit",
       padding: 0,
       margin: 0,
       cursor: "pointer",
@@ -3448,12 +3454,12 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       ? 0.82
                       : 0.68
                     : landingHover === "commercial"
-                      ? 0.96
+                      ? 0.82
                       : 0.44,
-                transition: "opacity 380ms ease",
+                transition: "opacity 520ms ease",
               }}
             >
-              {/* COMMERCIAL: elastic sideways pull / torn optical smear */}
+              {/* COMMERCIAL: same soft optical distortion as Narrative */}
               <span
                 aria-hidden="true"
                 style={{
@@ -3463,18 +3469,17 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                   pointerEvents: "none",
                   letterSpacing: "0.22em",
                   opacity:
-                    !isMobile && landingHover === "commercial" ? 0.29 : 0,
+                    !isMobile && landingHover === "commercial" ? 0.27 : 0,
                   filter:
                     !isMobile && landingHover === "commercial"
-                      ? "blur(2.8px)"
+                      ? "blur(4.8px)"
                       : "blur(0px)",
                   transform:
                     !isMobile && landingHover === "commercial"
-                      ? "translateX(-18px) skewX(-8deg) scaleX(1.22)"
-                      : "translateX(0) skewX(0deg) scaleX(1)",
-                  transformOrigin: "right center",
+                      ? "translateY(-11px) scaleX(1.08) scaleY(1.16)"
+                      : "translateY(0) scaleX(1) scaleY(1)",
                   transition:
-                    "opacity 300ms ease, transform 520ms cubic-bezier(0.16, 1, 0.3, 1), filter 420ms ease",
+                    "opacity 520ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1), filter 620ms ease",
                 }}
               >
                 Commercial
@@ -3489,18 +3494,17 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                   pointerEvents: "none",
                   letterSpacing: "0.22em",
                   opacity:
-                    !isMobile && landingHover === "commercial" ? 0.23 : 0,
+                    !isMobile && landingHover === "commercial" ? 0.19 : 0,
                   filter:
                     !isMobile && landingHover === "commercial"
-                      ? "blur(4.2px)"
+                      ? "blur(6.8px)"
                       : "blur(0px)",
                   transform:
                     !isMobile && landingHover === "commercial"
-                      ? "translateX(21px) skewX(7deg) scaleX(1.28)"
-                      : "translateX(0) skewX(0deg) scaleX(1)",
-                  transformOrigin: "left center",
+                      ? "translateY(12px) scaleX(1.14) scaleY(1.2)"
+                      : "translateY(0) scaleX(1) scaleY(1)",
                   transition:
-                    "opacity 340ms ease, transform 600ms cubic-bezier(0.16, 1, 0.3, 1), filter 480ms ease",
+                    "opacity 580ms ease, transform 880ms cubic-bezier(0.22, 1, 0.36, 1), filter 720ms ease",
                 }}
               >
                 Commercial
@@ -3515,17 +3519,17 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                   pointerEvents: "none",
                   letterSpacing: "0.22em",
                   opacity:
-                    !isMobile && landingHover === "commercial" ? 0.12 : 0,
+                    !isMobile && landingHover === "commercial" ? 0.11 : 0,
                   filter:
                     !isMobile && landingHover === "commercial"
-                      ? "blur(8px)"
+                      ? "blur(9px)"
                       : "blur(0px)",
                   transform:
                     !isMobile && landingHover === "commercial"
-                      ? "translateX(-3px) scaleX(1.72) scaleY(0.74) skewX(-3deg)"
-                      : "translateX(0) scaleX(1) scaleY(1) skewX(0deg)",
+                      ? "translateY(2px) scaleX(1.38) scaleY(0.86)"
+                      : "translateY(0) scaleX(1) scaleY(1)",
                   transition:
-                    "opacity 420ms ease, transform 720ms cubic-bezier(0.16, 1, 0.3, 1), filter 560ms ease",
+                    "opacity 650ms ease, transform 920ms cubic-bezier(0.22, 1, 0.36, 1), filter 760ms ease",
                 }}
               >
                 Commercial
@@ -3537,22 +3541,22 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                   display: "inline-block",
                   letterSpacing:
                     !isMobile && landingHover === "commercial"
-                      ? "0.43em"
+                      ? "0.31em"
                       : "0.22em",
                   transform:
                     !isMobile && landingHover === "commercial"
-                      ? "translateY(-1px) scaleX(1.34) skewX(-4deg)"
-                      : "translateY(0) scaleX(1) skewX(0deg)",
+                      ? "translateY(-1px) scaleX(1.1) scaleY(1.08)"
+                      : "translateY(0) scaleX(1) scaleY(1)",
                   filter:
                     !isMobile && landingHover === "commercial"
-                      ? "blur(2.15px)"
+                      ? "blur(3.2px)"
                       : "blur(0px)",
                   textShadow:
                     !isMobile && landingHover === "commercial"
-                      ? "-7px 0 3px rgba(255,255,255,0.2), 8px 0 4px rgba(255,255,255,0.16), -17px 0 11px rgba(255,255,255,0.08), 19px 0 13px rgba(255,255,255,0.065)"
+                      ? "0 -5px 10px rgba(255,255,255,0.14), 0 6px 13px rgba(255,255,255,0.13), 0 0 18px rgba(255,255,255,0.12)"
                       : "none",
                   transition:
-                    "letter-spacing 540ms cubic-bezier(0.16, 1, 0.3, 1), transform 540ms cubic-bezier(0.16, 1, 0.3, 1), filter 380ms ease, text-shadow 440ms ease",
+                    "letter-spacing 720ms cubic-bezier(0.22, 1, 0.36, 1), transform 720ms cubic-bezier(0.22, 1, 0.36, 1), filter 560ms ease, text-shadow 620ms ease",
                 }}
               >
                 Commercial
@@ -3574,6 +3578,8 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
               overflowY: "auto",
               overflowX: "hidden",
               WebkitOverflowScrolling: "touch",
+              touchAction: "pan-y",
+              overscrollBehaviorY: "contain",
               paddingBottom: isMobileLandscape ? 64 : section === "commercial" ? 0 : 96,
               zIndex: 10,
               background: section === "commercial" ? "#FFFFFF" : "black",
@@ -3713,6 +3719,9 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       overflow: "hidden",
                       background: "#080808",
                       cursor: cardHasPlayback ? "pointer" : "default",
+                      touchAction: "pan-y",
+                      WebkitTapHighlightColor: "transparent",
+                      userSelect: "none",
                     }}
                     onClick={() => {
                       if (!cardHasPlayback) return;
@@ -3723,6 +3732,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     <img
                       src={poster}
                       alt={project.title}
+                      draggable={false}
                       style={{
                         position: "absolute",
                         inset: 0,
@@ -3732,6 +3742,9 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                         display: "block",
                         transform: `scale(${mediaScale})`,
                         transformOrigin: "center center",
+                        touchAction: "pan-y",
+                        userSelect: "none",
+                        WebkitUserDrag: "none",
                       }}
                     />
 
@@ -3871,21 +3884,19 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                         <div
                           style={{
                             position: "absolute",
-                            top: 74,
-                            left: 13,
+                            top: 82,
+                            left: 14,
                             zIndex: 5,
-                            color: "rgba(255,255,255,0.66)",
-                            background: "rgba(0,0,0,0.12)",
-                            backdropFilter: "blur(3px)",
-                            WebkitBackdropFilter: "blur(3px)",
-                            padding: "4px 6px 3px 6px",
+                            color: "rgba(255,255,255,0.62)",
                             fontSize: 7.25,
                             lineHeight: 1,
-                            letterSpacing: "0.12em",
+                            letterSpacing: "0.145em",
                             textTransform: "uppercase",
                             fontWeight: 450,
-                            textShadow: "0 1px 5px rgba(0,0,0,0.22)",
+                            textShadow: "0 1px 8px rgba(0,0,0,0.32)",
                             pointerEvents: "none",
+                            opacity: 0,
+                            animation: "desktopFlashWhisper 2200ms ease 420ms both",
                           }}
                         >
                           Flashing imagery
@@ -3911,6 +3922,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     flexDirection: "column",
                     gap: projectGap,
                     background: "#FFFFFF",
+                    paddingBottom: "max(12px, env(safe-area-inset-bottom))",
                   }}
                 >
                   {renderMobileCampaignCard(kristaIndex, {
