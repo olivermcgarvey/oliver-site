@@ -2275,37 +2275,7 @@ useEffect(() => {
 
   const mobileHeader = (
     <>
-      {mobileCommercialUsesScrollHeader ? (
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 58,
-            zIndex: 88,
-            background: "rgba(255,255,255,0.965)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            opacity:
-              mobileCommercialCompactHeaderVisible &&
-              !mobileMenuOpen &&
-              !mobileAboutOpen &&
-              !mobileContactOpen &&
-              !mobileActiveProject
-                ? 1
-                : 0,
-            transform:
-              mobileCommercialCompactHeaderVisible
-                ? "translateY(0)"
-                : "translateY(-12px)",
-            transition:
-              "opacity 280ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1)",
-            pointerEvents: "none",
-          }}
-        />
-      ) : null}
+
       <button
         type="button"
         onClick={returnHome}
@@ -2332,7 +2302,20 @@ useEffect(() => {
               : "none",
           background: "transparent",
           border: "none",
-          color: mobileHeaderColor,
+          color:
+            mobileCommercialUsesScrollHeader &&
+            !mobileMenuOpen &&
+            !mobileAboutOpen &&
+            !mobileContactOpen
+              ? "#FFFFFF"
+              : mobileHeaderColor,
+          mixBlendMode:
+            mobileCommercialUsesScrollHeader &&
+            !mobileMenuOpen &&
+            !mobileAboutOpen &&
+            !mobileContactOpen
+              ? "difference"
+              : "normal",
           padding: 0,
           margin: 0,
           cursor: "pointer",
@@ -2405,7 +2388,20 @@ useEffect(() => {
   style={{
     border: "none",
     background: "transparent",
-    color: mobileHeaderColor,
+    color:
+      mobileCommercialUsesScrollHeader &&
+      !mobileMenuOpen &&
+      !mobileAboutOpen &&
+      !mobileContactOpen
+        ? "#FFFFFF"
+        : mobileHeaderColor,
+    mixBlendMode:
+      mobileCommercialUsesScrollHeader &&
+      !mobileMenuOpen &&
+      !mobileAboutOpen &&
+      !mobileContactOpen
+        ? "difference"
+        : "normal",
     padding: 0,
     margin: 0,
     cursor: "pointer",
@@ -3965,24 +3961,6 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       showLogo: false,
                       showCenterPlay: false,
                     })}
-
-                    {renderMobileCampaignCard(miuTwoIndex, {
-                      aspect: "9 / 16",
-                      episodeIndex: 0,
-                      credit: null,
-                      sequence: "03 / 04",
-                      showLogo: false,
-                      showCenterPlay: false,
-                    })}
-
-                    {renderMobileCampaignCard(miuTwoIndex, {
-                      aspect: "9 / 16",
-                      episodeIndex: 1,
-                      credit: null,
-                      sequence: "04 / 04",
-                      showLogo: false,
-                      showCenterPlay: false,
-                    })}
                   </div>
 
                   <div
@@ -4017,6 +3995,32 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     })}
                     {renderMobileCampaignCard(adidasTwoIndex, {
                       aspect: "16 / 9",
+                    })}
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: hairlineGap,
+                    }}
+                  >
+                    {renderMobileCampaignCard(miuTwoIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 0,
+                      credit: null,
+                      sequence: "03 / 04",
+                      showLogo: false,
+                      showCenterPlay: false,
+                    })}
+
+                    {renderMobileCampaignCard(miuTwoIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 1,
+                      credit: null,
+                      sequence: "04 / 04",
+                      showLogo: false,
+                      showCenterPlay: false,
                     })}
                   </div>
 
