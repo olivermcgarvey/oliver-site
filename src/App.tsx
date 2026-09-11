@@ -822,6 +822,31 @@ function WarningBadge() {
   );
 }
 
+function DesktopFlashWarning() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 14,
+        left: 14,
+        zIndex: 6,
+        color: "rgba(255,255,255,0.68)",
+        fontSize: 8.5,
+        lineHeight: 1,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        fontWeight: 450,
+        textShadow: "0 1px 8px rgba(0,0,0,0.34)",
+        pointerEvents: "none",
+        opacity: 0,
+        animation: "desktopFlashWhisper 2400ms ease 280ms both",
+      }}
+    >
+      Flashing imagery
+    </div>
+  );
+}
+
 function MobileCardMeta({
   project,
 }: {
@@ -1312,10 +1337,10 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
     const delta = nextY - previousY;
     mobileCommercialLastScrollYRef.current = nextY;
 
-    if (nextY < 104) {
+    if (nextY < 26) {
       mobileCommercialScrollDistanceRef.current = 0;
       mobileCommercialScrollDirectionRef.current = null;
-      setMobileCommercialCompactHeaderVisible(false);
+      setMobileCommercialCompactHeaderVisible(true);
       return;
     }
 
@@ -1332,7 +1357,7 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
 
     if (
       nextDirection === "up" &&
-      mobileCommercialScrollDistanceRef.current > 30
+      mobileCommercialScrollDistanceRef.current > 26
     ) {
       setMobileCommercialCompactHeaderVisible(true);
       mobileCommercialScrollDistanceRef.current = 0;
@@ -1340,7 +1365,7 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
 
     if (
       nextDirection === "down" &&
-      mobileCommercialScrollDistanceRef.current > 16
+      mobileCommercialScrollDistanceRef.current > 52
     ) {
       setMobileCommercialCompactHeaderVisible(false);
       mobileCommercialScrollDistanceRef.current = 0;
@@ -1352,7 +1377,9 @@ const [mobileActiveEpisodeIndex, setMobileActiveEpisodeIndex] = useState(0);
       mobileScrollRef.current?.scrollTop || 0;
     mobileCommercialScrollDistanceRef.current = 0;
     mobileCommercialScrollDirectionRef.current = null;
-    setMobileCommercialCompactHeaderVisible(false);
+    setMobileCommercialCompactHeaderVisible(
+      isMobile && hasEntered && section === "commercial",
+    );
   }, [isMobile, section, hasEntered]);
 
   const safeDisplayIndex =
@@ -2294,7 +2321,7 @@ useEffect(() => {
             ? "translateY(0)"
             : "translateY(-10px)",
           transition:
-            "opacity 280ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1)",
+            "opacity 360ms ease, transform 460ms cubic-bezier(0.22, 1, 0.36, 1)",
           textAlign: "left",
           pointerEvents:
             showMobileCommercialFixedHeader && !mobileActiveProject
@@ -2304,14 +2331,12 @@ useEffect(() => {
           border: "none",
           color:
             mobileCommercialUsesScrollHeader &&
-            !mobileMenuOpen &&
             !mobileAboutOpen &&
             !mobileContactOpen
               ? "#FFFFFF"
               : mobileHeaderColor,
           mixBlendMode:
             mobileCommercialUsesScrollHeader &&
-            !mobileMenuOpen &&
             !mobileAboutOpen &&
             !mobileContactOpen
               ? "difference"
@@ -2334,7 +2359,21 @@ useEffect(() => {
           Oliver McGarvey
         </div>
 
-{roleText && !mobileCommercialUsesScrollHeader ? (
+{mobileCommercialUsesScrollHeader ? (
+  <div
+    style={{
+      marginTop: 8,
+      fontSize: 11.25,
+      letterSpacing: "0.135em",
+      textTransform: "uppercase",
+      opacity: 0.66,
+      fontWeight: 450,
+      lineHeight: 1.15,
+    }}
+  >
+    Director
+  </div>
+) : roleText ? (
   <div
     style={{
       marginTop: 8,
@@ -2369,7 +2408,7 @@ useEffect(() => {
             ? "translateY(0)"
             : "translateY(-10px)",
           transition:
-            "opacity 280ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1)",
+            "opacity 360ms ease, transform 460ms cubic-bezier(0.22, 1, 0.36, 1)",
           pointerEvents:
             showMobileCommercialFixedHeader && !mobileActiveProject
               ? "auto"
@@ -2390,14 +2429,12 @@ useEffect(() => {
     background: "transparent",
     color:
       mobileCommercialUsesScrollHeader &&
-      !mobileMenuOpen &&
       !mobileAboutOpen &&
       !mobileContactOpen
         ? "#FFFFFF"
         : mobileHeaderColor,
     mixBlendMode:
       mobileCommercialUsesScrollHeader &&
-      !mobileMenuOpen &&
       !mobileAboutOpen &&
       !mobileContactOpen
         ? "difference"
@@ -2412,14 +2449,14 @@ useEffect(() => {
 >
   <div
     style={{
-      fontSize: mobileMenuOpen ? 30 : 13.25,
-      letterSpacing: mobileMenuOpen ? "0" : "0.17em",
-      textTransform: mobileMenuOpen ? "none" : "uppercase",
-      fontWeight: mobileMenuOpen ? 300 : 500,
-      lineHeight: mobileMenuOpen ? 0.8 : 1.15,
+      fontSize: 13.25,
+      letterSpacing: "0.17em",
+      textTransform: "uppercase",
+      fontWeight: 500,
+      lineHeight: 1.15,
     }}
   >
-    {mobileMenuOpen ? "×" : "Menu"}
+    {mobileMenuOpen ? "Close" : "Menu"}
   </div>
 </button>
       </div>
@@ -2432,9 +2469,19 @@ useEffect(() => {
           opacity: mobileMenuOpen ? 1 : 0,
           transform: mobileMenuOpen ? "translateY(0)" : "translateY(-12px)",
           pointerEvents: mobileMenuOpen ? "auto" : "none",
-          transition: "opacity 420ms ease, transform 420ms ease",
-          background: "rgba(0,0,0,0.96)",
-          backdropFilter: "blur(4px)",
+          transition: "opacity 420ms ease, transform 460ms cubic-bezier(0.22, 1, 0.36, 1)",
+          background:
+            mobileCommercialUsesScrollHeader
+              ? "rgba(8,8,8,0.10)"
+              : "rgba(0,0,0,0.96)",
+          backdropFilter:
+            mobileCommercialUsesScrollHeader
+              ? "blur(22px) saturate(0.88)"
+              : "blur(4px)",
+          WebkitBackdropFilter:
+            mobileCommercialUsesScrollHeader
+              ? "blur(22px) saturate(0.88)"
+              : "blur(4px)",
           overflowY: "auto",
           overflowX: "hidden",
           WebkitOverflowScrolling: "touch",
@@ -2458,6 +2505,7 @@ useEffect(() => {
       background: "transparent",
       border: "none",
       color: "white",
+      mixBlendMode: mobileCommercialUsesScrollHeader ? "difference" : "normal",
       textAlign: "left",
       fontSize: 20,
       letterSpacing: "0.18em",
@@ -2479,6 +2527,7 @@ useEffect(() => {
       background: "transparent",
       border: "none",
       color: "white",
+      mixBlendMode: mobileCommercialUsesScrollHeader ? "difference" : "normal",
       textAlign: "left",
       fontSize: 20,
       letterSpacing: "0.18em",
@@ -2500,6 +2549,7 @@ onClick={openReel}
       background: "transparent",
       border: "none",
       color: "white",
+      mixBlendMode: mobileCommercialUsesScrollHeader ? "difference" : "normal",
       textAlign: "left",
       fontSize: 20,
       letterSpacing: "0.18em",
@@ -2525,6 +2575,7 @@ onClick={openReel}
       background: "transparent",
       border: "none",
       color: "white",
+      mixBlendMode: mobileCommercialUsesScrollHeader ? "difference" : "normal",
       textAlign: "left",
       fontSize: 20,
       letterSpacing: "0.18em",
@@ -2550,6 +2601,7 @@ onClick={openReel}
       background: "transparent",
       border: "none",
       color: "white",
+      mixBlendMode: mobileCommercialUsesScrollHeader ? "difference" : "normal",
       textAlign: "left",
       fontSize: 20,
       letterSpacing: "0.18em",
@@ -2790,6 +2842,13 @@ onClick={openReel}
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes desktopFlashWhisper {
+    0% { opacity: 0; transform: translateY(3px); filter: blur(1.2px); }
+    18% { opacity: 0.64; transform: translateY(0); filter: blur(0px); }
+    62% { opacity: 0.58; transform: translateY(0); filter: blur(0px); }
+    100% { opacity: 0; transform: translateY(-2px); filter: blur(0.7px); }
+  }
+
   @keyframes episodeHint {
     0% { background: rgba(0,0,0,0.48); }
     38% { background: rgba(0,0,0,0.68); }
@@ -2826,7 +2885,8 @@ onClick={openReel}
     transition: "opacity 320ms ease",
     border: "none",
     background: "transparent",
-    color: "inherit",
+    color: section === "commercial" ? "#FFFFFF" : "inherit",
+    mixBlendMode: section === "commercial" ? "difference" : "normal",
     padding: 0,
     margin: 0,
     textAlign: "left",
@@ -2856,7 +2916,7 @@ onClick={openReel}
       transition: "opacity 320ms ease, transform 1400ms ease",
     }}
   >
-    {roleText}
+    {section === "commercial" ? "Director" : roleText}
   </div>
 ) : null}
           </button>
@@ -2891,7 +2951,8 @@ onClick={openReel}
     style={{
       border: "none",
       background: "transparent",
-      color: "inherit",
+      color: section === "commercial" ? "#FFFFFF" : "inherit",
+      mixBlendMode: section === "commercial" ? "difference" : "normal",
       padding: 0,
       margin: 0,
       cursor: "pointer",
@@ -3810,7 +3871,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                         <div
                           style={{
                             position: "absolute",
-                            top: 12,
+                            top: 74,
                             left: 13,
                             zIndex: 5,
                             color: "rgba(255,255,255,0.66)",
@@ -3852,86 +3913,6 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     background: "#FFFFFF",
                   }}
                 >
-                  <div
-                    style={{
-                      minHeight: isMobileLandscape ? 88 : 116,
-                      padding: isMobileLandscape
-                        ? "28px 28px 22px 28px"
-                        : "34px 20px 28px 20px",
-                      boxSizing: "border-box",
-                      display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: "space-between",
-                      background: "#FFFFFF",
-                      color: "#111111",
-                    }}
-                  >
-                    <button
-                      type="button"
-                      onClick={returnHome}
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        color: "inherit",
-                        padding: 0,
-                        margin: 0,
-                        textAlign: "left",
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 13.25,
-                          letterSpacing: "0.17em",
-                          textTransform: "uppercase",
-                          fontWeight: 500,
-                          lineHeight: 1.15,
-                        }}
-                      >
-                        Oliver McGarvey
-                      </div>
-                      <div
-                        style={{
-                          marginTop: 8,
-                          fontSize: 11.25,
-                          letterSpacing: "0.135em",
-                          textTransform: "uppercase",
-                          opacity: 0.62,
-                          fontWeight: 450,
-                          lineHeight: 1.15,
-                        }}
-                      >
-                        Director · DOP · Editor
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMobileMenuOpen(true);
-                        setMobileAboutOpen(false);
-                        setMobileContactOpen(false);
-                      }}
-                      style={{
-                        border: "none",
-                        background: "transparent",
-                        color: "inherit",
-                        padding: 0,
-                        margin: 0,
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                        fontSize: 13.25,
-                        letterSpacing: "0.17em",
-                        textTransform: "uppercase",
-                        fontWeight: 500,
-                        lineHeight: 1.15,
-                      }}
-                    >
-                      Menu
-                    </button>
-                  </div>
-
                   {renderMobileCampaignCard(kristaIndex, {
                     aspect: "16 / 9",
                     proof: null,
@@ -4511,7 +4492,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
           (!isDesktopCardActive ||
             !desktopGalleryPlaying ||
             isHovered) ? (
-            <WarningBadge />
+            <DesktopFlashWarning />
           ) : null}
         </div>
 
