@@ -3432,7 +3432,7 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                 (project) => project.title === "MYKITA",
               );
 
-              const renderMobileCommercialLogo = (project: Project) => {
+              const renderMobileCampaignLogo = (project: Project) => {
                 if (
                   !project.rightMetaLogo ||
                   project.rightMetaLogo === instagramLabel
@@ -3448,19 +3448,14 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                       height:
                         project.rightMetaLogo === nownessLogo ||
                         project.rightMetaLogo === idLogo
-                          ? 9
+                          ? 10
                           : project.rightMetaLogo === highsnobietyLogo
                             ? 11
                             : 10,
                       width: "auto",
                       display: "block",
-                      opacity: 0.72,
-                      filter:
-                        project.rightMetaLogo === nownessLogo ||
-                        project.rightMetaLogo === idLogo ||
-                        project.rightMetaLogo === highsnobietyLogo
-                          ? "brightness(0)"
-                          : "none",
+                      opacity: 0.88,
+                      filter: "brightness(0) invert(1)",
                     }}
                   />
                 );
@@ -3484,131 +3479,18 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                 );
               };
 
-              const renderMobileCommercialMeta = (
-                project: Project,
-                options?: {
-                  feature?: boolean;
-                  proof?: string;
-                  customCredit?: string;
-                },
-              ) => {
-                const feature = !!options?.feature;
-                const proof =
-                  options?.proof ||
-                  project.rightMetaExtra ||
-                  (project.title === "MIU MIU"
-                    ? "SS23 · 4 FILMS"
-                    : undefined);
-
-                const credit =
-                  options?.customCredit ||
-                  project.leftMeta ||
-                  project.role;
-
-                return (
-                  <div
-                    style={{
-                      marginTop: 7,
-                      display: "grid",
-                      gridTemplateColumns: "minmax(0, 1fr) auto",
-                      columnGap: 14,
-                      alignItems: "start",
-                      color: "#111111",
-                    }}
-                  >
-                    <div style={{ minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: feature ? 12.75 : 12,
-                          letterSpacing: "0.105em",
-                          textTransform: "uppercase",
-                          lineHeight: 1.16,
-                          fontWeight: 600,
-                          opacity: 0.96,
-                          marginBottom: 4,
-                        }}
-                      >
-                        {project.title}
-                      </div>
-
-                      <div
-                        style={{
-                          fontSize: 9.25,
-                          letterSpacing: "0.085em",
-                          textTransform: "uppercase",
-                          lineHeight: 1.32,
-                          fontWeight: 450,
-                          opacity: 0.46,
-                        }}
-                      >
-                        {credit}
-                        {project.year ? ` · ${project.year}` : ""}
-                      </div>
-
-                      {project.leftMetaExtra &&
-                      project.title !== "Krista Papista" ? (
-                        <div
-                          style={{
-                            marginTop: 2,
-                            fontSize: 8.5,
-                            letterSpacing: "0.08em",
-                            textTransform: "uppercase",
-                            lineHeight: 1.28,
-                            opacity: 0.29,
-                          }}
-                        >
-                          {project.leftMetaExtra}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-end",
-                        textAlign: "right",
-                        paddingTop: 1,
-                        minWidth: 64,
-                      }}
-                    >
-                      {proof ? (
-                        <div
-                          style={{
-                            fontSize: 8.4,
-                            letterSpacing: "0.075em",
-                            textTransform: "uppercase",
-                            lineHeight: 1.25,
-                            opacity: 0.32,
-                            marginBottom: project.rightMetaLogo &&
-                              project.rightMetaLogo !== instagramLabel
-                              ? 5
-                              : 0,
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {proof}
-                        </div>
-                      ) : null}
-
-                      {renderMobileCommercialLogo(project)}
-                    </div>
-                  </div>
-                );
-              };
-
-              const renderMobileCommercialCard = (
+              const renderMobileCampaignCard = (
                 index: number,
                 options?: {
                   aspect?: string;
                   episodeIndex?: number;
-                  feature?: boolean;
-                  width?: string;
-                  align?: "left" | "right" | "center";
-                  hideMeta?: boolean;
                   mediaScale?: number;
-                  proof?: string;
-                  customCredit?: string;
+                  title?: string;
+                  credit?: string | null;
+                  sequence?: string;
+                  proof?: string | null;
+                  showLogo?: boolean;
+                  showWarning?: boolean;
                 },
               ) => {
                 if (index < 0) return null;
@@ -3618,196 +3500,279 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                   options?.episodeIndex ??
                   getActiveEpisodeIndex(project, index);
                 const aspect = options?.aspect || "16 / 9";
-                const isVerticalCard = aspect === "9 / 16";
-                const poster = isVerticalCard
+                const isVertical = aspect === "9 / 16";
+                const poster = isVertical
                   ? getPortraitImage(project, episodeIndex)
                   : getLandscapeImage(project, episodeIndex);
                 const cardHasPlayback =
                   !!getEpisodeVideo(project, episodeIndex) ||
                   !!project.mobileVimeoId;
-                const width = options?.width || "100%";
-                const align = options?.align || "left";
+
+                const title = options?.title || project.title;
+                const credit =
+                  options?.credit === undefined
+                    ? `${project.leftMeta || project.role}${
+                        project.year ? ` · ${project.year}` : ""
+                      }`
+                    : options.credit;
+                const proof =
+                  options?.proof === undefined
+                    ? project.rightMetaExtra || null
+                    : options.proof;
+                const showLogo = options?.showLogo !== false;
                 const mediaScale = options?.mediaScale ?? 1;
 
                 return (
                   <div
                     key={`${project.id || project.title}-${index}-${episodeIndex}-${aspect}`}
                     style={{
-                      width,
-                      marginLeft:
-                        align === "right"
-                          ? "auto"
-                          : align === "center"
-                            ? "auto"
-                            : 0,
-                      marginRight:
-                        align === "center" ? "auto" : 0,
+                      position: "relative",
+                      width: "100%",
+                      aspectRatio: aspect,
+                      overflow: "hidden",
+                      background: "#080808",
+                      cursor: cardHasPlayback ? "pointer" : "default",
+                    }}
+                    onClick={() => {
+                      if (!cardHasPlayback) return;
+                      setMobileActiveProject(project);
+                      setMobileActiveEpisodeIndex(episodeIndex);
                     }}
                   >
-                    <div
-                      onClick={() => {
-                        if (!cardHasPlayback) return;
-                        setMobileActiveProject(project);
-                        setMobileActiveEpisodeIndex(episodeIndex);
-                      }}
+                    <img
+                      src={poster}
+                      alt={project.title}
                       style={{
-                        position: "relative",
+                        position: "absolute",
+                        inset: 0,
                         width: "100%",
-                        aspectRatio: aspect,
-                        overflow: "hidden",
-                        background: "#080808",
-                        cursor: cardHasPlayback ? "pointer" : "default",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        transform: `scale(${mediaScale})`,
+                        transformOrigin: "center center",
+                      }}
+                    />
+
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        height: isVertical ? "31%" : "42%",
+                        background:
+                          "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.10) 36%, rgba(0,0,0,0.55) 100%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 14,
+                        right: 14,
+                        bottom: 13,
+                        zIndex: 4,
+                        display: "grid",
+                        gridTemplateColumns: "minmax(0, 1fr) auto",
+                        gap: 16,
+                        alignItems: "end",
+                        color: "white",
+                        pointerEvents: "none",
+                        textShadow: "0 1px 10px rgba(0,0,0,0.28)",
                       }}
                     >
-                      <img
-                        src={poster}
-                        alt={project.title}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          display: "block",
-                          transform: `scale(${mediaScale})`,
-                          transformOrigin: "center center",
-                        }}
-                      />
-
-                      {cardHasPlayback ? (
+                      <div style={{ minWidth: 0 }}>
                         <div
                           style={{
-                            position: "absolute",
-                            inset: 0,
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center",
-                            pointerEvents: "none",
-                            color: "rgba(255,255,255,0.88)",
-                            opacity: 0.82,
+                            gap: 7,
+                            minWidth: 0,
+                            fontSize: 12.25,
+                            lineHeight: 1.08,
+                            fontWeight: 600,
+                            letterSpacing: "0.115em",
+                            textTransform: "uppercase",
+                            whiteSpace: "nowrap",
                           }}
                         >
-                          <PlayIcon size={options?.feature ? 20 : 17} />
+                          {cardHasPlayback ? (
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                fontSize: 8.5,
+                                lineHeight: 1,
+                                opacity: 0.84,
+                                transform: "translateY(-0.5px)",
+                              }}
+                            >
+                              ▶
+                            </span>
+                          ) : null}
+                          <span
+                            style={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {title}
+                          </span>
                         </div>
-                      ) : null}
 
-                      {project.flashWarning ? <WarningBadge /> : null}
+                        {credit ? (
+                          <div
+                            style={{
+                              marginTop: 5,
+                              maxWidth: "92%",
+                              fontSize: 8.5,
+                              lineHeight: 1.28,
+                              fontWeight: 450,
+                              letterSpacing: "0.09em",
+                              textTransform: "uppercase",
+                              opacity: 0.76,
+                            }}
+                          >
+                            {credit}
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <div
+                        style={{
+                          minWidth: 52,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-end",
+                          gap: 6,
+                          textAlign: "right",
+                          paddingBottom: 1,
+                        }}
+                      >
+                        {options?.sequence ? (
+                          <div
+                            style={{
+                              fontSize: 8.4,
+                              lineHeight: 1,
+                              letterSpacing: "0.11em",
+                              textTransform: "uppercase",
+                              opacity: 0.7,
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {options.sequence}
+                          </div>
+                        ) : null}
+
+                        {proof ? (
+                          <div
+                            style={{
+                              fontSize: 8.1,
+                              lineHeight: 1.15,
+                              letterSpacing: "0.085em",
+                              textTransform: "uppercase",
+                              opacity: 0.68,
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {proof}
+                          </div>
+                        ) : null}
+
+                        {showLogo
+                          ? renderMobileCampaignLogo(project)
+                          : null}
+                      </div>
                     </div>
 
-                    {!options?.hideMeta
-                      ? renderMobileCommercialMeta(project, {
-                          feature: options?.feature,
-                          proof: options?.proof,
-                          customCredit: options?.customCredit,
-                        })
-                      : null}
+                    {(options?.showWarning ?? true) && project.flashWarning ? (
+                      <WarningBadge />
+                    ) : null}
                   </div>
                 );
               };
 
-              const moduleGap = 24;
-              const seriesGap = 9;
+              const hairlineGap = 4;
+              const projectGap = 7;
 
               return (
                 <div
                   style={{
                     width: "100%",
                     padding: isMobileLandscape
-                      ? "88px 16px 0 16px"
-                      : "116px 12px 0 12px",
+                      ? "88px 0 0 0"
+                      : "116px 0 0 0",
                     boxSizing: "border-box",
                     display: "flex",
                     flexDirection: "column",
-                    gap: moduleGap,
+                    gap: projectGap,
+                    background: "#FFFFFF",
                   }}
                 >
-                  {renderMobileCommercialCard(kristaIndex, {
+                  {renderMobileCampaignCard(kristaIndex, {
                     aspect: "16 / 9",
-                    feature: true,
+                    proof: null,
                   })}
 
-                  <div>
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                        gap: 7,
-                      }}
-                    >
-                      {renderMobileCommercialCard(miuOneIndex, {
-                        aspect: "9 / 16",
-                        episodeIndex: 0,
-                        hideMeta: true,
-                      })}
-                      {renderMobileCommercialCard(miuOneIndex, {
-                        aspect: "9 / 16",
-                        episodeIndex: 1,
-                        hideMeta: true,
-                      })}
-                      {renderMobileCommercialCard(miuTwoIndex, {
-                        aspect: "9 / 16",
-                        episodeIndex: 0,
-                        hideMeta: true,
-                      })}
-                      {renderMobileCommercialCard(miuTwoIndex, {
-                        aspect: "9 / 16",
-                        episodeIndex: 1,
-                        hideMeta: true,
-                      })}
-                    </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: hairlineGap,
+                    }}
+                  >
+                    {renderMobileCampaignCard(miuOneIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 0,
+                      credit: "CINEMATOGRAPHY / MODEL DIRECTION · SS23",
+                      sequence: "01 / 04",
+                      showLogo: false,
+                    })}
 
-                    <div
-                      style={{
-                        marginTop: 7,
-                        color: "#111111",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 12,
-                          letterSpacing: "0.105em",
-                          textTransform: "uppercase",
-                          lineHeight: 1.16,
-                          fontWeight: 600,
-                          opacity: 0.96,
-                          marginBottom: 4,
-                        }}
-                      >
-                        MIU MIU
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 9.25,
-                          letterSpacing: "0.085em",
-                          textTransform: "uppercase",
-                          lineHeight: 1.32,
-                          fontWeight: 450,
-                          opacity: 0.46,
-                        }}
-                      >
-                        CINEMATOGRAPHY / MODEL DIRECTION · SS23 · 4 FILMS
-                      </div>
-                    </div>
+                    {renderMobileCampaignCard(miuOneIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 1,
+                      credit: null,
+                      sequence: "02 / 04",
+                      showLogo: false,
+                    })}
+
+                    {renderMobileCampaignCard(miuTwoIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 0,
+                      credit: null,
+                      sequence: "03 / 04",
+                      showLogo: false,
+                    })}
+
+                    {renderMobileCampaignCard(miuTwoIndex, {
+                      aspect: "9 / 16",
+                      episodeIndex: 1,
+                      credit: null,
+                      sequence: "04 / 04",
+                      showLogo: false,
+                    })}
                   </div>
 
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: seriesGap,
+                      gap: hairlineGap,
                     }}
                   >
-                    {renderMobileCommercialCard(tumiIndex, {
+                    {renderMobileCampaignCard(tumiIndex, {
                       aspect: "16 / 9",
                     })}
-                    {renderMobileCommercialCard(katIndex, {
+                    {renderMobileCampaignCard(katIndex, {
                       aspect: "16 / 9",
                     })}
                   </div>
 
-                  {renderMobileCommercialCard(leicaIndex, {
+                  {renderMobileCampaignCard(leicaIndex, {
                     aspect: "2.39 / 1",
-                    feature: true,
                     mediaScale: 1.07,
                   })}
 
@@ -3815,17 +3780,14 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: seriesGap,
+                      gap: hairlineGap,
                     }}
                   >
-                    {renderMobileCommercialCard(adidasOneIndex, {
+                    {renderMobileCampaignCard(adidasOneIndex, {
                       aspect: "16 / 9",
-                      feature: true,
                     })}
-                    {renderMobileCommercialCard(adidasTwoIndex, {
+                    {renderMobileCampaignCard(adidasTwoIndex, {
                       aspect: "16 / 9",
-                      width: "84%",
-                      align: "right",
                     })}
                   </div>
 
@@ -3833,13 +3795,13 @@ onMouseEnter={() => setNavHover(item.key as "narrative" | "commercial" | "about"
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: seriesGap,
+                      gap: hairlineGap,
                     }}
                   >
-                    {renderMobileCommercialCard(homeshakeIndex, {
+                    {renderMobileCampaignCard(homeshakeIndex, {
                       aspect: "16 / 9",
                     })}
-                    {renderMobileCommercialCard(mykitaIndex, {
+                    {renderMobileCampaignCard(mykitaIndex, {
                       aspect: "16 / 9",
                     })}
                   </div>
